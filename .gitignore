@@ -2,3 +2,5 @@ archive/
 raw/
 .DS_Store
 session-handoff.md
+.claude/
+.obsidian/
