@@ -77,7 +77,16 @@ INDEX.md          本檔
 | [NCDR脈絡與後續行動_2026.md](knowledge/context/NCDR脈絡與後續行動_2026.md) | 整理 NCDR 計畫從 2015 到 2026 的脈絡、22 個地方學研機構名單（含花蓮東華大學劉瑩三）、若 Basil 要聯繫學研機構的優先順序與接觸前準備 | `#台灣脈絡` `#組織間協作` `#數位平台` |
 
 ### Knowledge — Framework
-（待建立）
+
+> 從 13 份 context 文獻綜合出的策略框架。**這是 PM 決策時的工作文件**，跟 context 不同——context 是「研究說什麼」，framework 是「對 ResQ Hub 該做什麼」。
+
+| 文件 | 用途 | Tags |
+|------|------|------|
+| [使用者地圖.md](knowledge/framework/使用者地圖.md) | 14 種使用者類型 + 證據；服務 v1 用戶選擇 | `#框架` `#使用者` |
+| [問題地圖.md](knowledge/framework/問題地圖.md) | 10 個結構性問題 + 沒解年數；服務問題優先級 | `#框架` `#問題定義` |
+| [既有方案地圖.md](knowledge/framework/既有方案地圖.md) | 8 個既有方案分析 + 空白疊圖；服務「避免重複造輪子」 | `#框架` `#既有方案` |
+| [設計原則.md](knowledge/framework/設計原則.md) | 14 條從研究歸納的設計原則 + 必守/預設強度 | `#框架` `#產品設計` |
+| [戰略定位.md](knowledge/framework/戰略定位.md) | 一句話定位 + v1 場景/用戶建議 + 風險清單；服務 vision 重寫 | `#框架` `#戰略` |
 
 ### Knowledge — Fieldwork
 （待建立）
@@ -111,6 +120,11 @@ INDEX.md          本檔
 - [夏傳位空間正義_2022](knowledge/context/夏傳位空間正義_2022.md)
 
 ### #框架
+- [使用者地圖](knowledge/framework/使用者地圖.md)
+- [問題地圖](knowledge/framework/問題地圖.md)
+- [既有方案地圖](knowledge/framework/既有方案地圖.md)
+- [設計原則](knowledge/framework/設計原則.md)
+- [戰略定位](knowledge/framework/戰略定位.md)
 - [林萬億_想想花蓮_2025](knowledge/context/林萬億_想想花蓮_2025.md)
 - [強韌台灣計畫_2022](knowledge/context/強韌台灣計畫_2022.md)
 - [數位化平台論文_2019](knowledge/context/數位化平台論文_2019.md)
@@ -268,9 +282,13 @@ NCDR 計畫白紙黑字寫「不擴及公民回報，恐參雜假新聞」；強
 
 ### 知識庫
 - [ ] Vision 重寫：North Star 改為結果導向，上半部改成 Basil 第一人稱
+  - 參考 [戰略定位.md](knowledge/framework/戰略定位.md) 的「給 Basil 寫 vision 的具體建議」段落
 - [ ] v1 場景選擇：颱風 or 地震？
-- [ ] v1 用戶選擇：組織間橫向溝通 or 散兵志工？（**已有文獻證據建議優先解散兵志工問題**）
+  - 參考 [戰略定位.md](knowledge/framework/戰略定位.md)：建議「災後協作期 + 花蓮光復為第一個場景」(C+D)
+- [ ] v1 用戶選擇：組織間橫向溝通 or 散兵志工？
+  - 參考 [使用者地圖.md](knowledge/framework/使用者地圖.md) 與 [戰略定位.md](knowledge/framework/戰略定位.md)：建議「散兵志工 + 小型 NGO + 社工橋樑」三角
 - [ ] 等 Basil 帶入：花蓮現場筆記、訪談紀錄
+  - 帶回後應重大修訂 [使用者地圖.md](knowledge/framework/使用者地圖.md) 與 [戰略定位.md](knowledge/framework/戰略定位.md)
 
 ### 外部研究與接觸（詳見 [NCDR脈絡與後續行動_2026.md](knowledge/context/NCDR脈絡與後續行動_2026.md)）
 - [ ] 確認 NCDR「中央與地方防救災情資整合管理計畫」2026 現況（官網 cldpmo.ncdr.nat.gov.tw 連線不穩，需另尋管道）
