@@ -61,6 +61,7 @@ INDEX.md          本檔
 | [鄭宇君社群媒體公民參與_2014.md](knowledge/context/鄭宇君社群媒體公民參與_2014.md) | 玄奘大學鄭宇君；以 2009 莫拉克時三個民間災情網站（Xdite 莫拉克災情支援網等）為案例，是「ResQ Hub 想做的事在台灣首次大規模嘗試」的完整紀錄。提供 4 種網路群體分類、集體監看機制、為何熱血不可持續的結構限制 | `#研究` `#框架` `#資訊流` `#數位平台` `#散兵志工` |
 | [屏東八八社工_2012.md](knowledge/context/屏東八八社工_2012.md) | 文化大學林益澧碩論；訪談屏東 5 位實際救災社工，第一手揭露「打雜、打游擊、狼狽」的現場狀態；物資卡高速公路、靠 LINE 電話協調 | `#研究` `#經驗` `#物資管理` `#志工協調` `#散兵志工` `#資訊流` |
 | [楊永年八八水災體系_2009.md](knowledge/context/楊永年八八水災體系_2009.md) | 成大楊永年發表於公共行政學報；提出「資訊、動員、組織間合作」三變項框架分析八八水災。**關鍵發現**：組織間合作需「誘因」機制——這是設計問題不只法規問題；2009 觀察的問題在 2025 花蓮再次發生 | `#研究` `#框架` `#資訊流` `#組織間協作` `#物資管理` |
+| [指揮控制與自組織_正反文獻_2026.md](knowledge/context/指揮控制與自組織_正反文獻_2026.md) | 為檢驗「emergence 層」定位搜集的四主軸正反文獻。**關鍵**:災害社會學主流(Quarantelli/Dynes/Comfort)實證上就批評 ICS 命令控制萬能論、ICS 規模依賴；Ushahidi 海地是核心前車之鑑(技術成功但與正式體系銜接失敗)；物資/收容/醫療等中高耦合子系統印證「需要組織化」,替耦合度尺劃界 | `#研究` `#國際比較` `#散兵志工` `#數位平台` `#物資管理` |
 
 #### 中度相關（補充脈絡用）
 
@@ -97,6 +98,8 @@ INDEX.md          本檔
 | [既有方案地圖.md](knowledge/framework/既有方案地圖.md) | 8 個既有方案分析 + 空白疊圖；服務「避免重複造輪子」 | `#框架` `#既有方案` |
 | [設計原則.md](knowledge/framework/設計原則.md) | 14 條從研究歸納的設計原則 + 必守/預設強度 | `#框架` `#產品設計` |
 | [戰略定位.md](knowledge/framework/戰略定位.md) | 一句話定位 + v1 場景/用戶建議 + 風險清單；服務 vision 重寫 | `#框架` `#戰略` |
+| [散兵與組織的門檻辯論.md](knowledge/framework/散兵與組織的門檻辯論.md) | 把「該不該容散兵志工」辯到收斂:組織是 Dynes 光譜非門檻、真門檻是「能力×可協調」、產品定義=「讓任何人快速取得最低限度組織性的機器」;含反方最強彈藥（convergence/FEMA/林鴻森/災防法）與七個收斂轉折 | `#框架` `#散兵志工` `#志工協調` `#組織間協作` |
+| [資訊協作層_系統設計命題.md](knowledge/framework/資訊協作層_系統設計命題.md) | **接續門檻辯論的設計收斂**:系統怎麼運作。不做媒合做「共同視野」(Hayek廣播);需求靠前一批志工+情報志工;資料模型=三態覆蓋地圖+被動log/主動標雙層;可信度靠更新頻率(Waze);定位 emergence 層基礎設施、補 ICS 盲區。多數命題 Basil 原創 | `#框架` `#產品設計` `#資訊流` `#志工協調` |
 
 ### Knowledge — Fieldwork
 
@@ -118,6 +121,7 @@ INDEX.md          本檔
 - [output/vision.md](output/vision.md)
 
 ### #研究
+- [指揮控制與自組織_正反文獻_2026](knowledge/context/指揮控制與自組織_正反文獻_2026.md)
 - [林萬億_想想花蓮_2025](knowledge/context/林萬億_想想花蓮_2025.md)
 - [強韌台灣計畫_2022](knowledge/context/強韌台灣計畫_2022.md)
 - [慈濟莫拉克教育援助志工_2013](knowledge/context/慈濟莫拉克教育援助志工_2013.md)
@@ -136,6 +140,8 @@ INDEX.md          本檔
 - [馬太鞍溪實際使用工具盤點_2025](knowledge/context/馬太鞍溪實際使用工具盤點_2025.md)
 
 ### #框架
+- [資訊協作層_系統設計命題](knowledge/framework/資訊協作層_系統設計命題.md)
+- [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md)
 - [使用者地圖](knowledge/framework/使用者地圖.md)
 - [問題地圖](knowledge/framework/問題地圖.md)
 - [既有方案地圖](knowledge/framework/既有方案地圖.md)
@@ -155,12 +161,15 @@ INDEX.md          本檔
 - [馬太鞍溪觀察_basil_2026](knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md)
 
 ### #花蓮光復
+- [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md)
 - [林萬億_想想花蓮_2025](knowledge/context/林萬億_想想花蓮_2025.md)
 - [黃盈豪跨文化社工_2010](knowledge/context/黃盈豪跨文化社工_2010.md)
 - [馬太鞍溪觀察_basil_2026](knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md)
 - [馬太鞍溪實際使用工具盤點_2025](knowledge/context/馬太鞍溪實際使用工具盤點_2025.md)
 
 ### #志工協調
+- [資訊協作層_系統設計命題](knowledge/framework/資訊協作層_系統設計命題.md)
+- [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md)
 - [林萬億_想想花蓮_2025](knowledge/context/林萬億_想想花蓮_2025.md)
 - [強韌台灣計畫_2022](knowledge/context/強韌台灣計畫_2022.md)
 - [慈濟莫拉克教育援助志工_2013](knowledge/context/慈濟莫拉克教育援助志工_2013.md)
@@ -171,6 +180,7 @@ INDEX.md          本檔
 - [馬太鞍溪實際使用工具盤點_2025](knowledge/context/馬太鞍溪實際使用工具盤點_2025.md)
 
 ### #散兵志工
+- [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md)
 - [林萬億_想想花蓮_2025](knowledge/context/林萬億_想想花蓮_2025.md)
 - [慈濟莫拉克教育援助志工_2013](knowledge/context/慈濟莫拉克教育援助志工_2013.md)
 - [屏東八八社工_2012](knowledge/context/屏東八八社工_2012.md)
@@ -181,11 +191,13 @@ INDEX.md          本檔
 - [馬太鞍溪實際使用工具盤點_2025](knowledge/context/馬太鞍溪實際使用工具盤點_2025.md)
 
 ### #物資管理
+- [指揮控制與自組織_正反文獻_2026](knowledge/context/指揮控制與自組織_正反文獻_2026.md)
 - [林萬億_想想花蓮_2025](knowledge/context/林萬億_想想花蓮_2025.md)
 - [屏東八八社工_2012](knowledge/context/屏東八八社工_2012.md)
 - [楊永年八八水災體系_2009](knowledge/context/楊永年八八水災體系_2009.md)
 
 ### #組織間協作
+- [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md)
 - [強韌台灣計畫_2022](knowledge/context/強韌台灣計畫_2022.md)
 - [數位化平台論文_2019](knowledge/context/數位化平台論文_2019.md)
 - [楊永年八八水災體系_2009](knowledge/context/楊永年八八水災體系_2009.md)
@@ -193,12 +205,15 @@ INDEX.md          本檔
 - [NCDR脈絡與後續行動_2026](knowledge/context/NCDR脈絡與後續行動_2026.md)
 
 ### #資訊流
+- [資訊協作層_系統設計命題](knowledge/framework/資訊協作層_系統設計命題.md)
+- [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md)
 - [屏東八八社工_2012](knowledge/context/屏東八八社工_2012.md)
 - [數位化平台論文_2019](knowledge/context/數位化平台論文_2019.md)
 - [楊永年八八水災體系_2009](knowledge/context/楊永年八八水災體系_2009.md)
 - [鄭宇君社群媒體公民參與_2014](knowledge/context/鄭宇君社群媒體公民參與_2014.md)
 
 ### #數位平台
+- [指揮控制與自組織_正反文獻_2026](knowledge/context/指揮控制與自組織_正反文獻_2026.md)
 - [數位化平台論文_2019](knowledge/context/數位化平台論文_2019.md)
 - [鄭宇君社群媒體公民參與_2014](knowledge/context/鄭宇君社群媒體公民參與_2014.md)
 - [NCDR脈絡與後續行動_2026](knowledge/context/NCDR脈絡與後續行動_2026.md)
@@ -215,6 +230,8 @@ INDEX.md          本檔
 - [慈濟莫拉克教育援助志工_2013](knowledge/context/慈濟莫拉克教育援助志工_2013.md)
 
 ### #國際比較
+- [指揮控制與自組織_正反文獻_2026](knowledge/context/指揮控制與自組織_正反文獻_2026.md)
+- [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md)
 - [鄭阡妤緊急應變制度_2014](knowledge/context/鄭阡妤緊急應變制度_2014.md)
 - [呂朝賢集集地震志工_2008](knowledge/context/呂朝賢集集地震志工_2008.md)
 - [國外志工協作平台與實務_2026](knowledge/context/國外志工協作平台與實務_2026.md)
@@ -225,6 +242,7 @@ INDEX.md          本檔
 - [李臨鳳社政體系災害救助_2003](knowledge/context/李臨鳳社政體系災害救助_2003.md)
 
 ### #台灣脈絡
+- [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md)
 - [林萬億_想想花蓮_2025](knowledge/context/林萬億_想想花蓮_2025.md)
 - [強韌台灣計畫_2022](knowledge/context/強韌台灣計畫_2022.md)
 - [慈濟莫拉克教育援助志工_2013](knowledge/context/慈濟莫拉克教育援助志工_2013.md)
