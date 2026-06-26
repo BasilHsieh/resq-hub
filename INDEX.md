@@ -13,6 +13,13 @@
 
 ---
 
+## 🗺 視覺化架構
+
+- [ARCHITECTURE.md](ARCHITECTURE.md) — 四張 mermaid 圖：邏輯架構｜知識庫地圖（節點可點擊開檔）｜問題→解方因果鏈｜既有方案定位
+- VS Code 需裝「Markdown Preview Mermaid Support」擴充才能渲染；GitHub 與 Obsidian 原生支援
+
+---
+
 ## 目錄結構
 
 ```
