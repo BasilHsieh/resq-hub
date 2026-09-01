@@ -7,10 +7,10 @@ summary: ResQ Hub 整個專案的視覺化架構——四張 mermaid 圖涵蓋�
 # ResQ Hub 專案視覺化架構
 
 > 目的：一份「看完就能掌握專案脈絡」的視覺地圖。
-> 配套：[INDEX.md](INDEX.md)（文字索引）
+> 配套：[INDEX.md](INDEX.md)（導覽）｜[DECISIONS.md](DECISIONS.md)（決策與未決）｜[MAP.md](MAP.md)（tag 與關聯查表）
 > 渲染：VS Code 需安裝「Markdown Preview Mermaid Support」擴充；GitHub 與 Obsidian 原生渲染
 > 圖中部分節點可點擊跳到原檔（VS Code preview 內 cmd+click，或在 GitHub/Obsidian 上直接點）
-> 維護：每次 framework 文件、fieldwork 或 v1 決策有重大變動時同步更新
+> 維護：收工流程（`.claude/skills/wrap-up/`）會檢查本檔是否需要同步
 
 ---
 
@@ -25,11 +25,12 @@ flowchart TB
 
     subgraph MOD["模式層 (research + framework)"]
         R["16+ 份研究文獻<br/>921 / 莫拉克 / 屏東八八 / 花蓮光復<br/>+ 國際比較"]
-        FW["5 份 framework 文件<br/>使用者地圖｜問題地圖｜既有方案地圖<br/>設計原則｜戰略定位"]
+        FW["8 份 framework 文件<br/>使用者地圖｜問題地圖｜既有方案地圖｜設計原則<br/>戰略定位｜散兵辯論｜系統設計命題｜介入窗口"]
+        SY["跨文件洞察<br/>A/B/C/D 四組結論"]
     end
 
     subgraph TOOL["工具層 (待建)"]
-        V["Vision (重寫中)"]
+        V["Vision<br/>（定位已對齊，North Star 待寫）"]
         PRD["v1 PRD (未開始)"]
         APP["數位工具 (未開始)"]
     end
@@ -42,6 +43,7 @@ flowchart TB
     end
 
     EXP --> MOD
+    R --> SY
     MOD --> TOOL
     PROP -.約束.-> TOOL
     EXP -.產生.-> PROP
@@ -51,7 +53,7 @@ flowchart TB
     classDef tool fill:#dcfce7,stroke:#16a34a,color:#14532d
     classDef prop fill:#fce7f3,stroke:#db2777,color:#831843
     class F1,F2 exp
-    class R,FW mod
+    class R,FW,SY mod
     class V,PRD,APP tool
     class P1,P2,P3,P4 prop
 ```
@@ -77,13 +79,15 @@ flowchart LR
 
     C2 --> D["v1 決策"]
     D --> D1["場景：C+D<br/>災後協作期<br/>+ 花蓮光復首發"]
-    D --> D2["用戶三角：A+B+C<br/>散兵志工｜小型 NGO<br/>｜社工橋樑"]
+    D --> D2["✅ 用戶：散兵志工<br/>emergence 層協作基礎設施<br/>（D-01/D-02，2026-06-27）"]
     D --> D3["問題對焦：P1+P2+P3<br/>物資｜災情回報｜LINE 盲點"]
 
-    D1 & D2 & D3 --> E["⚡ Basil 4 命題<br/>約束/反向修剪"]
+    D --> D4["✅ 介入窗口<br/>T+72h ~ T+3w<br/>（D-05，2026-09-01）"]
+
+    D1 & D2 & D3 & D4 --> E["⚡ Basil 4 命題<br/>約束/反向修剪"]
 
     E --> F["工具層<br/>output/"]
-    F --> F1["vision.md<br/>（重寫中）"]
+    F --> F1["vision.md<br/>（Positioning 已對齊）"]
     F --> F2["v1 PRD<br/>（未開始）"]
 
     classDef anchor fill:#fef3c7,stroke:#d97706
@@ -93,7 +97,7 @@ flowchart LR
     classDef output fill:#e0e7ff,stroke:#6366f1
     class A anchor
     class B,C layer
-    class D,D1,D2,D3 decision
+    class D,D1,D2,D3,D4 decision
     class E constraint
     class F,F1,F2 output
 
@@ -101,7 +105,8 @@ flowchart LR
     click B2 "knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md" "開啟馬太鞍溪觀察（含 4 個研究問題）"
     click C2 "knowledge/framework/戰略定位.md" "開啟戰略定位（5 framework 文件的綜合）"
     click D1 "knowledge/framework/戰略定位.md" "v1 場景建議在戰略定位"
-    click D2 "knowledge/framework/使用者地圖.md" "v1 用戶選擇依據"
+    click D2 "knowledge/framework/散兵與組織的門檻辯論.md" "v1 用戶選擇的收斂辯論"
+    click D4 "knowledge/framework/介入窗口_時間軸.md" "介入窗口的定義"
     click D3 "knowledge/framework/問題地圖.md" "P1+P2+P3 問題在問題地圖"
     click E "knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md" "Basil 4 命題在馬太鞍溪觀察第五段"
     click F1 "output/vision.md" "開啟 vision.md"
@@ -146,21 +151,29 @@ flowchart TB
         N["NCDR 後續行動筆記 2026"]
     end
 
-    subgraph FW["🧭 knowledge/framework/ — 5 份策略"]
+    subgraph FW["🧭 knowledge/framework/ — 8 份策略"]
         F1["使用者地圖<br/>14 類用戶"]
         F2["問題地圖<br/>10 個 P 問題"]
         F3["既有方案地圖<br/>8+ 方案分析"]
         F4["設計原則<br/>14 條原則"]
-        F5["戰略定位<br/>v1 場景/用戶建議"]
+        F5["戰略定位<br/>⚠️ v1 用戶段已被 D-01 取代"]
+        F6["散兵與組織的門檻辯論<br/>定位收斂"]
+        F7["資訊協作層 系統設計命題<br/>系統怎麼運作"]
+        F8["介入窗口 時間軸<br/>系統何時運作"]
+    end
+
+    subgraph SYN["🔬 knowledge/synthesis/"]
+        SY["跨文件洞察<br/>A/B/C/D 四組結論"]
     end
 
     subgraph FLD["🥾 knowledge/fieldwork/"]
         FF["馬太鞍溪觀察 basil 2026<br/>+ 4 個研究問題<br/>+ Basil 4 命題"]
     end
 
-    subgraph OUT["📦 output/"]
-        O1["vision.md (待重寫)"]
+    subgraph OUT["📦 output/ + 決策"]
+        O1["vision.md<br/>(Positioning 已對齊)"]
         O2["prd/ (未建立)"]
+        O3["DECISIONS.md<br/>D-01~D-06 / U-01~U-09"]
     end
 
     RAW ==>|處理| CTX
@@ -168,21 +181,27 @@ flowchart TB
     MID -.補充.-> F1 & F2 & F3
     FLD ==>|錨點| F5
     FLD ==>|錨點| O1
-    F1 & F2 & F3 & F4 & F5 --> O1
-    F5 --> O2
+    HIGH --> SY
+    F6 --> F7 --> F8
+    F1 & F2 & F3 & F4 & F5 & F8 --> O1
+    SY --> O1
+    F6 & F7 & F8 --> O3
+    O3 --> O2
 
     classDef high fill:#fef3c7,stroke:#d97706
     classDef mid fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
     classDef low fill:#f3f4f6,stroke:#6b7280
     classDef fw fill:#dcfce7,stroke:#16a34a
+    classDef mod fill:#ede9fe,stroke:#7c3aed
     classDef fld fill:#fce7f3,stroke:#db2777
     classDef out fill:#e0e7ff,stroke:#6366f1
     class C1,C2,C3,C4,C5,C6,C7,C8 high
     class M1,M2,M3,M4 mid
     class L1,L2,L3,L4 low
-    class F1,F2,F3,F4,F5 fw
+    class F1,F2,F3,F4,F5,F6,F7,F8 fw
+    class SY mod
     class FF fld
-    class O1,O2 out
+    class O1,O2,O3 out
 
     click C1 "knowledge/context/林萬億_想想花蓮_2025.md" "開啟原檔"
     click C2 "knowledge/context/呂朝賢集集地震志工_2008.md" "開啟原檔"
@@ -206,11 +225,18 @@ flowchart TB
     click F3 "knowledge/framework/既有方案地圖.md" "開啟原檔"
     click F4 "knowledge/framework/設計原則.md" "開啟原檔"
     click F5 "knowledge/framework/戰略定位.md" "開啟原檔"
+    click F6 "knowledge/framework/散兵與組織的門檻辯論.md" "開啟原檔"
+    click F7 "knowledge/framework/資訊協作層_系統設計命題.md" "開啟原檔"
+    click F8 "knowledge/framework/介入窗口_時間軸.md" "開啟原檔"
+    click SY "knowledge/synthesis/跨文件洞察.md" "開啟原檔"
+    click O3 "DECISIONS.md" "開啟原檔"
     click FF "knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md" "開啟原檔"
     click O1 "output/vision.md" "開啟原檔"
 ```
 
-**讀法**：raw 進來 → context 抽取 → 高度相關文獻直接餵養 5 份 framework → framework + fieldwork 一起產出 vision/PRD。**fieldwork 是 vision 的真正錨點**，不是 framework。
+**讀法**：raw 進來 → context 抽取 → 高度相關文獻同時餵養 framework 與 synthesis → framework + fieldwork 產出 vision，決策沉澱進 DECISIONS.md 後才進 PRD。**fieldwork 是 vision 的真正錨點**，不是 framework。
+
+framework 內部有一條主脊：**散兵辯論（為什麼）→ 系統設計命題（怎麼運作）→ 介入窗口（何時運作）**。
 
 **互動**：以上每個文件節點都可點擊跳到原檔（VS Code preview 內 cmd/ctrl+click；GitHub/Obsidian 直接點）。
 
@@ -400,26 +426,13 @@ flowchart LR
 
 ---
 
-## 重要待解問題（按優先級）
+## 待解問題與維護
 
-| 優先級 | 議題 | 對應位置 |
-|---|---|---|
-| 🔥🔥🔥 | ResQ Hub vs 光復超人是什麼關係？ | 圖 4 右下「策略問題」 |
-| 🔥🔥 | Basil 命題 4「控制/誘因設計」要展開 | 圖 1 中下 |
-| 🔥🔥 | Vision 重寫 + North Star 改結果導向 | 圖 1 右下 / 圖 3 末端 |
-| 🔥 | framework 依呂朝賢 2008 修訂 | 圖 2 ⭐ 高度相關區 |
-| 🔥 | v1 用戶選擇實際決策 | 圖 1 中央 D2 |
+**待解問題不列在這裡**——單一真相在 [DECISIONS.md](DECISIONS.md)（第二節「未決」按阻塞程度排序）。這裡重複一份只會漂移。
 
----
+**本檔何時要更新**：新文件進 `knowledge/` → 圖 2；決策變動 → 圖 1、圖 3；發現新的既有方案 → 圖 4；fieldwork 新觀察 → 圖 2。
+收工流程（`.claude/skills/wrap-up/`）的「矛盾偵測」步驟會檢查這件事。
 
-## 給 Claude 的維護指示
-
-當以下情況發生，更新本檔對應圖：
-
-1. **新文件進 knowledge/** → 圖 2 加節點，標好相關度
-2. **framework 重大修訂** → 圖 1、圖 3 對應位置
-3. **Basil 決策（v1 場景/用戶/命題展開）** → 圖 1 中央、圖 3 末端
-4. **發現新的既有方案** → 圖 4 矩陣
-5. **fieldwork 新觀察** → 圖 2 fieldwork 區
-
-本檔的價值在「一張圖看完整個專案」，不要讓任何單張圖膨脹超過 20 個節點——超過就拆。
+**設計約束**：本檔的價值在「一張圖看完整個專案」。
+- **圖 0／1／3／4 是概念圖，超過 20 個節點就拆**——它們要能被一眼看懂。
+- **圖 2 是知識庫地圖，會隨文獻數線性成長**（目前約 30 個節點），不受此限；但若超過 40 個節點，應把 `archive` 優先度的文獻收成單一節點。

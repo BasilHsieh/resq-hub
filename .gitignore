@@ -2,6 +2,7 @@ archive/
 raw/
 .DS_Store
 session-handoff.md
-.claude/
+.claude/*
+!.claude/skills/
 .obsidian/
 .venv*/
