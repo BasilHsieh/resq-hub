@@ -78,17 +78,18 @@ flowchart LR
     C1 -.支撐.-> C2
 
     C2 --> D["v1 決策"]
-    D --> D1["場景：C+D<br/>災後協作期<br/>+ 花蓮光復首發"]
-    D --> D2["✅ 用戶：散兵志工<br/>emergence 層協作基礎設施<br/>（D-01/D-02，2026-06-27）"]
-    D --> D3["問題對焦：P1+P2+P3<br/>物資｜災情回報｜LINE 盲點"]
+    D --> D1["⏳ v1 場景 未定<br/>颱風 or 地震<br/>（U-07）"]
+    D --> D2["✅ 設計中心<br/>不以組織歸屬當入場門檻<br/>（D-01/D-02）"]
+    D --> D3["✅ 範圍策略<br/>現場資訊最大公約數<br/>橫向溝通排後（D-07）"]
+    D --> D5["⛔ 射程外<br/>物資/收容/醫療 中高耦合<br/>（U-06）"]
 
     D --> D4["✅ 介入窗口<br/>T+72h ~ T+3w<br/>（D-05，2026-09-01）"]
 
-    D1 & D2 & D3 & D4 --> E["⚡ Basil 4 命題<br/>約束/反向修剪"]
+    D1 & D2 & D3 & D4 & D5 --> E["⚡ Basil 4 命題<br/>約束/反向修剪"]
 
     E --> F["工具層<br/>output/"]
     F --> F1["vision.md<br/>（Positioning 已對齊）"]
-    F --> F2["v1 PRD<br/>（未開始）"]
+    F --> F2["prototype/ + spec/<br/>（未開始，D-08）"]
 
     classDef anchor fill:#fef3c7,stroke:#d97706
     classDef layer fill:#dbeafe,stroke:#2563eb
@@ -97,17 +98,18 @@ flowchart LR
     classDef output fill:#e0e7ff,stroke:#6366f1
     class A anchor
     class B,C layer
-    class D,D1,D2,D3,D4 decision
+    class D,D1,D2,D3,D4,D5 decision
     class E constraint
     class F,F1,F2 output
 
     click B1 "knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md" "開啟馬太鞍溪觀察"
     click B2 "knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md" "開啟馬太鞍溪觀察（含 4 個研究問題）"
     click C2 "knowledge/framework/戰略定位.md" "開啟戰略定位（5 framework 文件的綜合）"
-    click D1 "knowledge/framework/戰略定位.md" "v1 場景建議在戰略定位"
+    click D1 "DECISIONS.md" "U-07 v1 場景未定"
     click D2 "knowledge/framework/散兵與組織的門檻辯論.md" "v1 用戶選擇的收斂辯論"
     click D4 "knowledge/framework/介入窗口_時間軸.md" "介入窗口的定義"
-    click D3 "knowledge/framework/問題地圖.md" "P1+P2+P3 問題在問題地圖"
+    click D3 "DECISIONS.md" "D-07 範圍策略"
+    click D5 "DECISIONS.md" "U-06 中高耦合子系統"
     click E "knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md" "Basil 4 命題在馬太鞍溪觀察第五段"
     click F1 "output/vision.md" "開啟 vision.md"
 ```
