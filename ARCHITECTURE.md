@@ -116,129 +116,144 @@ flowchart LR
 
 ---
 
-## 2. 知識庫文件地圖 — 16+ 份文獻怎麼支撐 5 份框架
+## 2. 知識庫文件地圖（自動生成）
 
+<!-- AUTO:kb-map:start -->
 ```mermaid
 flowchart TB
-    subgraph RAW["📥 raw/ (不進 git)"]
-        RP["15 PDFs + Vision 初稿"]
+    subgraph RAW["📥 raw/（不進 git）"]
+        RP["PDF 與筆記原始檔"]
     end
 
-    subgraph CTX["📚 knowledge/context/ — 16 份文獻"]
+    subgraph CTX["📚 knowledge/context/ — 19 份文獻"]
         direction TB
-        subgraph HIGH["⭐ 高度相關 (v1 必讀)"]
-            C1["林萬億 想想花蓮 2025"]
-            C2["呂朝賢 集集地震 2008<br/>⚠️ framework 多份待修訂"]
-            C3["國外平台與實務 2026"]
-            C4["馬太鞍溪工具盤點 2025<br/>🔥 光復超人競合"]
-            C5["數位化平台 2019<br/>(NCDR)"]
-            C6["鄭宇君 社群媒體 2014<br/>(Xdite 2009 案例)"]
-            C7["屏東八八社工 2012"]
-            C8["楊永年 八八體系 2009"]
+        subgraph HIGH["⭐ 高度相關（v1 必讀）"]
+            N2["呂朝賢集集地震志工_2008"]
+            N3["國外志工協作平台與實務_2026"]
+            N5["屏東八八社工_2012"]
+            N8["指揮控制與自組織_正反文獻_2026"]
+            N9["數位化平台論文_2019"]
+            N11["林萬億_想想花蓮_2025"]
+            N12["楊永年八八水災體系_2009"]
+            N16["鄭宇君社群媒體公民參與_2014"]
+            N18["馬太鞍溪實際使用工具盤點_2025"]
         end
         subgraph MID["中度相關"]
-            M1["強韌台灣 2022"]
-            M2["慈濟莫拉克 2013"]
-            M3["鄭阡妤 緊急應變 2014"]
-            M4["黃盈豪 跨文化 2010"]
+            N1["NCDR脈絡與後續行動_2026"]
+            N6["強韌台灣計畫_2022"]
+            N7["慈濟莫拉克教育援助志工_2013"]
+            N17["鄭阡妤緊急應變制度_2014"]
+            N19["黃盈豪跨文化社工_2010"]
         end
-        subgraph LOW["低度（歸檔）"]
-            L1["謝志強 災防法 2014"]
-            L2["王銘福 軍隊救援 2008"]
-            L3["李臨鳳 社政體系 2003"]
-            L4["夏傳位 空間正義 2022"]
+        subgraph LOW["歸檔"]
+            N4["夏傳位空間正義_2022"]
+            N10["李臨鳳社政體系災害救助_2003"]
+            N14["王銘福派遣軍隊救援_2008"]
+            N15["謝志強災害防救法_2014"]
         end
-        N["NCDR 後續行動筆記 2026"]
+        subgraph PARK["⏸ 平行主題"]
+            N13["災害風險治理_平行主題stub"]
+        end
     end
 
-    subgraph FW["🧭 knowledge/framework/ — 8 份策略"]
-        F1["使用者地圖<br/>14 類用戶"]
-        F2["問題地圖<br/>10 個 P 問題"]
-        F3["既有方案地圖<br/>8+ 方案分析"]
-        F4["設計原則<br/>14 條原則"]
-        F5["戰略定位<br/>⚠️ v1 用戶段已被 D-01 取代"]
-        F6["散兵與組織的門檻辯論<br/>定位收斂"]
-        F7["資訊協作層 系統設計命題<br/>系統怎麼運作"]
-        F8["介入窗口 時間軸<br/>系統何時運作"]
-    end
-
-    subgraph SYN["🔬 knowledge/synthesis/"]
-        SY["跨文件洞察<br/>A/B/C/D 四組結論"]
+    subgraph FW["🧭 knowledge/framework/ — 8 份"]
+        N21["介入窗口_時間軸"]
+        N22["使用者地圖 ⚠️"]
+        N23["問題地圖 ⚠️"]
+        N24["戰略定位 ⚠️"]
+        N25["散兵與組織的門檻辯論"]
+        N26["既有方案地圖"]
+        N27["設計原則 ⚠️"]
+        N28["資訊協作層_系統設計命題"]
     end
 
     subgraph FLD["🥾 knowledge/fieldwork/"]
-        FF["馬太鞍溪觀察 basil 2026<br/>+ 4 個研究問題<br/>+ Basil 4 命題"]
+        N20["馬太鞍溪觀察_basil_2026"]
+    end
+
+    subgraph SYN["🔬 knowledge/synthesis/"]
+        N29["跨文件洞察"]
     end
 
     subgraph OUT["📦 output/ + 決策"]
-        O1["vision.md<br/>(Positioning 已對齊)"]
-        O2["prd/ (未建立)"]
-        O3["DECISIONS.md<br/>D-01~D-06 / U-01~U-09"]
+        N31["vision"]
+        PRD["prototype/ + spec/"]
+        DEC["DECISIONS.md"]
     end
 
     RAW ==>|處理| CTX
-    HIGH --> F1 & F2 & F3 & F4 & F5
-    MID -.補充.-> F1 & F2 & F3
-    FLD ==>|錨點| F5
-    FLD ==>|錨點| O1
-    HIGH --> SY
-    F6 --> F7 --> F8
-    F1 & F2 & F3 & F4 & F5 & F8 --> O1
-    SY --> O1
-    F6 & F7 & F8 --> O3
-    O3 --> O2
+    HIGH --> FW
+    MID -.補充.-> FW
+    LOW -.補充.-> FW
+    PARK -.補充.-> FW
+    HIGH --> SYN
+    SYN --> OUT
+    FLD ==>|錨點| FW
+    FLD ==>|錨點| OUT
+    FW --> OUT
+    OUT --> DEC
+    DEC --> PRD
 
     classDef high fill:#fef3c7,stroke:#d97706
     classDef mid fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
     classDef low fill:#f3f4f6,stroke:#6b7280
     classDef fw fill:#dcfce7,stroke:#16a34a
-    classDef mod fill:#ede9fe,stroke:#7c3aed
     classDef fld fill:#fce7f3,stroke:#db2777
+    classDef syn fill:#ede9fe,stroke:#7c3aed
     classDef out fill:#e0e7ff,stroke:#6366f1
-    class C1,C2,C3,C4,C5,C6,C7,C8 high
-    class M1,M2,M3,M4 mid
-    class L1,L2,L3,L4 low
-    class F1,F2,F3,F4,F5,F6,F7,F8 fw
-    class SY mod
-    class FF fld
-    class O1,O2,O3 out
+    class N21,N22,N23,N24,N25,N26,N27,N28 fw
+    class N20 fld
+    class N29 syn
+    class N31 out
+    class PRD,DEC out
+    class N2,N3,N5,N8,N9,N11,N12,N16,N18 high
+    class N1,N6,N7,N17,N19 mid
+    class N4,N10,N14,N15 low
+    class N13 low
 
-    click C1 "knowledge/context/林萬億_想想花蓮_2025.md" "開啟原檔"
-    click C2 "knowledge/context/呂朝賢集集地震志工_2008.md" "開啟原檔"
-    click C3 "knowledge/context/國外志工協作平台與實務_2026.md" "開啟原檔"
-    click C4 "knowledge/context/馬太鞍溪實際使用工具盤點_2025.md" "開啟原檔"
-    click C5 "knowledge/context/數位化平台論文_2019.md" "開啟原檔"
-    click C6 "knowledge/context/鄭宇君社群媒體公民參與_2014.md" "開啟原檔"
-    click C7 "knowledge/context/屏東八八社工_2012.md" "開啟原檔"
-    click C8 "knowledge/context/楊永年八八水災體系_2009.md" "開啟原檔"
-    click M1 "knowledge/context/強韌台灣計畫_2022.md" "開啟原檔"
-    click M2 "knowledge/context/慈濟莫拉克教育援助志工_2013.md" "開啟原檔"
-    click M3 "knowledge/context/鄭阡妤緊急應變制度_2014.md" "開啟原檔"
-    click M4 "knowledge/context/黃盈豪跨文化社工_2010.md" "開啟原檔"
-    click L1 "knowledge/context/謝志強災害防救法_2014.md" "開啟原檔"
-    click L2 "knowledge/context/王銘福派遣軍隊救援_2008.md" "開啟原檔"
-    click L3 "knowledge/context/李臨鳳社政體系災害救助_2003.md" "開啟原檔"
-    click L4 "knowledge/context/夏傳位空間正義_2022.md" "開啟原檔"
-    click N "knowledge/context/NCDR脈絡與後續行動_2026.md" "開啟原檔"
-    click F1 "knowledge/framework/使用者地圖.md" "開啟原檔"
-    click F2 "knowledge/framework/問題地圖.md" "開啟原檔"
-    click F3 "knowledge/framework/既有方案地圖.md" "開啟原檔"
-    click F4 "knowledge/framework/設計原則.md" "開啟原檔"
-    click F5 "knowledge/framework/戰略定位.md" "開啟原檔"
-    click F6 "knowledge/framework/散兵與組織的門檻辯論.md" "開啟原檔"
-    click F7 "knowledge/framework/資訊協作層_系統設計命題.md" "開啟原檔"
-    click F8 "knowledge/framework/介入窗口_時間軸.md" "開啟原檔"
-    click SY "knowledge/synthesis/跨文件洞察.md" "開啟原檔"
-    click O3 "DECISIONS.md" "開啟原檔"
-    click FF "knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md" "開啟原檔"
-    click O1 "output/vision.md" "開啟原檔"
+    click N1 "knowledge/context/NCDR脈絡與後續行動_2026.md" "開啟原檔"
+    click N2 "knowledge/context/呂朝賢集集地震志工_2008.md" "開啟原檔"
+    click N3 "knowledge/context/國外志工協作平台與實務_2026.md" "開啟原檔"
+    click N4 "knowledge/context/夏傳位空間正義_2022.md" "開啟原檔"
+    click N5 "knowledge/context/屏東八八社工_2012.md" "開啟原檔"
+    click N6 "knowledge/context/強韌台灣計畫_2022.md" "開啟原檔"
+    click N7 "knowledge/context/慈濟莫拉克教育援助志工_2013.md" "開啟原檔"
+    click N8 "knowledge/context/指揮控制與自組織_正反文獻_2026.md" "開啟原檔"
+    click N9 "knowledge/context/數位化平台論文_2019.md" "開啟原檔"
+    click N10 "knowledge/context/李臨鳳社政體系災害救助_2003.md" "開啟原檔"
+    click N11 "knowledge/context/林萬億_想想花蓮_2025.md" "開啟原檔"
+    click N12 "knowledge/context/楊永年八八水災體系_2009.md" "開啟原檔"
+    click N13 "knowledge/context/災害風險治理_平行主題stub.md" "開啟原檔"
+    click N14 "knowledge/context/王銘福派遣軍隊救援_2008.md" "開啟原檔"
+    click N15 "knowledge/context/謝志強災害防救法_2014.md" "開啟原檔"
+    click N16 "knowledge/context/鄭宇君社群媒體公民參與_2014.md" "開啟原檔"
+    click N17 "knowledge/context/鄭阡妤緊急應變制度_2014.md" "開啟原檔"
+    click N18 "knowledge/context/馬太鞍溪實際使用工具盤點_2025.md" "開啟原檔"
+    click N19 "knowledge/context/黃盈豪跨文化社工_2010.md" "開啟原檔"
+    click N20 "knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md" "開啟原檔"
+    click N21 "knowledge/framework/介入窗口_時間軸.md" "開啟原檔"
+    click N22 "knowledge/framework/使用者地圖.md" "開啟原檔"
+    click N23 "knowledge/framework/問題地圖.md" "開啟原檔"
+    click N24 "knowledge/framework/戰略定位.md" "開啟原檔"
+    click N25 "knowledge/framework/散兵與組織的門檻辯論.md" "開啟原檔"
+    click N26 "knowledge/framework/既有方案地圖.md" "開啟原檔"
+    click N27 "knowledge/framework/設計原則.md" "開啟原檔"
+    click N28 "knowledge/framework/資訊協作層_系統設計命題.md" "開啟原檔"
+    click N29 "knowledge/synthesis/跨文件洞察.md" "開啟原檔"
+    click N30 "knowledge/文獻處理進度.md" "開啟原檔"
+    click N31 "output/vision.md" "開啟原檔"
+    click DEC "DECISIONS.md" "開啟原檔"
 ```
+<!-- AUTO:kb-map:end -->
 
 **讀法**：raw 進來 → context 抽取 → 高度相關文獻同時餵養 framework 與 synthesis → framework + fieldwork 產出 vision，決策沉澱進 DECISIONS.md 後才進 PRD。**fieldwork 是 vision 的真正錨點**，不是 framework。
 
 framework 內部有一條主脊：**散兵辯論（為什麼）→ 系統設計命題（怎麼運作）→ 介入窗口（何時運作）**。
 
-**互動**：以上每個文件節點都可點擊跳到原檔（VS Code preview 內 cmd/ctrl+click；GitHub/Obsidian 直接點）。
+**互動**：每個文件節點都可點擊跳到原檔（VS Code preview 內 cmd/ctrl+click；GitHub/Obsidian 直接點）。
+
+**這張圖是生成物**——節點清單由 `scripts/kb.py` 從各文件的 `priority` 自動產生，新增文件不用手改圖。
+邊只畫粗結構流；⚠️ 標記代表該檔有未處理的 `revision_pending`。**逐條關聯在 [MAP.md](MAP.md)**，畫進圖裡會變毛球。
 
 ---
 

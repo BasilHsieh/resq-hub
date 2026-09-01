@@ -49,7 +49,7 @@
 | [ARCHITECTURE.md](ARCHITECTURE.md) | 4 張 mermaid 圖，一頁看完整個專案 |
 | [DECISIONS.md](DECISIONS.md) | 決定了什麼、否決了什麼、還卡在哪 |
 | `knowledge/` | 20 份文獻整理、第一手田野、跨文件綜合、核心框架 |
-| `output/` | 對外 Vision 與（未來的）工具規格 |
+| `output/` | 交付層：對外 Vision ＋（未來的）HTML prototype |
 
 ---
 
@@ -72,7 +72,7 @@
 - ✅ 20 份文獻處理完成、跨文件洞察成形
 - ✅ v1 定位與介入窗口已收斂（見 DECISIONS D-01 ~ D-05）
 - ⏳ Vision 的 North Star 與 v1 場景待定稿
-- ⏳ `output/prd/` 尚未建立
+- ⏳ `output/prototype/` 尚未開始——等 v1 場景與 U-01 定案
 - 🔥 最大未解：**需求資料從哪來**
 
 ---

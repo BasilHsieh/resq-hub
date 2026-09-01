@@ -35,13 +35,16 @@ knowledge/
   fieldwork/    現場第一手經驗
   synthesis/    跨文件綜合結論
   文獻處理進度.md
-output/
-  vision.md     對外的專案 Vision
-  prd/          數位工具規格（未建立）
-DECISIONS.md    決策與未決問題
-ARCHITECTURE.md 4 張 mermaid 視覺架構圖
-scripts/kb.py   索引生成與一致性檢查
-raw/ archive/   原始資料（不進 git）
+output/          交付層（給別人看的）
+  vision.md      對外立場與方向
+  prototype/     可跑的 HTML mockup ← 交付物本體（未開始）
+  spec/          mockup 看不出來的部分（未開始）
+DECISIONS.md     決策 D-XX 與未決 U-XX
+ARCHITECTURE.md  6 張 mermaid 視覺架構圖（圖 2 自動生成）
+MAP.md           Tag 索引與關聯圖（自動生成）
+scripts/kb.py    索引生成與一致性檢查
+.github/         CI：每個 PR 自動跑一致性檢查
+raw/ archive/    原始資料（不進 git）
 ```
 
 ---

@@ -80,6 +80,22 @@
 - **⚠️ 未驗證的地基**：「一個人跟一個團體在現場需要的資訊大量重疊」目前是推論。重疊多大？慈濟需要而自發性志工不需要的是什麼？需要現場資料回答。
 - **依據**：2026-09-01 對話；[output/vision.md](output/vision.md)「範圍策略」與「Roadmap」兩節
 
+### D-08 · 交付物是 HTML prototype，不是 markdown PRD
+**日期**：2026-09-02 ｜ **狀態**：✅ 生效（架構決策）
+
+- **決定**：`output/` 改為 `prototype/`（可跑的 HTML mockup，交付物本體）+ `spec/`（附在 mockup 旁的簡短說明）。原 `prd/` 移除。
+- **為什麼**：這個 repo 要交給別人實作，而可以打開來點的 mockup 比大份文字規格有效得多——文字規格描述介面，mockup 就是介面。「做到 prototype 跟人溝通」本來就是 repo 自己定的終點。
+- **`spec/` 的界線**：只寫 mockup 看不出來的（資料模型、狀態轉換、邊界條件、明確不做的範圍）。看得出來的不重複寫，否則就退回文字規格了。
+- **現在還不能開始**：v1 場景（U-07）與 North Star（U-09）未定，且 U-01（需求資料從哪來）直接決定第一個 prototype 該長什麼樣。
+- **依據**：[output/README.md](output/README.md)
+
+### D-09 · 一致性檢查上 CI
+**日期**：2026-09-02 ｜ **狀態**：✅ 生效（架構決策）
+
+- **決定**：`.github/workflows/kb-check.yml` 在每個 PR 與 push to main 跑 `scripts/kb.py check`，並驗證索引是最新的（跑 `index` 後 `git diff --exit-code`）。
+- **為什麼**：原本的「自動」其實是紀律——只有 Claude 記得跑腳本時才會跑。上 CI 之後壞連結、缺 citation、單向關聯會直接擋在 PR 上，不依賴任何人記得。
+- **連帶**：`.obsidian/graph.json` 進 git（開箭頭、依資料夾上色），`workspace.json` 繼續忽略。
+
 ---
 
 ## 二、未決（按阻塞程度排序）

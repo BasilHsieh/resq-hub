@@ -29,7 +29,12 @@ Basil 要的是**直接的批判性分析，不是四平八穩的摘要**。有�
 3. 整理成結構化文件放進 `knowledge/` 對應子目錄
 4. 補 frontmatter、補 `## 關聯`、跑 `python3 scripts/kb.py all`
 
-frontmatter 必填 `tags` `date` `summary` `priority`；`priority` 與關聯字彙的定義在 `scripts/kb.py`，格式範例見任一份既有文件。
+frontmatter 必填 `tags` `date` `summary` `priority`；`knowledge/context/` 另外必填 `citation`（完整可查證出處，不能只寫 `raw/` 路徑——那個檔不進 git）。`priority` 與關聯字彙的定義在 `scripts/kb.py`。
+
+**新檔命名規則**（舊檔不動，重新命名會打斷 116 條關聯）：
+- `knowledge/context/` — `作者+主題+年.md`，例：`呂朝賢集集地震志工_2008.md`；非單一作者的政策文件用 `主題_年.md`
+- `knowledge/framework/` — `主題.md`，不帶年份（會持續修訂）
+- `knowledge/fieldwork/` — `地點事件_人_年.md`
 
 ---
 

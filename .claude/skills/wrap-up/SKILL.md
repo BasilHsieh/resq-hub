@@ -35,7 +35,7 @@ git status --short && git diff --stat
 
 ### 2. 寫進文件
 
-- 新文件放進 `knowledge/{context,framework,fieldwork,synthesis}/`，frontmatter 必須有 `tags` `date` `summary` `priority`
+- 新文件放進 `knowledge/{context,framework,fieldwork,synthesis}/`，frontmatter 必須有 `tags` `date` `summary` `priority`；`context/` 另外必填 `citation`（完整可查證出處——`raw/` 不進 git，只寫路徑等於沒有出處）
 - `priority` 值：`high`（v1 必讀）／`normal`／`archive`（已被涵蓋）／`parked`（平行主題暫緩）
 - 既有文件的重大更新：在 frontmatter 加 `revision_pending:` 條列，說明**因為什麼**要修訂什麼
 
@@ -77,6 +77,8 @@ python3 scripts/kb.py all
 - 檢查壞連結、缺 frontmatter、單向關聯、未處理的 `revision_pending`
 
 **❌ 錯誤必須全部修掉。⚠️ 提醒要逐條看過**——有些是真問題（單向關聯、壞連結），有些是刻意保留的狀態（未處理的 revision_pending 是研究狀態，不是 bug）。
+
+同一份檢查在 CI 上會對每個 PR 再跑一次（`.github/workflows/kb-check.yml`），而且會驗證索引是最新的——**沒跑 `index` 就 commit，PR 會被擋下來**。
 
 ### 5. 矛盾偵測（腳本抓不到，只有你能做）
 

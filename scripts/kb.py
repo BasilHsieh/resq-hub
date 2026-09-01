@@ -157,15 +157,22 @@ class Doc:
 
 
 def collect_docs() -> list[Doc]:
+    """知識文件。目錄型 README.md 是導覽不是知識，排除在索引與 frontmatter 檢查之外。"""
     docs = []
     for d in SCAN_DIRS:
         for p in sorted((ROOT / d).rglob("*.md")):
+            if p.name == "README.md":
+                continue
             docs.append(Doc(p))
     return docs
 
 
 def collect_all_md() -> list[Doc]:
+    """所有 markdown——連結檢查用，README 與 root 文件都要檢查。"""
     docs = collect_docs()
+    for d in SCAN_DIRS:
+        for p in sorted((ROOT / d).rglob("README.md")):
+            docs.append(Doc(p))
     for name in ROOT_DOCS:
         p = ROOT / name
         if p.exists():
@@ -240,6 +247,95 @@ def render_relation_map(docs: list[Doc]) -> str:
     return "\n".join(head + rows)
 
 
+def render_kb_map(docs: list[Doc]) -> str:
+    """生成 ARCHITECTURE 圖 2（知識庫地圖）的 mermaid。
+
+    節點清單自動產生（會隨文件增減），邊只畫「粗結構流」——關聯的細節在 MAP.md，
+    畫進圖裡會變毛球。
+    """
+    ids = {d.rel: f"N{i}" for i, d in enumerate(sorted(docs, key=lambda x: x.rel), 1)}
+
+    def label(d: Doc) -> str:
+        mark = " ⚠️" if d.fm.get("revision_pending") else ""
+        return f'{ids[d.rel]}["{d.title}{mark}"]'
+
+    def bucket(dirname: str, prio: str | None = None) -> list[Doc]:
+        out = [d for d in docs if d.path.parent.relative_to(ROOT).as_posix() == dirname]
+        return sorted([d for d in out if prio is None or d.priority == prio], key=lambda x: x.title)
+
+    L = ["flowchart TB", '    subgraph RAW["📥 raw/（不進 git）"]',
+         '        RP["PDF 與筆記原始檔"]', "    end", ""]
+
+    ctx_groups = [("HIGH", "⭐ 高度相關（v1 必讀）", "high"),
+                  ("MID", "中度相關", "normal"),
+                  ("LOW", "歸檔", "archive"),
+                  ("PARK", "⏸ 平行主題", "parked")]
+    ctx_total = len(bucket("knowledge/context"))
+    L.append(f'    subgraph CTX["📚 knowledge/context/ — {ctx_total} 份文獻"]')
+    L.append("        direction TB")
+    present = []
+    for gid, gtitle, prio in ctx_groups:
+        items = bucket("knowledge/context", prio)
+        if not items:
+            continue
+        present.append((gid, prio))
+        L.append(f'        subgraph {gid}["{gtitle}"]')
+        for d in items:
+            L.append(f"            {label(d)}")
+        L.append("        end")
+    L += ["    end", ""]
+
+    for dirname, sid, title in [("knowledge/framework", "FW", "🧭 knowledge/framework/"),
+                                ("knowledge/fieldwork", "FLD", "🥾 knowledge/fieldwork/"),
+                                ("knowledge/synthesis", "SYN", "🔬 knowledge/synthesis/")]:
+        items = bucket(dirname)
+        if not items:
+            continue
+        n = f" — {len(items)} 份" if len(items) > 1 else ""
+        L.append(f'    subgraph {sid}["{title}{n}"]')
+        for d in items:
+            L.append(f"        {label(d)}")
+        L += ["    end", ""]
+
+    L.append('    subgraph OUT["📦 output/ + 決策"]')
+    for d in bucket("output"):
+        L.append(f"        {label(d)}")
+    L += ['        PRD["prototype/ + spec/"]', '        DEC["DECISIONS.md"]', "    end", ""]
+
+    L.append("    RAW ==>|處理| CTX")
+    for gid, prio in present:
+        L.append(f"    {gid} {'-->' if prio == 'high' else '-.補充.->'} FW")
+    if bucket("knowledge/synthesis"):
+        L.append("    HIGH --> SYN" if any(g == "HIGH" for g, _ in present) else "")
+        L.append("    SYN --> OUT")
+    L += ["    FLD ==>|錨點| FW", "    FLD ==>|錨點| OUT",
+          "    FW --> OUT", "    OUT --> DEC", "    DEC --> PRD", ""]
+
+    styles = {"high": "high", "normal": "mid", "archive": "low", "parked": "low"}
+    L += ["    classDef high fill:#fef3c7,stroke:#d97706",
+          "    classDef mid fill:#dbeafe,stroke:#2563eb,color:#1e3a8a",
+          "    classDef low fill:#f3f4f6,stroke:#6b7280",
+          "    classDef fw fill:#dcfce7,stroke:#16a34a",
+          "    classDef fld fill:#fce7f3,stroke:#db2777",
+          "    classDef syn fill:#ede9fe,stroke:#7c3aed",
+          "    classDef out fill:#e0e7ff,stroke:#6366f1"]
+    for cls, dirname in [("fw", "knowledge/framework"), ("fld", "knowledge/fieldwork"),
+                         ("syn", "knowledge/synthesis"), ("out", "output")]:
+        got = [ids[d.rel] for d in bucket(dirname)]
+        if got:
+            L.append(f"    class {','.join(got)} {cls}")
+    L.append("    class PRD,DEC out")
+    for prio, cls in styles.items():
+        got = [ids[d.rel] for d in bucket("knowledge/context", prio)]
+        if got:
+            L.append(f"    class {','.join(got)} {cls}")
+    L.append("")
+    for d in sorted(docs, key=lambda x: x.rel):
+        L.append(f'    click {ids[d.rel]} "{d.rel}" "開啟原檔"')
+    L.append('    click DEC "DECISIONS.md" "開啟原檔"')
+    return "```mermaid\n" + "\n".join(x for x in L if x is not None) + "\n```"
+
+
 def write_auto_block(text: str, name: str, content: str) -> tuple[str, bool]:
     start, end = f"<!-- AUTO:{name}:start -->", f"<!-- AUTO:{name}:end -->"
     pat = re.compile(re.escape(start) + r".*?" + re.escape(end), re.S)
@@ -255,6 +351,7 @@ def cmd_index() -> int:
         "doc-index": render_doc_index(docs),
         "tag-index": render_tag_index(docs),
         "relation-map": render_relation_map(docs),
+        "kb-map": render_kb_map(docs),
     }
     written: dict[str, str] = {}
     for name in ROOT_DOCS:
@@ -292,6 +389,8 @@ def cmd_check() -> int:
         for field in ("tags", "summary", "date"):
             if not d.fm.get(field):
                 errors.append(f"{d.rel}：frontmatter 缺 `{field}`")
+        if d.rel.startswith("knowledge/context/") and not d.fm.get("citation"):
+            errors.append(f"{d.rel}：frontmatter 缺 `citation`（別人 clone 下來要核得到引用）")
         if d.priority not in VALID_PRIORITY:
             errors.append(
                 f"{d.rel}：priority `{d.priority}` 不合法（可用 {'/'.join(sorted(VALID_PRIORITY))}）"

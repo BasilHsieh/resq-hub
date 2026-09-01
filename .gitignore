@@ -4,5 +4,6 @@ raw/
 session-handoff.md
 .claude/*
 !.claude/skills/
-.obsidian/
+.obsidian/*
+!.obsidian/graph.json
 .venv*/
