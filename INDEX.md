@@ -53,7 +53,7 @@ raw/ archive/   原始資料（不進 git）
 
 | 文件 | 摘要 | Tags |
 |---|---|---|
-| [vision](output/vision.md) | ResQ Hub 的對外 Vision。Positioning 已於 2026-09-01 對齊 D-01/D-02（散兵志工／emergence 層），North Star 與 v1 場景仍待 Basil 定稿。這是唯一放在 output/ 的對外文件——拿去跟人溝通的就是這份。 | `#vision` `#框架` `#戰略` `#定位` |
+| [vision](output/vision.md) | ResQ Hub 的對外 Vision。主線是立場——現有救災系統以「有無組織歸屬」當入場門檻，把自發性志工擋在外面，ResQ Hub 不這樣做。範圍策略是「現場資訊的最大公約數優先」，橫向溝通排在 roadmap 後段並附解鎖條件。North Star 與 v1 場景仍待定稿。 | `#vision` `#框架` `#戰略` `#定位` |
 
 ### `knowledge/fieldwork/`
 

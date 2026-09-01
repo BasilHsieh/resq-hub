@@ -168,8 +168,8 @@
 | [跨文件洞察](knowledge/synthesis/跨文件洞察.md) | **對照** | [問題地圖](knowledge/framework/問題地圖.md) | 同樣是跨文件綜合，一份按問題編排、一份按洞察編排 |
 | [跨文件洞察](knowledge/synthesis/跨文件洞察.md) | **支撐** | [戰略定位](knowledge/framework/戰略定位.md) | 戰略結論的證據濃縮版 |
 | [文獻處理進度](knowledge/文獻處理進度.md) | **支撐** | [跨文件洞察](knowledge/synthesis/跨文件洞察.md) | 這裡列的處理結果就是那份洞察的證據基礎 |
-| [vision](output/vision.md) | **依據** | [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md) | Positioning 的論證來源 |
-| [vision](output/vision.md) | **依據** | [資訊協作層_系統設計命題](knowledge/framework/資訊協作層_系統設計命題.md) | 系統怎麼運作 |
-| [vision](output/vision.md) | **依據** | [介入窗口_時間軸](knowledge/framework/介入窗口_時間軸.md) | 介入窗口一節的來源 |
+| [vision](output/vision.md) | **依據** | [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md) | 立場一節的完整論證（Dynes 光譜、能力×可協調性、林鴻森案） |
+| [vision](output/vision.md) | **依據** | [資訊協作層_系統設計命題](knowledge/framework/資訊協作層_系統設計命題.md) | 範圍策略一節的系統設計 |
+| [vision](output/vision.md) | **依據** | [介入窗口_時間軸](knowledge/framework/介入窗口_時間軸.md) | 介入窗口一節 |
 | [vision](output/vision.md) | **依據** | [跨文件洞察](knowledge/synthesis/跨文件洞察.md) | 背景與問題陳述的證據基礎 |
 <!-- AUTO:relation-map:end -->
