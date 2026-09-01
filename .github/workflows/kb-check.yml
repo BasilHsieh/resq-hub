@@ -1,0 +1,30 @@
+name: 知識庫一致性檢查
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # kb.py 零外部相依，不需要 pip install
+
+      - name: 一致性檢查（壞連結／缺 frontmatter／缺 citation／單向關聯／mermaid click 目標）
+        run: python3 scripts/kb.py check
+
+      - name: 索引是否為最新（改了文件卻沒重跑生成器就會擋下來）
+        run: |
+          python3 scripts/kb.py index
+          if ! git diff --exit-code --stat; then
+            echo "::error::INDEX.md / MAP.md / ARCHITECTURE.md 的 AUTO 區塊過期。請在本機跑 python3 scripts/kb.py index 後重新 commit。"
+            exit 1
+          fi
