@@ -178,7 +178,7 @@ flowchart TB
     end
 
     subgraph OUT["📦 output/ + 決策"]
-        N31["vision"]
+        N32["vision"]
         PRD["prototype/ + spec/"]
         DEC["DECISIONS.md"]
     end
@@ -206,7 +206,7 @@ flowchart TB
     class N21,N22,N23,N24,N25,N26,N27,N28 fw
     class N20 fld
     class N29 syn
-    class N31 out
+    class N32 out
     class PRD,DEC out
     class N2,N3,N5,N8,N9,N11,N12,N16,N18 high
     class N1,N6,N7,N17,N19 mid
@@ -243,7 +243,8 @@ flowchart TB
     click N28 "knowledge/framework/資訊協作層_系統設計命題.md" "開啟原檔"
     click N29 "knowledge/synthesis/跨文件洞察.md" "開啟原檔"
     click N30 "knowledge/文獻處理進度.md" "開啟原檔"
-    click N31 "output/vision.md" "開啟原檔"
+    click N31 "output/spec/資料模型與狀態機.md" "開啟原檔"
+    click N32 "output/vision.md" "開啟原檔"
     click DEC "DECISIONS.md" "開啟原檔"
 ```
 <!-- AUTO:kb-map:end -->
