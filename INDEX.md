@@ -11,7 +11,7 @@
 
 | 你想… | 讀這幾份（依序） |
 |---|---|
-| **快速理解整個專案** | [ARCHITECTURE.md](ARCHITECTURE.md)（4 張圖）→ [跨文件洞察](knowledge/synthesis/跨文件洞察.md) |
+| **快速理解整個專案** | [ARCHITECTURE.md](ARCHITECTURE.md)（8 張圖，圖 7 是「現在在哪」）→ [跨文件洞察](knowledge/synthesis/跨文件洞察.md) |
 | **知道現在決定了什麼、卡在哪** | [DECISIONS.md](DECISIONS.md) |
 | **理解為什麼是「散兵志工／emergence 層」** | [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md) |
 | **理解系統具體怎麼運作** | [資訊協作層_系統設計命題](knowledge/framework/資訊協作層_系統設計命題.md) |
@@ -37,10 +37,11 @@ knowledge/
   文獻處理進度.md
 output/          交付層（給別人看的）
   vision.md      對外立場與方向
-  prototype/     可跑的 HTML mockup ← 交付物本體（未開始）
-  spec/          mockup 看不出來的部分（未開始）
+  prototype/     01-兵推（單機 v0，可玩）、02-兵推多人（只有規劃）
+  spec/          資料模型與狀態機、角色輪廓（隨討論修）
+  handbook/      中層手冊（已決定，未開始）
 DECISIONS.md     決策 D-XX 與未決 U-XX
-ARCHITECTURE.md  6 張 mermaid 視覺架構圖（圖 2 自動生成）
+ARCHITECTURE.md  8 張 mermaid 視覺架構圖（圖 2 自動生成）
 MAP.md           Tag 索引與關聯圖（自動生成）
 scripts/kb.py    索引生成與一致性檢查
 .github/         CI：每個 PR 自動跑一致性檢查

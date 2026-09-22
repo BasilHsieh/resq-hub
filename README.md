@@ -46,7 +46,7 @@
 | | |
 |---|---|
 | [INDEX.md](INDEX.md) | 知識庫索引與導覽入口——**從這裡開始** |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | 4 張 mermaid 圖，一頁看完整個專案 |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | 8 張 mermaid 圖，一頁看完整個專案 |
 | [DECISIONS.md](DECISIONS.md) | 決定了什麼、否決了什麼、還卡在哪 |
 | `knowledge/` | 20 份文獻整理、第一手田野、跨文件綜合、核心框架 |
 | `output/` | 交付層：對外 Vision ＋（未來的）HTML prototype |
@@ -61,18 +61,21 @@
 | **模式層** | 從多個經驗抽象出可複製的原則與角色分工 |
 | **工具層** | 災時降低資訊落差的數位工具 |
 
-這三層也是開發順序，先把經驗留下來，才有條件做工具。
+這三層是讀者分層，不是開發順序——經驗層已經有料之後，三層並行、交互驗證（D-14）。
 
 ---
 
 ## 目前狀態
 
-📐 **定位已收斂，規格未開始。**
+🧪 **定位已收斂，規格與第一個可玩的 prototype 已上手。**
 
 - ✅ 20 份文獻處理完成、跨文件洞察成形
 - ✅ v1 定位與介入窗口已收斂（見 DECISIONS D-01 ~ D-05）
 - ⏳ Vision 的 North Star 與 v1 場景待定稿
-- ⏳ `output/prototype/` 尚未開始——等 v1 場景與 U-01 定案
+- ✅ `output/prototype/01-兵推/`：可玩的單機兵推 v0（雙擊即開，九條規則測試）
+- ⏳ `output/spec/`：資料模型與狀態機、角色輪廓——隨角色討論持續修
+- ⏳ `output/prototype/02-兵推多人/`：只有規劃；後端已選 Firebase（D-11），未執行
+- ⏳ `output/handbook/`：中層手冊，已決定要做（D-14），未開始
 - 🔥 最大未解：**需求資料從哪來**
 
 ---
