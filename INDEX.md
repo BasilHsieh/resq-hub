@@ -11,7 +11,7 @@
 
 | 你想… | 讀這幾份（依序） |
 |---|---|
-| **快速理解整個專案** | [ARCHITECTURE.md](ARCHITECTURE.md)（4 張圖）→ [跨文件洞察](knowledge/synthesis/跨文件洞察.md) |
+| **快速理解整個專案** | [ARCHITECTURE.md](ARCHITECTURE.md)（8 張圖，圖 7 是「現在在哪」）→ [跨文件洞察](knowledge/synthesis/跨文件洞察.md) |
 | **知道現在決定了什麼、卡在哪** | [DECISIONS.md](DECISIONS.md) |
 | **理解為什麼是「散兵志工／emergence 層」** | [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md) |
 | **理解系統具體怎麼運作** | [資訊協作層_系統設計命題](knowledge/framework/資訊協作層_系統設計命題.md) |
@@ -37,10 +37,11 @@ knowledge/
   文獻處理進度.md
 output/          交付層（給別人看的）
   vision.md      對外立場與方向
-  prototype/     可跑的 HTML mockup ← 交付物本體（未開始）
-  spec/          mockup 看不出來的部分（未開始）
+  prototype/     01-兵推（單機 v0，可玩）、02-兵推多人（只有規劃）
+  spec/          資料模型與狀態機、角色輪廓（隨討論修）
+  handbook/      中層手冊（已決定，未開始）
 DECISIONS.md     決策 D-XX 與未決 U-XX
-ARCHITECTURE.md  6 張 mermaid 視覺架構圖（圖 2 自動生成）
+ARCHITECTURE.md  8 張 mermaid 視覺架構圖（圖 2 自動生成）
 MAP.md           Tag 索引與關聯圖（自動生成）
 scripts/kb.py    索引生成與一致性檢查
 .github/         CI：每個 PR 自動跑一致性檢查
@@ -129,6 +130,13 @@ raw/ archive/    原始資料（不進 git）
 | 文件 | 摘要 | Tags |
 |---|---|---|
 | [文獻處理進度](knowledge/文獻處理進度.md) | 文獻覆蓋紀錄——哪些原始資料被處理成 knowledge 文件、哪些被刻意跳過或擱置，以及理由。回答「你到底看過什麼、沒看什麼」這個對研究 repo 最常被問的問題。 | `#索引` `#台灣脈絡` `#研究` |
+
+### `output/spec/`
+
+| 文件 | 摘要 | Tags |
+|---|---|---|
+| [角色輪廓](output/spec/角色輪廓.md) | 工具裡每個角色的輪廓——是誰、情境、要解決什麼、需要什麼、不給什麼、為什麼會再用。與使用者地圖的差別：那份是研究層的人群分類，這份是工具層「這個角色需要工具做什麼」。一次一個角色，Claude 寫草稿、Basil 修。 | `#規格` `#使用者` `#產品設計` |
+| [資料模型與狀態機](output/spec/資料模型與狀態機.md) | prototype 裡「要留下來」那一半的規格——以家戶名單為主體的資料模型、五種狀態與不對稱的褪色規則、名單「只用來揭露不用來指派」的界線、個資界線、角色與裝置的對應，以及用 spec by example 寫成的驗收條件。想定參數與模擬器不寫在這裡，那些是用完即丟的。 | `#規格` `#產品設計` `#資料模型` `#資訊流` |
 <!-- AUTO:doc-index:end -->
 
 ---

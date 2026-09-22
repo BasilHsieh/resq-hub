@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ResQ Hub 兵推 v0 · 演習</title>
+<style>
+:root{
+  --bg:#f6f5f2;--card:#fff;--ink:#1b1a18;--ink2:#6d6b66;--ink3:#9a978f;--line:#e3e1db;
+  --red:#cf4238;--green:#3c8a5b;--amber:#6c8ebf;--orange:#e8892b;--gray:#c9c6be;--blue:#2d6c98;--drill:#7b3ff2;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+ font:14px/1.6 -apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+button{font:inherit;cursor:pointer}
+.drill{position:sticky;top:0;z-index:20;padding:5px 14px;font-weight:500;letter-spacing:.06em;color:#4f1ba8;
+ background:repeating-linear-gradient(45deg,#f1e7ff,#f1e7ff 10px,#fbf8ff 10px,#fbf8ff 20px);
+ border-bottom:2px solid var(--drill);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.drill b{font-weight:500;background:var(--drill);color:#fff;padding:1px 8px;border-radius:4px}
+header{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:10px 14px;background:var(--card);border-bottom:1px solid var(--line)}
+header .clock{font-weight:500}
+header .muted{color:var(--ink2)}
+main{display:grid;grid-template-columns:minmax(420px,1fr) 400px;gap:14px;padding:14px;align-items:start}
+@media(max-width:920px){main{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.card h2{font-size:14px;font-weight:500;margin:0 0 10px}
+.sub{color:var(--ink2);font-size:12px}
+svg.map{width:100%;height:auto;display:block}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--ink2);margin-top:10px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.num{border:1px solid var(--line);border-radius:10px;padding:10px}
+.num .v{font-size:22px;font-weight:500;line-height:1.2}
+.num .k{font-size:12px;color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.tabs button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 12px;color:var(--ink2)}
+.tabs button[aria-selected=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.dev{margin:0 auto}
+.dev .cap{text-align:center;font-size:12px;color:var(--ink3);margin-top:8px}
+.phone{width:340px;border:9px solid #2b2a28;border-radius:30px;background:#fff;padding:10px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.phone .bar{height:4px;width:70px;background:#ddd;border-radius:3px;margin:0 auto 10px}
+.laptop{border:2px solid #2b2a28;border-radius:10px;background:#fff;padding:12px;box-shadow:0 6px 20px rgba(0,0,0,.06)}
+.laptop .base{height:6px;background:#2b2a28;border-radius:0 0 8px 8px;margin:12px -12px -12px}
+.row{display:flex;gap:8px;align-items:center}
+.row+.row{margin-top:8px}
+select,input[type=number],input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:#fff;width:100%}
+.big{width:100%;padding:12px;border-radius:12px;border:1px solid var(--ink);background:var(--ink);color:#fff;font-weight:500}
+.big.alt{background:#fff;color:var(--ink)}
+.opt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.opt[aria-pressed=true]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.tag{font-size:11px;padding:1px 7px;border-radius:999px;border:1px solid var(--line);color:var(--ink2)}
+.list{max-height:330px;overflow:auto;border-top:1px solid var(--line)}
+.li{display:flex;justify-content:space-between;gap:8px;padding:7px 2px;border-bottom:1px solid var(--line)}
+.li b{font-weight:500}
+.host{margin:0 14px 24px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 14px}
+.host summary{cursor:pointer;padding:12px 0;font-weight:500}
+.hostgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;padding-bottom:14px}
+.param label{display:block;font-size:12px;color:var(--ink2);margin-bottom:2px}
+.param+.param{margin-top:8px}
+.evt{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 10px;margin:0 6px 6px 0}
+.log{font-size:12px;color:var(--ink2);max-height:120px;overflow:auto}
+.ok{color:var(--green)}.bad{color:var(--red)}
+#summary{position:fixed;inset:0;background:rgba(20,19,18,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:30}
+#summary .card{max-width:560px;width:100%}
+.hide{display:none!important}
+.hist{font-size:12px;color:var(--ink2);margin-top:6px}
+</style>
+</head>
+<body>
+<div class="drill"><b>演習</b> 這是模擬資料，不是真實災情。所有地址、需求、人數都是編的。<span class="sub">ResQ Hub 兵推 v0</span></div>
+
+<header>
+  <span class="clock" id="clock"></span>
+  <span class="muted" id="round"></span>
+  <button class="evt" id="next">快轉半天 ▸</button>
+  <button class="evt" id="reset">重來</button>
+  <span class="muted" id="mode"></span>
+</header>
+
+<main>
+  <section class="card">
+    <h2>覆蓋地圖 <span class="sub" id="mapsub"></span></h2>
+    <svg class="map" id="map" viewBox="0 0 560 250" role="img" aria-label="災區覆蓋地圖"></svg>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--red)"></i>有需求</span>
+      <span><i class="sw" style="background:var(--orange)"></i>人夠了</span>
+      <span><i class="sw" style="background:var(--green)"></i>已覆蓋</span>
+      <span><i class="sw" style="background:#fff;border:1px solid var(--gray)"></i>沒人去過</span>
+      <span><i class="sw" style="background:var(--amber)"></i>進不去</span>
+      <span><i class="sw" style="background:var(--gray)"></i>不需處理</span>
+      <span>斜線＝情報已舊</span>
+    </div>
+    <div class="nums" id="nums"></div>
+    <div class="sub" id="sel" style="margin-top:10px"></div>
+  </section>
+
+  <section class="card">
+    <div class="tabs" id="tabs">
+      <button data-role="vol" aria-selected="true">去幫忙的人</button>
+      <button data-role="stn" aria-selected="false">中繼站</button>
+      <button data-role="rmt" aria-selected="false">遠端整理</button>
+    </div>
+    <div id="panel"></div>
+  </section>
+</main>
+
+<details class="host" id="hostpanel">
+  <summary>主持台（大螢幕）· 參數、事件注入、對照局</summary>
+  <div class="hostgrid">
+    <div>
+      <div class="param"><label>回報率（離場的人有多少比例會留下一筆）<b id="lab-rr"></b></label><input type="range" id="p-rr" min="0" max="100" step="5"></div>
+      <div class="param"><label>每回合到場人次 <b id="lab-ar"></b></label><input type="range" id="p-ar" min="0" max="2000" step="50"></div>
+      <div class="param"><label>🟢 有效時數 <b id="lab-gh"></b></label><input type="range" id="p-gh" min="6" max="96" step="6"></div>
+      <div class="param"><label>🔴 情報已舊門檻 <b id="lab-rh"></b></label><input type="range" id="p-rh" min="6" max="72" step="6"></div>
+    </div>
+    <div>
+      <div class="param"><label>志工怎麼移動</label>
+        <div class="sub">照地圖 <b id="lab-m1"></b>／跟人潮 <b id="lab-m2"></b>／自己判斷 <b id="lab-m3"></b></div>
+        <input type="range" id="p-m1" min="0" max="100" step="5">
+        <input type="range" id="p-m2" min="0" max="100" step="5">
+      </div>
+      <div class="param">
+        <label><input type="checkbox" id="p-unknown" style="width:auto"> 顯示「沒人去過」（⚪）圖層</label>
+        <div class="sub">關掉＝對照局，只看得到已經被回報的需求</div>
+        <label style="margin-top:6px"><input type="checkbox" id="p-full" style="width:auto"> 志工有「這邊滿了」按鈕（🟠）</label>
+        <div class="sub">關掉＝白跑的人不會留下訊號，用來演 U-12</div>
+      </div>
+    </div>
+    <div>
+      <label class="sub">注入事件</label><br>
+      <button class="evt" data-evt="alarm">假潰流警報</button>
+      <button class="evt" data-evt="rain">上游下大雨</button>
+      <button class="evt" data-evt="media">媒體報導志工太多</button>
+      <button class="evt" data-evt="road">大進村道路打通</button>
+      <div class="log" id="log"></div>
+    </div>
+    <div>
+      <label class="sub">開發者</label><br>
+      <button class="evt" id="runtests">跑規則測試</button>
+      <div class="log" id="tests"></div>
+    </div>
+  </div>
+</details>
+
+<div id="summary" class="hide"><div class="card" id="summarybody"></div></div>
+
+<script>
+/* ==========================================================================
+   KEEP ── 資料模型（交給工程師的部分，spec: output/spec/資料模型與狀態機.md）
+   家戶  {id, addr, village, kind:'住宅'|'非住宅'|'地點', x, y, infoPoor}
+   回報  {id, t, targetId, state, needPeople, source, note, revisitAt}
+   時間  以「災害發生後第幾小時」為單位（T+0 = 災害發生）。沒有真實日期。
+   回報沒有使用者欄位：收情報前不問你是誰（D-01）。source 只記角色。
+   ========================================================================== */
+const S = { NEED:'需求', FULL:'滿了', COVERED:'已覆蓋', NONE:'不需處理', BLOCKED:'進不去' };
+const DAY = 24, TICK = 12, ROUNDS = 8, START = 4*DAY + 8;   // 災後第 5 天 08:00
+
+/* ==========================================================================
+   KEEP ── 規則（純函式。狀態不儲存，由回報歷程推導）
+   ========================================================================== */
+function stateOf(targetId, now, P, db){
+  const rs = db.reportsFor(targetId);
+  if(rs.length === 0) return { code:'unknown', darkFor: now, never:true };
+  const last = rs[rs.length-1];
+  const age = now - last.t;
+  if(last.state === S.NONE)    return { code:'none', last, age };
+  if(last.state === S.BLOCKED) return now >= last.revisitAt
+      ? { code:'unknown', last, age, recheck:true }
+      : { code:'blocked', last, age };
+  if(last.state === S.FULL) return age > P.fullHours
+      ? { code:'unknown', last, age, faded:true, wasFull:true }
+      : { code:'full', last, age };
+  if(last.state === S.COVERED) return age > P.greenHours
+      ? { code:'unknown', last, age, faded:true }
+      : { code:'covered', last, age };
+  return { code:'need', last, age, stale: age > P.redStaleHours, needPeople:last.needPeople };
+}
+function firstReportAt(targetId, db){
+  const rs = db.reportsFor(targetId);
+  return rs.length ? rs[0].t : null;
+}
+function metrics(now, P, db){
+  const ts = db.listTargets();
+  let confirmed = 0, firstSum = 0, never = 0;
+  ts.forEach(t=>{
+    const f = firstReportAt(t.id, db);
+    if(f === null){ never++; } else { confirmed++; firstSum += f; }
+  });
+  return {
+    total: ts.length,
+    coverage: ts.length ? confirmed/ts.length : 0,
+    never,
+    neverDarkHours: now,                        // 從 T+0 到現在都沒人去過
+    avgFirst: confirmed ? firstSum/confirmed : null,
+    wasted: db.wasted()
+  };
+}
+function staleList(now, P, db){                 // 過期任務：情報已舊 + 最久沒人去
+  const out = [];
+  db.listTargets().forEach(t=>{
+    const s = stateOf(t.id, now, P, db);
+    if(s.code === 'need' && s.stale) out.push({t, s, why:'情報已舊 '+Math.round(s.age)+' 小時'});
+    else if(s.code === 'unknown' && s.never) out.push({t, s, why:'從來沒人去過'});
+  });
+  return out;
+}
+
+/* ==========================================================================
+   KEEP ── 資料層介面（唯一的接縫。換掉這層就換掉資料來源）
+   listTargets() / reportsFor(id) / addReport(r) / now()
+   災時模式的 ApiSource 之後實作同樣這幾個方法，畫面與規則不用改。
+   ========================================================================== */
+function MockSource(){
+  let targets = [], reports = [], byId = new Map(), seq = 1, wasted = 0;
+  return {
+    load(t){ targets = t; byId = new Map(); reports = []; wasted = 0;
+             targets.forEach(x=>byId.set(x.id, [])); },
+    listTargets(){ return targets; },
+    target(id){ return targets.find(t=>t.id===id); },
+    reportsFor(id){ return byId.get(id) || []; },
+    allReports(){ return reports; },
+    addReport(r){ r.id = 'r'+(seq++); reports.push(r);
+                  const a = byId.get(r.targetId) || []; a.push(r); a.sort((x,y)=>x.t-y.t);
+                  byId.set(r.targetId, a); return r; },
+    addWasted(n){ wasted += n; }, wasted(){ return wasted; }
+  };
+}
+
+/* ==========================================================================
+   THROW ── 想定（光復鄉三個村的假名單。用完就丟，不是規格）
+   ========================================================================== */
+function rng(seed){ return function(){ seed|=0; seed=seed+0x6D2B79F5|0;
+  let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t;
+  return ((t^t>>>14)>>>0)/4294967296; }; }
+
+const VILL = [
+  {name:'大全村', n:120, cols:12, ox:16,  oy:46, infoPoor:false, streets:['大全街','中山路']},
+  {name:'大同村', n:110, cols:11, ox:210, oy:46, infoPoor:false, streets:['大同街','民族路']},
+  {name:'大進村', n:70,  cols:10, ox:392, oy:46, infoPoor:true,  streets:['大進街']}
+];
+const SPOTS = ['大全街側溝','中山路排水溝','大同街側溝','大進農路','馬太鞍溪堤外農地','光復國小周邊'];
+
+function buildScenario(seed){
+  const r = rng(seed), targets = [], truth = new Map();
+  VILL.forEach(v=>{
+    for(let i=0;i<v.n;i++){
+      const col = i % v.cols, row = Math.floor(i / v.cols);
+      const st = v.streets[Math.floor(r()*v.streets.length)];
+      const id = v.name+'-'+i;
+      targets.push({ id, village:v.name, kind:'住宅', infoPoor:v.infoPoor,
+        addr:st+' '+(1+i*2)+' 號', x:v.ox+col*14, y:v.oy+row*14 });
+      const dice = r();
+      if(dice < .05)      truth.set(id, {kind:'空屋', need:0, left:0});
+      else if(dice < .10) truth.set(id, {kind:'進不去', need:6, left:6});
+      else                truth.set(id, {kind:'一般', need:8+Math.floor(r()*21), left:0, cap:6+Math.floor(r()*5)});
+    }
+  });
+  SPOTS.forEach((nm,i)=>{
+    const id = 'spot-'+i;
+    targets.push({ id, village:'（非家戶）', kind:'地點', infoPoor:i>=3,
+      addr:nm, x:16+i*90, y:212, wide:true });
+    truth.set(id, {kind:'一般', need:60+Math.floor(r()*80), left:0, cap:25+Math.floor(r()*16)});
+  });
+  targets.forEach(t=>{ const tr=truth.get(t.id); tr.left = tr.need; });
+
+  const db = MockSource(); db.load(targets);
+  // 災後第 1~5 天的既有回報：熱區有人去過，路盡頭的大進村幾乎空白
+  targets.forEach(t=>{
+    const tr = truth.get(t.id);
+    const p = t.village==='大進村' ? .03 : (t.kind==='地點' ? .34 : .38);
+    if(r() < p){
+      const when = 2*DAY + r()*(START-2*DAY-2);
+      if(tr.kind==='空屋') db.addReport({t:when,targetId:t.id,state:S.NONE,source:'志工',note:'空屋'});
+      else if(tr.kind==='進不去') db.addReport({t:when,targetId:t.id,state:S.BLOCKED,source:'志工',
+        note:'屋主不在，進不去', revisitAt:when+36});
+      else if(r() < .35){ tr.left = 0; db.addReport({t:when,targetId:t.id,state:S.COVERED,source:'志工',note:'清完了'}); }
+      else db.addReport({t:when,targetId:t.id,state:S.NEED,needPeople:Math.max(1,Math.round(tr.left/2)),
+        source:'志工',note:'還缺人'});
+    }
+  });
+  return {db, truth, rnd:r};
+}
+
+/* ==========================================================================
+   THROW ── 模擬器（世界怎麼變。這些數字全部是假的，主持台上可改）
+   ========================================================================== */
+const P0 = { reportRate:.15, arrivals:700, greenHours:24, redStaleHours:12, fullHours:3,
+             mix:[.5,.3,.2], infoPoorFactor:.3, showUnknown:true, fullReports:true };
+let P, G, now, round, log, sel = null, role = 'vol', lastTickVisits = new Map(), mult = [];
+
+function reset(){
+  P = Object.assign({}, P0); P.mix = P0.mix.slice();
+  G = buildScenario(20250923); now = START; round = 0; log = []; sel = null;
+  lastTickVisits = new Map(); mult = [];
+  syncHost(); render();
+}
+
+function pick(weights, r){
+  let sum = 0; weights.forEach(w=>sum += w[1]);
+  if(sum <= 0) return null;
+  let x = r()*sum;
+  for(const w of weights){ x -= w[1]; if(x <= 0) return w[0]; }
+  return weights[weights.length-1][0];
+}
+
+function tick(){
+  if(round >= ROUNDS) return;
+  const db = G.db, r = G.rnd;
+  const m = mult.length ? mult.shift() : 1;
+  const arrivals = Math.round(P.arrivals * m);
+  const ts = db.listTargets();
+  const st = new Map(ts.map(t=>[t.id, stateOf(t.id, now, P, db)]));
+
+  const wMap = [], wCrowd = [], wRand = [];
+  ts.forEach(t=>{
+    const s = st.get(t.id);
+    if(s.code === 'need') wMap.push([t, (s.needPeople||3)]);
+    else if(s.code === 'unknown' && P.showUnknown) wMap.push([t, 1]);
+    wCrowd.push([t, (lastTickVisits.get(t.id) || 0) + .01]);
+    wRand.push([t, 1]);
+  });
+
+  const visits = new Map();
+  const groups = [[wMap,P.mix[0]],[wCrowd,P.mix[1]],[wRand,P.mix[2]]];
+  groups.forEach(([w, share])=>{
+    let people = Math.round(arrivals * share);
+    while(people > 0){
+      const unit = Math.min(4, people); people -= unit;   // 分配粒度：4 人次一組
+      const t = pick(w, r); if(!t) break;
+      visits.set(t.id, (visits.get(t.id)||0) + unit);
+    }
+  });
+
+  let wasted = 0;
+  visits.forEach((people, id)=>{
+    const tr = G.truth.get(id), t = db.target(id);
+    if(tr.kind === '進不去'){
+      if(r() < P.reportRate) db.addReport({t:now+TICK,targetId:id,state:S.BLOCKED,source:'志工',
+        note:'屋主不在，進不去', revisitAt:now+TICK+36});
+      return;
+    }
+    if(tr.kind === '空屋' || tr.left <= 0){
+      wasted += people;
+      if(r() < P.reportRate*(t.infoPoor?P.infoPoorFactor:1))
+        db.addReport({t:now+TICK,targetId:id,state:tr.kind==='空屋'?S.NONE:S.COVERED,
+          source:'志工',note:tr.kind==='空屋'?'空屋':'到現場發現已經清完'});
+      return;
+    }
+    const use = Math.min(people, tr.left, tr.cap || 8);   // 一個地方同時容納得下的人次
+    tr.left -= use;
+    const surplus = people - use;                          // 超過容量或超過剩餘工作量的人：白跑
+    wasted += surplus;
+    if(r() < P.reportRate*(t.infoPoor?P.infoPoorFactor:1)){
+      db.addReport(tr.left === 0
+        ? {t:now+TICK,targetId:id,state:S.COVERED,source:'志工',note:'清完了'}
+        : (surplus > 0 && P.fullReports)
+          ? {t:now+TICK,targetId:id,state:S.FULL,source:'志工',note:'到了發現人滿了'}   // 白跑的人按「滿了」
+          : {t:now+TICK,targetId:id,state:S.NEED,needPeople:Math.max(1,Math.round(tr.left/2)),
+             source:'志工',note:'還缺人'});
+    }
+  });
+  db.addWasted(wasted);
+  lastTickVisits = visits;
+  now += TICK; round++;
+  say('第 '+round+' 回合：到場 '+arrivals+' 人次，白跑 '+wasted+' 人次');
+  if(round >= ROUNDS) showSummary();
+  render();
+}
+
+const EVENTS = {
+  alarm(){ mult = [0, 1.4]; say('假潰流警報：這回合全部撤離，下一回合補回'); },
+  rain(){ let n = 0; G.db.listTargets().forEach(t=>{
+      const tr = G.truth.get(t.id);
+      if(tr.kind === '一般' && tr.left === 0 && G.rnd() < .2){ tr.left = 3; n++; } });
+    say('上游下大雨：'+n+' 個地點又被沖回來了，但地圖上還是 🟢'); },
+  media(){ mult = [.4, .4]; say('媒體報導「志工太多不用來」：接下來兩回合到場人次剩四成'); },
+  road(){ G.db.listTargets().forEach(t=>{ if(t.village === '大進村') t.infoPoor = false; });
+    say('大進村道路打通：那裡的回報率恢復正常'); }
+};
+function say(s){ log.unshift('T+'+Math.floor(now/DAY)+'天 · '+s); renderLog(); }
+
+/* ==========================================================================
+   KEEP ── 畫面（每個角色一種資訊密度：手機一次一題，桌機看整盤）
+   ========================================================================== */
+function colorOf(s){
+  return s.code==='need' ? 'var(--red)' : s.code==='full' ? 'var(--orange)' : s.code==='covered' ? 'var(--green)'
+       : s.code==='blocked' ? 'var(--amber)' : s.code==='none' ? 'var(--gray)' : '#fff';
+}
+function fmtT(t){ return 'T+'+Math.floor(t/DAY)+'天 '+String(Math.floor(t%DAY)).padStart(2,'0')+':00'; }
+
+function render(){
+  const db = G.db;
+  document.getElementById('clock').textContent = fmtT(now)+'（災後第 '+(Math.floor(now/DAY)+1)+' 天）';
+  document.getElementById('round').textContent = '第 '+round+' / '+ROUNDS+' 回合 · 一回合半天';
+  document.getElementById('mode').textContent = P.showUnknown ? '' : '對照局：⚪ 圖層關閉';
+  document.getElementById('mapsub').textContent = '共 '+db.listTargets().length+' 個對象（300 戶＋6 個非家戶地點）';
+
+  // 地圖
+  let svg = '';
+  VILL.forEach(v=>{ svg += '<text x="'+v.ox+'" y="'+(v.oy-8)+'" font-size="11" fill="#6d6b66">'+v.name+
+    (v.name==='大進村'?'（路的盡頭）':'')+'</text>'; });
+  svg += '<text x="16" y="204" font-size="11" fill="#6d6b66">非家戶：側溝、農路、農地</text>';
+  db.listTargets().forEach(t=>{
+    const s = stateOf(t.id, now, P, db);
+    const hidden = (!P.showUnknown && s.code === 'unknown');
+    const w = t.wide ? 76 : 11, h = t.wide ? 12 : 11;
+    const fill = hidden ? '#f1efe9' : colorOf(s);
+    const stroke = (s.code==='unknown' && !hidden) ? '#c9c6be' : 'rgba(0,0,0,.12)';
+    svg += '<rect data-id="'+t.id+'" x="'+t.x+'" y="'+t.y+'" width="'+w+'" height="'+h+'" rx="2" '+
+      'fill="'+fill+'" stroke="'+((sel===t.id)?'#1b1a18':stroke)+'" stroke-width="'+((sel===t.id)?2:.6)+'" '+
+      'style="cursor:pointer"><title>'+t.addr+'</title></rect>';
+    if(!hidden && s.code==='need' && s.stale)
+      svg += '<path d="M'+t.x+' '+(t.y+h)+'L'+(t.x+w)+' '+t.y+'" stroke="#fff" stroke-width="1.2" opacity=".9"/>';
+  });
+  document.getElementById('map').innerHTML = svg;
+  document.querySelectorAll('#map rect').forEach(el=>el.onclick = ()=>{ sel = el.dataset.id; render(); });
+
+  // 三個數字
+  const m = metrics(now, P, db);
+  document.getElementById('nums').innerHTML =
+    num(Math.round(m.coverage*100)+'%', '覆蓋率（曾被確認過）') +
+    num(m.never+' 個', '從來沒人去過，已經 '+(m.neverDarkHours/DAY).toFixed(1)+' 天') +
+    num(m.wasted+' 人次', '白跑（到了才發現沒事做）');
+
+  // 選中的對象
+  document.getElementById('sel').innerHTML = sel ? selHTML(sel) : '點地圖上任何一格看它的回報歷程。';
+  renderPanel(); renderLog();
+}
+function num(v,k){ return '<div class="num"><div class="v">'+v+'</div><div class="k">'+k+'</div></div>'; }
+function label(s){
+  if(s.code==='need')    return '🔴 有需求'+(s.needPeople?('（缺 '+s.needPeople+' 人）'):'')+(s.stale?' · 情報已舊 '+Math.round(s.age)+' 小時':'');
+  if(s.code==='full')    return '🟠 人夠了 · '+Math.round(s.age)+' 小時前有人說滿了';
+  if(s.code==='covered') return '🟢 已覆蓋 · '+Math.round(s.age)+' 小時前確認';
+  if(s.code==='blocked') return '⏸ 進不去 · 預計 '+fmtT(s.last.revisitAt)+' 可再看';
+  if(s.code==='none')    return '⛔ 不需處理';
+  if(s.never)            return '⚪ 從來沒人去過（'+(s.darkFor/DAY).toFixed(1)+' 天）';
+  return '⚪ 沒人知道現在怎樣'+(s.faded?' · 上次消息是 '+Math.round(s.age)+' 小時前'+(s.wasFull?'：當時人夠了':''):'')+(s.recheck?' · 之前進不去，該回去看了':'');
+}
+function selHTML(id){
+  const t = G.db.target(id), s = stateOf(id, now, P, G.db), rs = G.db.reportsFor(id);
+  let h = '<b>'+t.addr+'</b> · '+t.village+'　'+label(s);
+  h += '<div class="hist">'+(rs.length ? rs.map(r=>fmtT(r.t)+'　'+r.state+
+      (r.needPeople?'（缺 '+r.needPeople+' 人）':'')+'　'+(r.note||'')+'　<span class="tag">'+r.source+'</span>').join('<br>')
+    : '沒有任何回報。')+'</div>';
+  return h;
+}
+function renderLog(){ document.getElementById('log').innerHTML = log.slice(0,8).join('<br>'); }
+
+/* ── 角色面板 ───────────────────────────────────────────────────────── */
+function renderPanel(){
+  const el = document.getElementById('panel');
+  if(role === 'vol') el.innerHTML = '<div class="dev"><div class="phone">'+volHTML()+'</div><div class="cap">手機 · 一次問一題</div></div>';
+  if(role === 'stn') el.innerHTML = '<div class="dev"><div class="laptop">'+stnHTML()+'<div class="base"></div></div><div class="cap">筆電 · 連續登記</div></div>';
+  if(role === 'rmt') el.innerHTML = '<div class="dev">'+rmtHTML()+'<div class="cap">桌機 · 地圖旁邊的清單</div></div>';
+  bindPanel();
+}
+function suggestions(){
+  const db = G.db, out = [];
+  db.listTargets().forEach(t=>{
+    const s = stateOf(t.id, now, P, db);
+    if(s.code === 'need') out.push({t, s, score: 100 + (s.needPeople||1)*2 - (s.stale?30:0), why:'回報缺 '+(s.needPeople||'?')+' 人'});
+    else if(s.code === 'unknown' && P.showUnknown) out.push({t, s, score: 40 + (s.never?10:0), why: s.never?'從來沒人去過':'資料過期了，沒人知道現在怎樣'});
+  });
+  return out.sort((a,b)=>b.score-a.score).slice(0,4);
+}
+function volHTML(){
+  const sug = suggestions();
+  let h = '<div class="bar"></div><div class="sub">演習 · 我現在該去哪</div>';
+  if(sug.length === 0)
+    h += '<h2 style="font-size:16px;margin:10px 0">今天這一區不缺人</h2>'+
+         '<p class="sub">地圖上沒有還沒被處理的地方。今天不用來，把位置留給需要的人。</p>';
+  else {
+    h += '<div style="margin:10px 0 6px">選一個地方：</div>';
+    sug.forEach(x=>{ h += '<button class="opt" data-go="'+x.t.id+'"><b>'+x.t.addr+'</b>'+
+      '<div class="sub">'+x.t.village+' · '+x.why+'</div></button>'; });
+  }
+  h += '<hr style="border:none;border-top:1px solid var(--line);margin:12px 0">'+
+       '<div style="margin-bottom:6px">收工離場，留一筆（20 秒）</div>'+
+       '<div class="row"><select id="v-target">'+optList()+'</select></div>'+
+       '<div class="row"><button class="big" data-rep="need">還缺人</button></div>'+
+       '<div class="row"><button class="big alt" data-rep="full">這邊滿了，別再來</button></div>'+
+       '<div class="row"><button class="big alt" data-rep="covered">這裡清完了</button></div>'+
+       '<div class="row"><button class="big alt" data-rep="blocked">進不去，屋主不在</button></div>'+
+       '<div class="sub" style="margin-top:8px">不用登入，不問你是誰，不記你的位置。</div>';
+  return h;
+}
+function optList(){
+  const near = sel ? [G.db.target(sel)] : [];
+  const list = near.concat(G.db.listTargets().filter(t=>t.id!==sel).slice(0,40));
+  return list.map(t=>'<option value="'+t.id+'">'+t.addr+'（'+t.village+'）</option>').join('');
+}
+function stnHTML(){
+  return '<div class="sub">演習 · 中繼站代為登記（備案管道）</div>'+
+    '<div class="row"><select id="s-target">'+optList()+'</select>'+
+    '<select id="s-state"><option value="need">還缺人</option><option value="full">滿了</option><option value="covered">清完了</option>'+
+    '<option value="blocked">進不去</option><option value="none">空屋</option></select>'+
+    '<input type="number" id="s-n" value="3" min="1" max="30" style="width:80px">'+
+    '<button class="evt" id="s-add">登記</button></div>'+
+    '<div class="sub" style="margin-top:6px">志工的手機完全不用參與。一天要登記幾十筆，所以是一列一列輸入。</div>'+
+    '<div class="list">'+G.db.allReports().slice(-12).reverse().map(r=>{
+      const t = G.db.target(r.targetId);
+      return '<div class="li"><span><b>'+t.addr+'</b> <span class="tag">'+r.source+'</span></span>'+
+        '<span class="sub">'+r.state+(r.needPeople?'（缺 '+r.needPeople+'）':'')+' · '+fmtT(r.t)+'</span></div>';
+    }).join('')+'</div>';
+}
+function rmtHTML(){
+  const sl = staleList(now, P, G.db);
+  const byV = {};
+  G.db.listTargets().forEach(t=>{
+    const s = stateOf(t.id, now, P, G.db);
+    byV[t.village] = byV[t.village] || {n:0, dark:0, need:0};
+    byV[t.village].n++;
+    if(s.code === 'unknown') byV[t.village].dark++;
+    if(s.code === 'need') byV[t.village].need++;
+  });
+  let h = '<h2>聚合到村：對外只看得到這一層</h2><div class="list">';
+  Object.keys(byV).forEach(v=>{ const b = byV[v];
+    h += '<div class="li"><span><b>'+v+'</b></span><span class="sub">'+b.n+' 個對象 · '+
+      b.need+' 個有需求 · <b>'+b.dark+' 個沒人知道</b></span></div>'; });
+  h += '</div><h2 style="margin-top:14px">該補情報的地方（'+sl.length+'）</h2><div class="list">'+
+    sl.slice(0,40).map(x=>'<div class="li"><span><b>'+x.t.addr+'</b> <span class="sub">'+x.t.village+'</span></span>'+
+      '<span class="sub">'+x.why+'</span></div>').join('')+'</div>';
+  return h;
+}
+function addReport(targetId, kind, n, source){
+  const t = G.db.target(targetId), tr = G.truth.get(targetId);
+  const base = {t:now, targetId, source};
+  if(kind === 'need')    G.db.addReport(Object.assign(base, {state:S.NEED, needPeople:n||3, note:'還缺人'}));
+  if(kind === 'full')    G.db.addReport(Object.assign(base, {state:S.FULL, note:'人夠了，別再來'}));
+  if(kind === 'covered'){ tr.left = 0; G.db.addReport(Object.assign(base, {state:S.COVERED, note:'清完了'})); }
+  if(kind === 'blocked') G.db.addReport(Object.assign(base, {state:S.BLOCKED, note:'屋主不在', revisitAt:now+36}));
+  if(kind === 'none')    G.db.addReport(Object.assign(base, {state:S.NONE, note:'空屋'}));
+  render();
+}
+function bindPanel(){
+  document.querySelectorAll('[data-go]').forEach(b=>b.onclick = ()=>{ sel = b.dataset.go; render(); });
+  document.querySelectorAll('[data-rep]').forEach(b=>b.onclick = ()=>{
+    const id = document.getElementById('v-target').value;
+    addReport(id, b.dataset.rep, 3, '志工'); });
+  const add = document.getElementById('s-add');
+  if(add) add.onclick = ()=>addReport(document.getElementById('s-target').value,
+      document.getElementById('s-state').value, +document.getElementById('s-n').value, '中繼站');
+}
+
+/* ── 結算 ───────────────────────────────────────────────────────────── */
+function showSummary(){
+  const m = metrics(now, P, G.db);
+  let truthNeed = 0; G.truth.forEach(tr=>{ if(tr.left > 0) truthNeed++; });
+  document.getElementById('summarybody').innerHTML =
+    '<h2>四天結束（演習）</h2>'+
+    '<div class="nums">'+num(Math.round(m.coverage*100)+'%','覆蓋率')+
+      num(m.never+' 個','從來沒人去過')+num(m.wasted+' 人次','白跑')+'</div>'+
+    '<p style="margin-top:14px">地圖不知道的事實：<b>還有 '+truthNeed+' 個地方真的還沒處理完</b>。'+
+    (P.showUnknown?'':'（這一局 ⚪ 圖層是關掉的）')+'</p>'+
+    '<p class="sub">檢討三題：哪一刻你判斷錯了？你當時想知道什麼但看不到？沒有這個工具你會怎麼做？</p>'+
+    '<button class="big" id="again">再玩一局</button>'+
+    '<button class="big alt" style="margin-top:8px" id="flip">'+
+      (P.showUnknown?'關掉 ⚪ 圖層，玩對照局':'打開 ⚪ 圖層，再玩一局')+'</button>';
+  document.getElementById('summary').classList.remove('hide');
+  document.getElementById('again').onclick = ()=>{ document.getElementById('summary').classList.add('hide'); reset(); };
+  document.getElementById('flip').onclick = ()=>{ const keep = !P.showUnknown;
+    document.getElementById('summary').classList.add('hide'); reset(); P.showUnknown = keep; syncHost(); render(); };
+}
+
+/* ==========================================================================
+   THROW ── 主持台
+   ========================================================================== */
+function syncHost(){
+  const set = (id,v)=>{ const e = document.getElementById(id); if(e) e.value = v; };
+  set('p-rr', P.reportRate*100); set('p-ar', P.arrivals); set('p-gh', P.greenHours); set('p-rh', P.redStaleHours);
+  set('p-m1', P.mix[0]*100); set('p-m2', P.mix[1]*100);
+  document.getElementById('p-unknown').checked = P.showUnknown;
+  document.getElementById('p-full').checked = P.fullReports;
+  labels();
+}
+function labels(){
+  const t = (id,v)=>document.getElementById(id).textContent = v;
+  t('lab-rr', Math.round(P.reportRate*100)+'%'); t('lab-ar', P.arrivals+' 人次');
+  t('lab-gh', P.greenHours+' 小時'); t('lab-rh', P.redStaleHours+' 小時');
+  t('lab-m1', Math.round(P.mix[0]*100)+'%'); t('lab-m2', Math.round(P.mix[1]*100)+'%');
+  t('lab-m3', Math.round(P.mix[2]*100)+'%');
+}
+function bindHost(){
+  const on = (id, fn)=>document.getElementById(id).addEventListener('input', fn);
+  on('p-rr', e=>{ P.reportRate = e.target.value/100; labels(); render(); });
+  on('p-ar', e=>{ P.arrivals = +e.target.value; labels(); render(); });
+  on('p-gh', e=>{ P.greenHours = +e.target.value; labels(); render(); });
+  on('p-rh', e=>{ P.redStaleHours = +e.target.value; labels(); render(); });
+  on('p-m1', e=>{ const a = e.target.value/100; P.mix[0] = a;
+    P.mix[1] = Math.min(P.mix[1], 1-a); P.mix[2] = Math.max(0, 1-P.mix[0]-P.mix[1]); labels(); });
+  on('p-m2', e=>{ const b = Math.min(e.target.value/100, 1-P.mix[0]); P.mix[1] = b;
+    P.mix[2] = Math.max(0, 1-P.mix[0]-P.mix[1]); labels(); });
+  document.getElementById('p-unknown').addEventListener('change', e=>{ P.showUnknown = e.target.checked; render(); });
+  document.getElementById('p-full').addEventListener('change', e=>{ P.fullReports = e.target.checked; });
+  document.querySelectorAll('[data-evt]').forEach(b=>b.onclick = ()=>EVENTS[b.dataset.evt]());
+  document.getElementById('next').onclick = tick;
+  document.getElementById('reset').onclick = ()=>{ document.getElementById('summary').classList.add('hide'); reset(); };
+  document.getElementById('runtests').onclick = ()=>runTests(true);
+  document.getElementById('tabs').onclick = e=>{
+    const b = e.target.closest('button'); if(!b) return; role = b.dataset.role;
+    document.querySelectorAll('#tabs button').forEach(x=>x.setAttribute('aria-selected', x===b));
+    renderPanel(); };
+}
+
+/* ==========================================================================
+   DEV ── 規則測試（spec §7 的七個例子。玩的人看不到）
+   ========================================================================== */
+function tinyDB(reports){
+  const db = MockSource(); db.load([{id:'h1', addr:'大全街 12 號', village:'大全村'}]);
+  reports.forEach(r=>db.addReport(Object.assign({targetId:'h1', source:'志工'}, r)));
+  return db;
+}
+function runTests(show){
+  const PT = {greenHours:24, redStaleHours:12, fullHours:3};
+  const out = [];
+  const t = (name, cond)=>out.push((cond?'✅ ':'❌ ')+name);
+
+  t('例1 沒有回報就是 ⚪，並算得出暗了多久', (()=>{ const s = stateOf('h1', 120, PT, tinyDB([]));
+    return s.code==='unknown' && s.never && s.darkFor===120; })());
+  t('例2 需求不會自己消失（過期仍是 🔴，只標情報已舊）', (()=>{
+    const s = stateOf('h1', 118, PT, tinyDB([{t:100, state:S.NEED, needPeople:3}]));
+    return s.code==='need' && s.stale === true; })());
+  t('例3 「沒事」會過期（🟢 超時變 ⚪）', (()=>{
+    const s = stateOf('h1', 125, PT, tinyDB([{t:100, state:S.COVERED}]));
+    return s.code==='unknown' && s.faded === true; })());
+  t('例4 兩筆衝突取最新，舊的留在歷程裡', (()=>{
+    const db = tinyDB([{t:109, state:S.NEED, needPeople:2},{t:111, state:S.COVERED}]);
+    const s = stateOf('h1', 112, PT, db);
+    return s.code==='covered' && db.reportsFor('h1').length===2; })());
+  t('例5 進不去：到期前是 ⏸，到期後回到待重新確認', (()=>{
+    const db = tinyDB([{t:110, state:S.BLOCKED, revisitAt:158}]);
+    return stateOf('h1', 130, PT, db).code==='blocked'
+        && stateOf('h1', 160, PT, db).code==='unknown'
+        && stateOf('h1', 160, PT, db).recheck === true; })());
+  t('例6 時間往前走不會讓情況變好', (()=>{ const db = tinyDB([]);
+    return [120, 200, 400].every(n=>stateOf('h1', n, PT, db).code === 'unknown'); })());
+  t('例7 空屋不褪色', (()=>{ const s = stateOf('h1', 225, PT, tinyDB([{t:105, state:S.NONE}]));
+    return s.code === 'none'; })());
+  t('例8 滿了不是清完了（🟠，算到過、不算完成）', (()=>{
+    const db = tinyDB([{t:105, state:S.NEED, needPeople:5},{t:106, state:S.FULL}]);
+    return stateOf('h1', 107, PT, db).code === 'full' && metrics(107, PT, db).coverage === 1; })());
+  t('例9 滿了會過期（→ ⚪，不自動回 🔴）', (()=>{
+    const s = stateOf('h1', 109.5, PT, tinyDB([{t:105, state:S.NEED, needPeople:5},{t:106, state:S.FULL}]));
+    return s.code === 'unknown' && s.faded === true && s.wasFull === true; })());
+
+  const pass = out.every(x=>x.startsWith('✅'));
+  const html = out.map(x=>'<div class="'+(x.startsWith('✅')?'ok':'bad')+'">'+x+'</div>').join('');
+  if(show) document.getElementById('tests').innerHTML = html;
+  if(new URLSearchParams(location.search).has('test')){
+    document.body.innerHTML = '<div style="padding:24px;font-size:15px">'+
+      '<h2>規則測試 '+(pass?'全部通過':'有失敗')+'</h2>'+html+'</div>';
+  }
+  console.log(out.join('\n'));
+  return pass;
+}
+
+/* 啟動 */
+bindHost(); reset(); runTests(false);
+if(new URLSearchParams(location.search).has('test')) runTests(true);
+</script>
+</body>
+</html>

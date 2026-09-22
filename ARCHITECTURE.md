@@ -89,7 +89,7 @@ flowchart LR
 
     E --> F["工具層<br/>output/"]
     F --> F1["vision.md<br/>（Positioning 已對齊）"]
-    F --> F2["prototype/ + spec/<br/>（未開始，D-08）"]
+    F --> F2["prototype/ + spec/<br/>（01 單機兵推可玩；02 多人版規劃中）"]
 
     classDef anchor fill:#fef3c7,stroke:#d97706
     classDef layer fill:#dbeafe,stroke:#2563eb
@@ -166,7 +166,7 @@ flowchart TB
         N25["散兵與組織的門檻辯論"]
         N26["既有方案地圖"]
         N27["設計原則 ⚠️"]
-        N28["資訊協作層_系統設計命題"]
+        N28["資訊協作層_系統設計命題 ⚠️"]
     end
 
     subgraph FLD["🥾 knowledge/fieldwork/"]
@@ -178,7 +178,7 @@ flowchart TB
     end
 
     subgraph OUT["📦 output/ + 決策"]
-        N31["vision"]
+        N33["vision"]
         PRD["prototype/ + spec/"]
         DEC["DECISIONS.md"]
     end
@@ -206,7 +206,7 @@ flowchart TB
     class N21,N22,N23,N24,N25,N26,N27,N28 fw
     class N20 fld
     class N29 syn
-    class N31 out
+    class N33 out
     class PRD,DEC out
     class N2,N3,N5,N8,N9,N11,N12,N16,N18 high
     class N1,N6,N7,N17,N19 mid
@@ -243,7 +243,9 @@ flowchart TB
     click N28 "knowledge/framework/資訊協作層_系統設計命題.md" "開啟原檔"
     click N29 "knowledge/synthesis/跨文件洞察.md" "開啟原檔"
     click N30 "knowledge/文獻處理進度.md" "開啟原檔"
-    click N31 "output/vision.md" "開啟原檔"
+    click N31 "output/spec/角色輪廓.md" "開啟原檔"
+    click N32 "output/spec/資料模型與狀態機.md" "開啟原檔"
+    click N33 "output/vision.md" "開啟原檔"
     click DEC "DECISIONS.md" "開啟原檔"
 ```
 <!-- AUTO:kb-map:end -->
@@ -440,6 +442,52 @@ flowchart LR
 **讀法**：第一張圖橫向疊四類方案、縱向是階段；唯一沒被任何方案覆蓋的格子是「散兵+小NGO+受災民眾 × 災後協作期」——就是 ResQ Hub 的位置。第二張圖是學界對「應該怎麼對待自發志工」的共識光譜——ResQ Hub 對應的位置是「協調/協力」端。
 
 **互動**：圖 1、3、4 與光譜圖中的關鍵節點都可點擊跳到對應 framework 或 context 文件。
+
+---
+
+## 7. 現在在哪 — 三層與進度（2026-09-23）
+
+> 迷路時看這張。上層工具裡五個階段由左到右；「角色與需求」是現在的位置。
+
+```mermaid
+flowchart TB
+    subgraph TOOL["上層 · 工具（現在在這一層）"]
+        direction LR
+        R["角色與需求<br/>進行中：志工已定，下一個是居民"] --> S["規格<br/>隨角色修"] --> P1["單機兵推 v0<br/>做完，可玩，當備援"] --> P2["多人兵推<br/>只有規劃；Firebase 已選未執行"] --> W["工作坊<br/>還沒"]
+    end
+    HB["中層 · 手冊<br/>已決定（D-14），未開始；材料在底層"]
+    KB["底層 · 知識庫<br/>20 份文獻＋口述（單一觀察者，待驗證）"]
+    DEC["DECISIONS<br/>D-01～D-14 · U-01～U-14"]
+    TOOL --- HB --- KB
+    DEC -.- TOOL
+    DEC -.- KB
+    click R "output/spec/角色輪廓.md" "開啟原檔"
+    click S "output/spec/資料模型與狀態機.md" "開啟原檔"
+    click P1 "output/prototype/01-兵推/README.md" "開啟原檔"
+    click P2 "output/prototype/02-兵推多人/README.md" "開啟原檔"
+    click DEC "DECISIONS.md" "開啟原檔"
+```
+
+---
+
+## 8. 多人兵推的架構（規劃中，D-10／D-11）
+
+> 只有最下面那一格會換：兵推模式接模擬器，災時模式接真後端；畫面與規則不動。
+
+```mermaid
+flowchart TB
+    H["Firebase Hosting<br/>只發檔案，五個頁面"]
+    H --> V["志工頁<br/>手機"]
+    H --> M["中繼站頁<br/>筆電（備案管道）"]
+    H --> RM["遠端頁<br/>桌機（第二場）"]
+    H --> HO["主持台<br/>大螢幕；模擬器只在這裡跑"]
+    V --> SH
+    M --> SH
+    RM --> SH
+    HO --> SH
+    SH["共用程式 shared.js（留）<br/>資料模型・狀態規則・資料層接縫"]
+    SH <--> DB["Realtime Database（丟）<br/>每場一個房間：reports 只增不改、人人可寫<br/>clock／meta／events 只有主持台能寫"]
+```
 
 ---
 
