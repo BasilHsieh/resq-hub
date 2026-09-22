@@ -7,7 +7,7 @@
 <style>
 :root{
   --bg:#f6f5f2;--card:#fff;--ink:#1b1a18;--ink2:#6d6b66;--ink3:#9a978f;--line:#e3e1db;
-  --red:#cf4238;--green:#3c8a5b;--amber:#c8891c;--gray:#c9c6be;--blue:#2d6c98;--drill:#7b3ff2;
+  --red:#cf4238;--green:#3c8a5b;--amber:#6c8ebf;--orange:#e8892b;--gray:#c9c6be;--blue:#2d6c98;--drill:#7b3ff2;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
@@ -83,6 +83,7 @@ select,input[type=number],input[type=text]{font:inherit;padding:6px 8px;border:1
     <svg class="map" id="map" viewBox="0 0 560 250" role="img" aria-label="災區覆蓋地圖"></svg>
     <div class="legend">
       <span><i class="sw" style="background:var(--red)"></i>有需求</span>
+      <span><i class="sw" style="background:var(--orange)"></i>人夠了</span>
       <span><i class="sw" style="background:var(--green)"></i>已覆蓋</span>
       <span><i class="sw" style="background:#fff;border:1px solid var(--gray)"></i>沒人去過</span>
       <span><i class="sw" style="background:var(--amber)"></i>進不去</span>
@@ -96,7 +97,7 @@ select,input[type=number],input[type=text]{font:inherit;padding:6px 8px;border:1
   <section class="card">
     <div class="tabs" id="tabs">
       <button data-role="vol" aria-selected="true">去幫忙的人</button>
-      <button data-role="stn" aria-selected="false">站上的人</button>
+      <button data-role="stn" aria-selected="false">中繼站</button>
       <button data-role="rmt" aria-selected="false">遠端整理</button>
     </div>
     <div id="panel"></div>
@@ -121,6 +122,8 @@ select,input[type=number],input[type=text]{font:inherit;padding:6px 8px;border:1
       <div class="param">
         <label><input type="checkbox" id="p-unknown" style="width:auto"> 顯示「沒人去過」（⚪）圖層</label>
         <div class="sub">關掉＝對照局，只看得到已經被回報的需求</div>
+        <label style="margin-top:6px"><input type="checkbox" id="p-full" style="width:auto"> 志工有「這邊滿了」按鈕（🟠）</label>
+        <div class="sub">關掉＝白跑的人不會留下訊號，用來演 U-12</div>
       </div>
     </div>
     <div>
@@ -149,7 +152,7 @@ select,input[type=number],input[type=text]{font:inherit;padding:6px 8px;border:1
    時間  以「災害發生後第幾小時」為單位（T+0 = 災害發生）。沒有真實日期。
    回報沒有使用者欄位：收情報前不問你是誰（D-01）。source 只記角色。
    ========================================================================== */
-const S = { NEED:'需求', COVERED:'已覆蓋', NONE:'不需處理', BLOCKED:'進不去' };
+const S = { NEED:'需求', FULL:'滿了', COVERED:'已覆蓋', NONE:'不需處理', BLOCKED:'進不去' };
 const DAY = 24, TICK = 12, ROUNDS = 8, START = 4*DAY + 8;   // 災後第 5 天 08:00
 
 /* ==========================================================================
@@ -164,6 +167,9 @@ function stateOf(targetId, now, P, db){
   if(last.state === S.BLOCKED) return now >= last.revisitAt
       ? { code:'unknown', last, age, recheck:true }
       : { code:'blocked', last, age };
+  if(last.state === S.FULL) return age > P.fullHours
+      ? { code:'unknown', last, age, faded:true, wasFull:true }
+      : { code:'full', last, age };
   if(last.state === S.COVERED) return age > P.greenHours
       ? { code:'unknown', last, age, faded:true }
       : { code:'covered', last, age };
@@ -246,14 +252,14 @@ function buildScenario(seed){
       const dice = r();
       if(dice < .05)      truth.set(id, {kind:'空屋', need:0, left:0});
       else if(dice < .10) truth.set(id, {kind:'進不去', need:6, left:6});
-      else                truth.set(id, {kind:'一般', need:8+Math.floor(r()*21), left:0});
+      else                truth.set(id, {kind:'一般', need:8+Math.floor(r()*21), left:0, cap:6+Math.floor(r()*5)});
     }
   });
   SPOTS.forEach((nm,i)=>{
     const id = 'spot-'+i;
     targets.push({ id, village:'（非家戶）', kind:'地點', infoPoor:i>=3,
       addr:nm, x:16+i*90, y:212, wide:true });
-    truth.set(id, {kind:'一般', need:60+Math.floor(r()*80), left:0});
+    truth.set(id, {kind:'一般', need:60+Math.floor(r()*80), left:0, cap:25+Math.floor(r()*16)});
   });
   targets.forEach(t=>{ const tr=truth.get(t.id); tr.left = tr.need; });
 
@@ -278,8 +284,8 @@ function buildScenario(seed){
 /* ==========================================================================
    THROW ── 模擬器（世界怎麼變。這些數字全部是假的，主持台上可改）
    ========================================================================== */
-const P0 = { reportRate:.15, arrivals:700, greenHours:24, redStaleHours:12,
-             mix:[.5,.3,.2], infoPoorFactor:.3, showUnknown:true };
+const P0 = { reportRate:.15, arrivals:700, greenHours:24, redStaleHours:12, fullHours:3,
+             mix:[.5,.3,.2], infoPoorFactor:.3, showUnknown:true, fullReports:true };
 let P, G, now, round, log, sel = null, role = 'vol', lastTickVisits = new Map(), mult = [];
 
 function reset(){
@@ -340,14 +346,17 @@ function tick(){
           source:'志工',note:tr.kind==='空屋'?'空屋':'到現場發現已經清完'});
       return;
     }
-    const use = Math.min(people, tr.left);
+    const use = Math.min(people, tr.left, tr.cap || 8);   // 一個地方同時容納得下的人次
     tr.left -= use;
-    wasted += people - use;
+    const surplus = people - use;                          // 超過容量或超過剩餘工作量的人：白跑
+    wasted += surplus;
     if(r() < P.reportRate*(t.infoPoor?P.infoPoorFactor:1)){
       db.addReport(tr.left === 0
         ? {t:now+TICK,targetId:id,state:S.COVERED,source:'志工',note:'清完了'}
-        : {t:now+TICK,targetId:id,state:S.NEED,needPeople:Math.max(1,Math.round(tr.left/2)),
-           source:'志工',note:'還缺人'});
+        : (surplus > 0 && P.fullReports)
+          ? {t:now+TICK,targetId:id,state:S.FULL,source:'志工',note:'到了發現人滿了'}   // 白跑的人按「滿了」
+          : {t:now+TICK,targetId:id,state:S.NEED,needPeople:Math.max(1,Math.round(tr.left/2)),
+             source:'志工',note:'還缺人'});
     }
   });
   db.addWasted(wasted);
@@ -374,7 +383,7 @@ function say(s){ log.unshift('T+'+Math.floor(now/DAY)+'天 · '+s); renderLog();
    KEEP ── 畫面（每個角色一種資訊密度：手機一次一題，桌機看整盤）
    ========================================================================== */
 function colorOf(s){
-  return s.code==='need' ? 'var(--red)' : s.code==='covered' ? 'var(--green)'
+  return s.code==='need' ? 'var(--red)' : s.code==='full' ? 'var(--orange)' : s.code==='covered' ? 'var(--green)'
        : s.code==='blocked' ? 'var(--amber)' : s.code==='none' ? 'var(--gray)' : '#fff';
 }
 function fmtT(t){ return 'T+'+Math.floor(t/DAY)+'天 '+String(Math.floor(t%DAY)).padStart(2,'0')+':00'; }
@@ -420,11 +429,12 @@ function render(){
 function num(v,k){ return '<div class="num"><div class="v">'+v+'</div><div class="k">'+k+'</div></div>'; }
 function label(s){
   if(s.code==='need')    return '🔴 有需求'+(s.needPeople?('（缺 '+s.needPeople+' 人）'):'')+(s.stale?' · 情報已舊 '+Math.round(s.age)+' 小時':'');
+  if(s.code==='full')    return '🟠 人夠了 · '+Math.round(s.age)+' 小時前有人說滿了';
   if(s.code==='covered') return '🟢 已覆蓋 · '+Math.round(s.age)+' 小時前確認';
   if(s.code==='blocked') return '⏸ 進不去 · 預計 '+fmtT(s.last.revisitAt)+' 可再看';
   if(s.code==='none')    return '⛔ 不需處理';
   if(s.never)            return '⚪ 從來沒人去過（'+(s.darkFor/DAY).toFixed(1)+' 天）';
-  return '⚪ 沒人知道現在怎樣'+(s.faded?' · 上次確認是 '+Math.round(s.age)+' 小時前':'')+(s.recheck?' · 之前進不去，該回去看了':'');
+  return '⚪ 沒人知道現在怎樣'+(s.faded?' · 上次消息是 '+Math.round(s.age)+' 小時前'+(s.wasFull?'：當時人夠了':''):'')+(s.recheck?' · 之前進不去，該回去看了':'');
 }
 function selHTML(id){
   const t = G.db.target(id), s = stateOf(id, now, P, G.db), rs = G.db.reportsFor(id);
@@ -468,6 +478,7 @@ function volHTML(){
        '<div style="margin-bottom:6px">收工離場，留一筆（20 秒）</div>'+
        '<div class="row"><select id="v-target">'+optList()+'</select></div>'+
        '<div class="row"><button class="big" data-rep="need">還缺人</button></div>'+
+       '<div class="row"><button class="big alt" data-rep="full">這邊滿了，別再來</button></div>'+
        '<div class="row"><button class="big alt" data-rep="covered">這裡清完了</button></div>'+
        '<div class="row"><button class="big alt" data-rep="blocked">進不去，屋主不在</button></div>'+
        '<div class="sub" style="margin-top:8px">不用登入，不問你是誰，不記你的位置。</div>';
@@ -479,9 +490,9 @@ function optList(){
   return list.map(t=>'<option value="'+t.id+'">'+t.addr+'（'+t.village+'）</option>').join('');
 }
 function stnHTML(){
-  return '<div class="sub">演習 · 報到站代為登記</div>'+
+  return '<div class="sub">演習 · 中繼站代為登記（備案管道）</div>'+
     '<div class="row"><select id="s-target">'+optList()+'</select>'+
-    '<select id="s-state"><option value="need">還缺人</option><option value="covered">清完了</option>'+
+    '<select id="s-state"><option value="need">還缺人</option><option value="full">滿了</option><option value="covered">清完了</option>'+
     '<option value="blocked">進不去</option><option value="none">空屋</option></select>'+
     '<input type="number" id="s-n" value="3" min="1" max="30" style="width:80px">'+
     '<button class="evt" id="s-add">登記</button></div>'+
@@ -515,6 +526,7 @@ function addReport(targetId, kind, n, source){
   const t = G.db.target(targetId), tr = G.truth.get(targetId);
   const base = {t:now, targetId, source};
   if(kind === 'need')    G.db.addReport(Object.assign(base, {state:S.NEED, needPeople:n||3, note:'還缺人'}));
+  if(kind === 'full')    G.db.addReport(Object.assign(base, {state:S.FULL, note:'人夠了，別再來'}));
   if(kind === 'covered'){ tr.left = 0; G.db.addReport(Object.assign(base, {state:S.COVERED, note:'清完了'})); }
   if(kind === 'blocked') G.db.addReport(Object.assign(base, {state:S.BLOCKED, note:'屋主不在', revisitAt:now+36}));
   if(kind === 'none')    G.db.addReport(Object.assign(base, {state:S.NONE, note:'空屋'}));
@@ -527,7 +539,7 @@ function bindPanel(){
     addReport(id, b.dataset.rep, 3, '志工'); });
   const add = document.getElementById('s-add');
   if(add) add.onclick = ()=>addReport(document.getElementById('s-target').value,
-      document.getElementById('s-state').value, +document.getElementById('s-n').value, '站上');
+      document.getElementById('s-state').value, +document.getElementById('s-n').value, '中繼站');
 }
 
 /* ── 結算 ───────────────────────────────────────────────────────────── */
@@ -558,6 +570,7 @@ function syncHost(){
   set('p-rr', P.reportRate*100); set('p-ar', P.arrivals); set('p-gh', P.greenHours); set('p-rh', P.redStaleHours);
   set('p-m1', P.mix[0]*100); set('p-m2', P.mix[1]*100);
   document.getElementById('p-unknown').checked = P.showUnknown;
+  document.getElementById('p-full').checked = P.fullReports;
   labels();
 }
 function labels(){
@@ -578,6 +591,7 @@ function bindHost(){
   on('p-m2', e=>{ const b = Math.min(e.target.value/100, 1-P.mix[0]); P.mix[1] = b;
     P.mix[2] = Math.max(0, 1-P.mix[0]-P.mix[1]); labels(); });
   document.getElementById('p-unknown').addEventListener('change', e=>{ P.showUnknown = e.target.checked; render(); });
+  document.getElementById('p-full').addEventListener('change', e=>{ P.fullReports = e.target.checked; });
   document.querySelectorAll('[data-evt]').forEach(b=>b.onclick = ()=>EVENTS[b.dataset.evt]());
   document.getElementById('next').onclick = tick;
   document.getElementById('reset').onclick = ()=>{ document.getElementById('summary').classList.add('hide'); reset(); };
@@ -597,7 +611,7 @@ function tinyDB(reports){
   return db;
 }
 function runTests(show){
-  const PT = {greenHours:24, redStaleHours:12};
+  const PT = {greenHours:24, redStaleHours:12, fullHours:3};
   const out = [];
   const t = (name, cond)=>out.push((cond?'✅ ':'❌ ')+name);
 
@@ -622,6 +636,12 @@ function runTests(show){
     return [120, 200, 400].every(n=>stateOf('h1', n, PT, db).code === 'unknown'); })());
   t('例7 空屋不褪色', (()=>{ const s = stateOf('h1', 225, PT, tinyDB([{t:105, state:S.NONE}]));
     return s.code === 'none'; })());
+  t('例8 滿了不是清完了（🟠，算到過、不算完成）', (()=>{
+    const db = tinyDB([{t:105, state:S.NEED, needPeople:5},{t:106, state:S.FULL}]);
+    return stateOf('h1', 107, PT, db).code === 'full' && metrics(107, PT, db).coverage === 1; })());
+  t('例9 滿了會過期（→ ⚪，不自動回 🔴）', (()=>{
+    const s = stateOf('h1', 109.5, PT, tinyDB([{t:105, state:S.NEED, needPeople:5},{t:106, state:S.FULL}]));
+    return s.code === 'unknown' && s.faded === true && s.wasFull === true; })());
 
   const pass = out.every(x=>x.startsWith('✅'));
   const html = out.map(x=>'<div class="'+(x.startsWith('✅')?'ok':'bad')+'">'+x+'</div>').join('');
