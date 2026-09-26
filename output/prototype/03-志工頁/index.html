@@ -1,0 +1,347 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ResQ Hub 志工頁</title>
+<style>
+:root{
+  --bg:#f6f5f2; --card:#ffffff; --ink:#1b1a18; --ink2:#6d6b66; --ink3:#9a978f; --line:#e3e1db;
+  --need:#b8362d; --need-bg:#fbe9e7; --full:#a45a14; --full-bg:#fcefe0; --done:#2f7a4d; --done-bg:#e6f2ea;
+  --drill:#7b3ff2; --drill-ink:#4f1ba8; --drill-on:#ffffff; --drill-bg:#f1e7ff; --drill-bg2:#fbf8ff;
+  --focus:#2d6c98;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161514; --card:#201f1d; --ink:#f1efea; --ink2:#aaa69d; --ink3:#7d7a73; --line:#35332f;
+    --need:#f28b82; --need-bg:#3b201d; --full:#f0ad66; --full-bg:#3a2a18; --done:#74c795; --done-bg:#1b3325;
+    --drill:#a98bff; --drill-ink:#dccfff; --drill-on:#161514; --drill-bg:#2a2140; --drill-bg2:#221b33;
+    --focus:#8fbde0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161514; --card:#201f1d; --ink:#f1efea; --ink2:#aaa69d; --ink3:#7d7a73; --line:#35332f;
+  --need:#f28b82; --need-bg:#3b201d; --full:#f0ad66; --full-bg:#3a2a18; --done:#74c795; --done-bg:#1b3325;
+  --drill:#a98bff; --drill-ink:#dccfff; --drill-on:#161514; --drill-bg:#2a2140; --drill-bg2:#221b33;
+  --focus:#8fbde0;
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Noto Sans CJK TC","Microsoft JhengHei",sans-serif;
+  -webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.drill{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;align-items:center;gap:10px;
+  padding-block:6px;padding-inline:16px;font-size:13px;color:var(--drill-ink);
+  background:repeating-linear-gradient(45deg,var(--drill-bg),var(--drill-bg) 10px,var(--drill-bg2) 10px,var(--drill-bg2) 20px);
+  border-bottom:2px solid var(--drill)}
+.drill b{font-weight:500;background:var(--drill);color:var(--drill-on);padding:1px 8px;border-radius:4px;letter-spacing:.08em}
+.drill .clock{margin-left:auto;font-variant-numeric:tabular-nums;white-space:nowrap}
+.wrap{max-width:440px;margin:0 auto;padding-inline:16px;padding-block:16px 40px}
+.gap{display:flex;flex-direction:column;gap:14px}
+h1{font-size:22px;font-weight:500;line-height:1.35;margin:0;text-wrap:balance}
+.sub{font-size:13px;color:var(--ink2)}
+.q{font-size:18px;font-weight:500}
+.scene{display:flex;gap:8px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding-block:10px;padding-inline:12px;font-size:13px;color:var(--ink2)}
+.scene .link{padding:0 4px;flex:none}
+.hint{border:1px dashed var(--ink3);border-radius:10px;padding-block:8px;padding-inline:12px;font-size:13px;color:var(--ink2)}
+.nownote{display:flex;gap:10px;align-items:center;justify-content:space-between;background:var(--card);
+  border:1px solid var(--ink);border-radius:12px;padding-block:10px;padding-inline:12px;font-size:14px}
+.nownote button{flex:none;border:1px solid var(--ink);background:var(--ink);color:var(--bg);border-radius:10px;padding:6px 10px;font-size:13px}
+.list{display:flex;flex-direction:column;gap:8px}
+.row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;width:100%;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:12px;padding-block:12px;padding-inline:14px}
+.row .main{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0}
+.addr{font-size:16px;font-weight:500;color:var(--ink)}
+.pill{display:inline-block;font-size:12px;line-height:1.5;border-radius:6px;padding:1px 8px}
+.p-need{background:var(--need-bg);color:var(--need)}
+.p-full{background:var(--full-bg);color:var(--full)}
+.p-unk{border:1px dashed var(--ink3);color:var(--ink2)}
+.meta{font-size:12px;color:var(--ink2)}
+.walk{font-size:13px;color:var(--ink2);white-space:nowrap;font-variant-numeric:tabular-nums;padding-top:2px}
+.card-note{background:var(--card);border:1px solid var(--line);border-radius:12px;padding-block:10px;padding-inline:12px;font-size:14px;color:var(--ink2)}
+.stack{display:flex;flex-direction:column;gap:10px}
+.big{display:block;width:100%;min-height:56px;border-radius:14px;font-size:17px;font-weight:500;
+  padding-block:10px;padding-inline:14px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.big .small{display:block;font-size:12px;font-weight:400;color:var(--ink2)}
+.b-need{background:var(--need-bg);color:var(--need);border-color:var(--need)}
+.b-full{background:var(--full-bg);color:var(--full);border-color:var(--full)}
+.b-done{background:var(--done-bg);color:var(--done);border-color:var(--done)}
+.b-dash{background:transparent;border:1.5px dashed var(--ink3);color:var(--ink2)}
+.b-primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.link{background:none;border:none;color:var(--ink2);text-decoration:underline;text-underline-offset:3px;padding:8px;font-size:14px;align-self:center}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.nums button{min-height:60px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:22px;font-weight:500;font-variant-numeric:tabular-nums}
+.note{font-size:12px;color:var(--ink3);text-align:center}
+.dev{margin-top:12px;border-top:1px solid var(--line);padding-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--ink3)}
+.dev button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 10px;font-size:12px;color:var(--ink2)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);
+  width:max-content;max-width:calc(100% - 32px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;z-index:20}
+@media (prefers-reduced-motion: no-preference){ .row:active,.big:active{transform:scale(.99)} }
+</style>
+
+<div class="drill"><b>演習</b><span>地址、需求都是編的</span><span class="clock" id="clock"></span></div>
+<main class="wrap" id="app"></main>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(function(){
+/* ==========================================================================
+   THROW ── 演習資料（地址用甲乙丙，刻意不像真實門牌）
+   ========================================================================== */
+const H = 60;                                   // 時間以分鐘計
+const START = (6*24 + 14)*60 + 20;               // 災後 T+6 天 14:20
+const TARGETS = [
+  {id:'h1',  kind:'家戶', addr:'乙路 45 巷 6 弄 3 號', walk:2},
+  {id:'h2',  kind:'家戶', addr:'乙路 45 巷 2 號', walk:2},
+  {id:'h3',  kind:'家戶', addr:'甲街 20 號', walk:3},
+  {id:'h4',  kind:'家戶', addr:'乙路 45 巷 9 號', walk:3},
+  {id:'h5',  kind:'家戶', addr:'甲街 7 號', walk:4},
+  {id:'p1',  kind:'地點', addr:'甲街側溝', walk:5},
+  {id:'h6',  kind:'家戶', addr:'乙路 51 號', walk:6},
+  {id:'h7',  kind:'家戶', addr:'甲街 3 號', walk:7},
+  {id:'h8',  kind:'家戶', addr:'甲街 33 號', walk:8},
+  {id:'p2',  kind:'地點', addr:'乙路排水溝', walk:9},
+  {id:'h9',  kind:'家戶', addr:'甲街 12 號', walk:1},
+  {id:'h10', kind:'家戶', addr:'甲街 16 號', walk:2},
+  {id:'h11', kind:'家戶', addr:'乙路 47 號', walk:5},
+  {id:'h12', kind:'家戶', addr:'丙巷 2 號', walk:6},
+  {id:'h13', kind:'家戶', addr:'甲街 24 號', walk:4}
+];
+function seed(){
+  const ago = m => START - m;
+  return [
+    {t:ago(20),     id:'h2',  consent:'pending'},
+    {t:ago(60),     id:'h3',  consent:'yes', work:'need', n:5},
+    {t:ago(120),    id:'h5',  consent:'pending'},
+    {t:ago(120),    id:'p1',  work:'need', n:10},
+    {t:ago(180),    id:'h6',  consent:'yes', work:'need', n:2, extra:'便當 20 個', by:'17:00 前'},
+    {t:ago(30*H),   id:'h7',  consent:'yes', work:'done'},
+    {t:ago(14*H),   id:'h8',  consent:'yes', work:'need', n:3},
+    {t:ago(60),     id:'h9',  consent:'yes', work:'done'},
+    {t:ago(60),     id:'h10', consent:'yes', work:'full'},
+    {t:ago(26*H),   id:'h11', consent:'no'},
+    {t:ago(40*H),   id:'h12', vacant:true, via:'問里長'},
+    {t:ago(5*H),    id:'h13', consent:'yes', work:'done'}
+  ];
+}
+
+/* ==========================================================================
+   KEEP ── 規則（spec：資料模型與狀態機 §0d、§2）。狀態不儲存，由紀錄推導
+   ========================================================================== */
+const FULL_H = 3, DONE_H = 24, STALE_H = 12;
+function recsOf(db, id){ return db.filter(r => r.id === id).sort((a,b) => a.t - b.t); }
+function lastOf(rs, f){ for(let i = rs.length - 1; i >= 0; i--) if(f(rs[i])) return rs[i]; return null; }
+function ago(min){
+  if(min < 30) return '剛剛';
+  const h = Math.round(min / H);
+  if(h < 48) return h + ' 小時前';
+  return Math.floor(h / 24) + ' 天前';
+}
+// 「選下一戶」怎麼顯示一個對象；show:false ＝ 不列出、只算數量
+function view(t, db, now){
+  const rs = recsOf(db, t.id);
+  if(lastOf(rs, r => r.vacant)) return {show:false};
+  const work = lastOf(rs, r => r.work);
+  if(t.kind === '家戶'){
+    const c = lastOf(rs, r => r.consent);
+    if(c && c.consent === 'no') return {show:false};                 // 不同意：不列、不褪色
+    if(!c) return {show:true, pill:'還沒人問過', cls:'p-unk',
+      meta:'尚未取得同意 · 災後 ' + Math.floor(now / (24*H)) + ' 天都沒人問過'};
+    if(c.consent === 'pending'){                                        // 不寫原因（沒人在家不是一種狀態）
+      const a = ago(now - c.t);
+      return {show:true, pill:(a === '剛剛' ? '剛有人問過' : a + '有人問過'), cls:'p-unk', meta:'尚未取得同意'};
+    }
+    return workView(work, now, '屋主同意');
+  }
+  if(!work) return {show:true, pill:'還沒人去過', cls:'p-unk', meta:'路段，不用問屋主'};
+  return workView(work, now, '路段，不用問屋主');
+}
+function workView(w, now, who){
+  if(!w) return {show:true, pill:'要再確認', cls:'p-unk', meta:who};
+  const age = (now - w.t) / H;
+  if(w.work === 'need'){                                                // 需求不會自己消失，只會變舊
+    const label = '缺 ' + w.n + ' 人' + (w.extra ? '・' + w.extra : '');
+    const when = (w.by ? w.by + ' · ' : '') + (age > STALE_H ? '情報已舊：' : '') + ago(now - w.t) + '喊的';
+    return {show:true, pill:label, cls:'p-need', meta:who + ' · ' + when};
+  }
+  if(w.work === 'full'){
+    if(age <= FULL_H) return {show:false};
+    return {show:true, pill:'要再確認', cls:'p-unk', meta:who + ' · ' + ago(now - w.t) + '說人夠了，之後沒消息'};
+  }
+  if(w.work === 'done'){
+    if(age <= DONE_H) return {show:false};
+    return {show:true, pill:'要再確認', cls:'p-unk', meta:who + ' · ' + ago(now - w.t) + '清完，之後沒人確認'};
+  }
+  return {show:false};
+}
+
+/* ==========================================================================
+   KEEP ── 畫面（手機：一次一題、大按鈕、幾乎不打字）
+   ========================================================================== */
+const app = document.getElementById('app');
+const KEY = 'resq-volunteer-page-v1';
+let S;                                                                  // 畫面狀態，只存在這支手機
+function fresh(){ return {db:seed(), now:START, screen:'list', cur:null, working:null, next:null, afterN:'working', scene:true}; }
+function load(){
+  try{ const s = JSON.parse(localStorage.getItem(KEY)); if(s && Array.isArray(s.db)){ S = s; return; } }catch(e){}
+  S = fresh();
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function byId(id){ return TARGETS.find(t => t.id === id); }
+function fmt(m){ return 'T+' + Math.floor(m / 1440) + ' 天 ' + String(Math.floor(m % 1440 / 60)).padStart(2,'0') + ':' + String(m % 60).padStart(2,'0'); }
+function report(r){ r.t = S.now; S.db.push(r); }
+function statusHTML(t){
+  const v = view(t, S.db, S.now);
+  return v.show ? '<span class="pill ' + v.cls + '">' + v.pill + '</span><span class="meta">' + v.meta + '</span>' : '';
+}
+function dev(){
+  return '<div class="dev"><span>演習控制</span><button data-act="hour">時間往前 1 小時</button><button data-act="reset">重來</button></div>';
+}
+
+const SCREENS = {
+  list(){
+    const items = TARGETS.map(t => ({t, v:view(t, S.db, S.now)}));
+    const shown = items.filter(x => x.v.show).sort((a,b) => a.t.walk - b.t.walk);
+    const hidden = items.length - shown.length;
+    const w = S.working ? byId(S.working) : null;
+    return '<div class="gap">' +
+      (S.scene ? '<div class="scene"><div>情境：你在災區當志工，剛清完一戶，站在門口。挑下一戶去；到了按一下，做完再按一下。</div><button class="link" data-act="scene">收起</button></div>' : '') +
+      (w ? '<div class="nownote"><span>你正在 <b>' + w.addr + '</b></span><button data-act="finish">我做完了</button></div>' : '') +
+      '<div><h1>下一戶去哪</h1><div class="sub">依走路距離排，位置只在你手機上算</div></div>' +
+      '<div class="hint">「還沒人問過」的戶：去敲門問一聲，就是在幫忙。屋主同意才進門。</div>' +
+      '<div class="list">' + shown.map(x =>
+        '<button class="row" data-go="' + x.t.id + '"><span class="main"><span class="addr">' + x.t.addr + '</span>' +
+        '<span class="pill ' + x.v.cls + '">' + x.v.pill + '</span><span class="meta">' + x.v.meta + '</span></span>' +
+        '<span class="walk">走 ' + x.t.walk + ' 分</span></button>').join('') + '</div>' +
+      '<div class="note">不用去的 ' + hidden + ' 個地方沒有列出（人夠了、清完了、屋主說不用）</div>' +
+      '<div class="note">不用登入，不問你是誰。</div>' + dev() + '</div>';
+  },
+  go(){
+    const t = byId(S.cur);
+    return '<div class="gap"><div class="sub">你要去</div><h1>' + t.addr + '</h1>' +
+      '<div class="row" style="border-style:dashed"><span class="main">' + statusHTML(t) + '</span><span class="walk">走 ' + t.walk + ' 分</span></div>' +
+      '<div class="stack"><button class="big b-primary" data-act="arrived">我到了</button>' +
+      '<button class="big" data-act="nav">怎麼走</button>' +
+      '<div class="note" id="navnote" hidden>演習版不開導航。實際使用時，這裡會打開手機的地圖。</div>' +
+      '<button class="link" data-act="list">換一戶</button></div></div>';
+  },
+  arrive(){
+    const t = byId(S.cur);
+    const c = lastOf(recsOf(S.db, t.id), r => r.consent);
+    let body;
+    if(t.kind === '地點'){
+      body = '<div class="card-note">路段、側溝不用問屋主。看一下現場：</div><div class="q">這裡現在怎樣？</div>' +
+        '<div class="stack"><button class="big b-need" data-rep="need">還要人</button>' +
+        '<button class="big b-full" data-rep="full">人已經夠了</button>' +
+        '<button class="big b-done" data-rep="done">清完了</button></div>';
+    } else if(c && c.consent === 'yes'){
+      body = '<div class="card-note">屋主之前同意過。到了還是先打招呼，再看現場。</div><div class="q">這裡現在怎樣？</div>' +
+        '<div class="stack"><button class="big b-need" data-rep="need">還要人</button>' +
+        '<button class="big b-full" data-rep="full">人已經夠了</button>' +
+        '<button class="big b-done" data-rep="done">清完了</button>' +
+        '<button class="link" data-rep="no">屋主改變主意，不要了</button></div>';
+    } else {
+      body = '<div class="card-note">先跟屋主打招呼，問需不需要幫忙。屋主同意才進門。</div><div class="q">屋主怎麼說？</div>' +
+        '<div class="stack"><button class="big b-need" data-rep="yes-need">同意，還要人</button>' +
+        '<button class="big b-full" data-rep="yes-full">同意，人已經夠了</button>' +
+        '<button class="big" data-rep="no">不同意</button>' +
+        '<button class="big b-dash" data-rep="pending">還沒取得<span class="small">沒人回應、還在考慮</span></button></div>';
+    }
+    return '<div class="gap"><div class="sub">你到了</div><h1>' + t.addr + '</h1>' + body +
+      '<button class="link" data-act="list">不是這裡，返回</button></div>';
+  },
+  howmany(){
+    const t = byId(S.cur);
+    return '<div class="gap"><div class="sub">' + t.addr + '</div><h1>還要幾個人？</h1>' +
+      '<div class="nums">' + [1,2,3,5,8,10].map(n => '<button data-n="' + n + '">' + (n === 10 ? '10+' : n) + '</button>').join('') + '</div>' +
+      '<div class="note">大概就好，現場會再調整。</div>' +
+      '<button class="link" data-act="nback">返回</button></div>';
+  },
+  working(){
+    const t = byId(S.cur);
+    return '<div class="gap"><div class="sub">你在</div><h1>' + t.addr + '</h1>' +
+      '<div class="card-note" style="display:flex;flex-direction:column;align-items:flex-start;gap:4px">' + statusHTML(t) + '</div>' +
+      '<div class="sub">做完、或要離開的時候，按這個：</div>' +
+      '<div class="stack"><button class="big b-primary" data-act="finish">我做完了，要離開了</button>' +
+      '<button class="link" data-act="list">先看看清單</button></div>' + dev() + '</div>';
+  },
+  done(){
+    const t = byId(S.cur);
+    return '<div class="gap"><div class="sub">你剛剛在</div><h1>' + t.addr + '</h1><div class="q">現在怎樣了？</div>' +
+      '<div class="stack"><button class="big b-done" data-fin="done">清完了</button>' +
+      '<button class="big b-need" data-fin="need">還要人</button>' +
+      '<button class="big b-full" data-fin="full">人太多了，別再來</button>' +
+      '<button class="link" data-fin="skip">跳過</button></div>' +
+      '<div class="note">按完就回到「下一戶去哪」。</div></div>';
+  }
+};
+
+function draw(){
+  document.getElementById('clock').textContent = fmt(S.now);
+  app.innerHTML = (SCREENS[S.screen] || SCREENS.list)();
+  window.scrollTo(0, 0);
+}
+let toastTimer;
+function toast(s){
+  const el = document.getElementById('toast');
+  el.textContent = s; el.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 2800);
+}
+function go(screen, msg){ S.screen = screen; save(); draw(); if(msg) toast(msg); }
+function toList(msg){ S.cur = null; go('list', msg); }
+function startWork(msg){ S.working = S.cur; go('working', msg); }
+function afterLeave(msg){
+  S.working = null;
+  if(S.next){ S.cur = S.next; S.next = null; go('go', msg); } else toList(msg);
+}
+function pick(id){
+  if(S.working && S.working !== id){ S.next = id; S.cur = S.working; go('done'); }   // 先問剛才那戶，再去下一戶
+  else { S.cur = id; go('go'); }
+}
+function onArrive(k){
+  const id = S.cur;
+  if(k === 'yes-need' || k === 'need'){ S.afterN = 'working'; go('howmany'); return; }
+  if(k === 'yes-full'){ report({id, consent:'yes', work:'full'}); toList('已記下：人已經夠了。挑下一戶吧。'); return; }
+  if(k === 'full'){ report({id, work:'full'}); toList('已記下：人已經夠了。挑下一戶吧。'); return; }
+  if(k === 'done'){ report({id, work:'done'}); toList('已記下：清完了。下一個打開的人會看到。'); return; }
+  if(k === 'no'){ report({id, consent:'no'}); toList('已記下。這一戶不會再列出來。'); return; }
+  if(k === 'pending'){ report({id, consent:'pending'}); toList('已記下。清單上只寫「剛有人問過」，不寫原因。'); }
+}
+function onCount(n){
+  const t = byId(S.cur), r = {id:t.id, work:'need', n};
+  if(t.kind === '家戶') r.consent = 'yes';
+  report(r);
+  if(S.afterN === 'working') startWork('已記下：還要 ' + n + ' 人。');
+  else afterLeave('已記下：還要 ' + n + ' 人。下一個打開的人會看到。');
+}
+function onFinish(k){
+  if(k === 'need'){ S.afterN = 'leave'; go('howmany'); return; }
+  if(k === 'done') report({id:S.cur, work:'done'});
+  if(k === 'full') report({id:S.cur, work:'full'});
+  afterLeave(k === 'skip' ? '' : '已記下。下一個打開的人會看到。');
+}
+
+app.addEventListener('click', e => {
+  const b = e.target.closest('button'); if(!b) return;
+  const d = b.dataset;
+  if(d.go){ pick(d.go); return; }
+  if(d.rep){ onArrive(d.rep); return; }
+  if(d.n){ onCount(Number(d.n)); return; }
+  if(d.fin){ onFinish(d.fin); return; }
+  switch(d.act){
+    case 'scene': S.scene = false; go(S.screen); break;
+    case 'arrived': S.now += byId(S.cur).walk; go('arrive'); break;
+    case 'nav': document.getElementById('navnote').hidden = false; break;
+    case 'list': toList(); break;
+    case 'nback': go(S.afterN === 'leave' ? 'done' : 'arrive'); break;
+    case 'finish': S.now += 120; S.cur = S.working; go('done'); break;
+    case 'hour': S.now += 60; go(S.screen, '時間往前 1 小時：' + fmt(S.now)); break;
+    case 'reset': S = fresh(); go('list', '已重來'); break;
+  }
+});
+
+load(); draw();
+})();
+</script>

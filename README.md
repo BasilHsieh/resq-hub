@@ -49,7 +49,7 @@
 | [ARCHITECTURE.md](ARCHITECTURE.md) | 8 張 mermaid 圖，一頁看完整個專案 |
 | [DECISIONS.md](DECISIONS.md) | 決定了什麼、否決了什麼、還卡在哪 |
 | `knowledge/` | 20 份文獻整理、第一手田野、跨文件綜合、核心框架 |
-| `output/` | 交付層：對外 Vision ＋（未來的）HTML prototype |
+| `output/` | 交付層：對外 Vision、HTML prototype、規格 |
 
 ---
 
@@ -71,12 +71,14 @@
 
 - ✅ 20 份文獻處理完成、跨文件洞察成形
 - ✅ v1 定位與介入窗口已收斂（見 DECISIONS D-01 ~ D-05）
+- ✅ 問題定義：需要幫忙的地方「沒有人知道」；核心是家戶名單＋公開「沒人去過」（D-15）；進門先取得同意（D-16）
 - ⏳ Vision 的 North Star 與 v1 場景待定稿
-- ✅ `output/prototype/01-兵推/`：可玩的單機兵推 v0（雙擊即開，九條規則測試）
-- ⏳ `output/spec/`：資料模型與狀態機、角色輪廓——隨角色討論持續修
+- ✅ `output/prototype/01-兵推/`：可玩的單機兵推 v0（雙擊即開，九條規則測試）；尚未加入同意這一層
+- ⏳ `output/prototype/03-志工頁/`：志工頁的設計 mockup 進行中（連結在該資料夾 README）
+- ⏳ `output/spec/`：資料模型與狀態機、角色輪廓——隨討論持續修
 - ⏳ `output/prototype/02-兵推多人/`：只有規劃；後端已選 Firebase（D-11），未執行
 - ⏳ `output/handbook/`：中層手冊，已決定要做（D-14），未開始
-- 🔥 最大未解：**需求資料從哪來**
+- 🔥 最大未解：**公開「沒人去過」是否真的會有人去，以及有多少人會用**（D-15）
 
 ---
 

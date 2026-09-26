@@ -127,58 +127,60 @@ flowchart TB
         RP["PDF 與筆記原始檔"]
     end
 
-    subgraph CTX["📚 knowledge/context/ — 19 份文獻"]
+    subgraph CTX["📚 knowledge/context/ — 20 份文獻"]
         direction TB
         subgraph HIGH["⭐ 高度相關（v1 必讀）"]
-            N2["呂朝賢集集地震志工_2008"]
-            N3["國外志工協作平台與實務_2026"]
-            N5["屏東八八社工_2012"]
-            N8["指揮控制與自組織_正反文獻_2026"]
-            N9["數位化平台論文_2019"]
-            N11["林萬億_想想花蓮_2025"]
-            N12["楊永年八八水災體系_2009"]
-            N16["鄭宇君社群媒體公民參與_2014"]
-            N18["馬太鞍溪實際使用工具盤點_2025"]
+            N2["光復家戶清淤官方進度_2025"]
+            N3["呂朝賢集集地震志工_2008"]
+            N4["國外志工協作平台與實務_2026"]
+            N6["屏東八八社工_2012"]
+            N9["指揮控制與自組織_正反文獻_2026"]
+            N10["數位化平台論文_2019"]
+            N12["林萬億_想想花蓮_2025"]
+            N13["楊永年八八水災體系_2009"]
+            N17["鄭宇君社群媒體公民參與_2014"]
+            N19["馬太鞍溪實際使用工具盤點_2025"]
         end
         subgraph MID["中度相關"]
             N1["NCDR脈絡與後續行動_2026"]
-            N6["強韌台灣計畫_2022"]
-            N7["慈濟莫拉克教育援助志工_2013"]
-            N17["鄭阡妤緊急應變制度_2014"]
-            N19["黃盈豪跨文化社工_2010"]
+            N7["強韌台灣計畫_2022"]
+            N8["慈濟莫拉克教育援助志工_2013"]
+            N18["鄭阡妤緊急應變制度_2014"]
+            N20["黃盈豪跨文化社工_2010"]
         end
         subgraph LOW["歸檔"]
-            N4["夏傳位空間正義_2022"]
-            N10["李臨鳳社政體系災害救助_2003"]
-            N14["王銘福派遣軍隊救援_2008"]
-            N15["謝志強災害防救法_2014"]
+            N5["夏傳位空間正義_2022"]
+            N11["李臨鳳社政體系災害救助_2003"]
+            N15["王銘福派遣軍隊救援_2008"]
+            N16["謝志強災害防救法_2014"]
         end
         subgraph PARK["⏸ 平行主題"]
-            N13["災害風險治理_平行主題stub"]
+            N14["災害風險治理_平行主題stub"]
         end
     end
 
     subgraph FW["🧭 knowledge/framework/ — 8 份"]
-        N21["介入窗口_時間軸"]
-        N22["使用者地圖 ⚠️"]
-        N23["問題地圖 ⚠️"]
-        N24["戰略定位 ⚠️"]
-        N25["散兵與組織的門檻辯論"]
-        N26["既有方案地圖"]
-        N27["設計原則 ⚠️"]
-        N28["資訊協作層_系統設計命題 ⚠️"]
+        N23["介入窗口_時間軸"]
+        N24["使用者地圖 ⚠️"]
+        N25["問題地圖 ⚠️"]
+        N26["戰略定位 ⚠️"]
+        N27["散兵與組織的門檻辯論"]
+        N28["既有方案地圖"]
+        N29["設計原則 ⚠️"]
+        N30["資訊協作層_系統設計命題 ⚠️"]
     end
 
-    subgraph FLD["🥾 knowledge/fieldwork/"]
-        N20["馬太鞍溪觀察_basil_2026"]
+    subgraph FLD["🥾 knowledge/fieldwork/ — 2 份"]
+        N21["馬太鞍溪觀察_basil_2026"]
+        N22["馬太鞍溪訪談題綱_情報志工_2026"]
     end
 
     subgraph SYN["🔬 knowledge/synthesis/"]
-        N29["跨文件洞察"]
+        N31["跨文件洞察"]
     end
 
     subgraph OUT["📦 output/ + 決策"]
-        N33["vision"]
+        N35["vision"]
         PRD["prototype/ + spec/"]
         DEC["DECISIONS.md"]
     end
@@ -203,49 +205,51 @@ flowchart TB
     classDef fld fill:#fce7f3,stroke:#db2777
     classDef syn fill:#ede9fe,stroke:#7c3aed
     classDef out fill:#e0e7ff,stroke:#6366f1
-    class N21,N22,N23,N24,N25,N26,N27,N28 fw
-    class N20 fld
-    class N29 syn
-    class N33 out
+    class N23,N24,N25,N26,N27,N28,N29,N30 fw
+    class N21,N22 fld
+    class N31 syn
+    class N35 out
     class PRD,DEC out
-    class N2,N3,N5,N8,N9,N11,N12,N16,N18 high
-    class N1,N6,N7,N17,N19 mid
-    class N4,N10,N14,N15 low
-    class N13 low
+    class N2,N3,N4,N6,N9,N10,N12,N13,N17,N19 high
+    class N1,N7,N8,N18,N20 mid
+    class N5,N11,N15,N16 low
+    class N14 low
 
     click N1 "knowledge/context/NCDR脈絡與後續行動_2026.md" "開啟原檔"
-    click N2 "knowledge/context/呂朝賢集集地震志工_2008.md" "開啟原檔"
-    click N3 "knowledge/context/國外志工協作平台與實務_2026.md" "開啟原檔"
-    click N4 "knowledge/context/夏傳位空間正義_2022.md" "開啟原檔"
-    click N5 "knowledge/context/屏東八八社工_2012.md" "開啟原檔"
-    click N6 "knowledge/context/強韌台灣計畫_2022.md" "開啟原檔"
-    click N7 "knowledge/context/慈濟莫拉克教育援助志工_2013.md" "開啟原檔"
-    click N8 "knowledge/context/指揮控制與自組織_正反文獻_2026.md" "開啟原檔"
-    click N9 "knowledge/context/數位化平台論文_2019.md" "開啟原檔"
-    click N10 "knowledge/context/李臨鳳社政體系災害救助_2003.md" "開啟原檔"
-    click N11 "knowledge/context/林萬億_想想花蓮_2025.md" "開啟原檔"
-    click N12 "knowledge/context/楊永年八八水災體系_2009.md" "開啟原檔"
-    click N13 "knowledge/context/災害風險治理_平行主題stub.md" "開啟原檔"
-    click N14 "knowledge/context/王銘福派遣軍隊救援_2008.md" "開啟原檔"
-    click N15 "knowledge/context/謝志強災害防救法_2014.md" "開啟原檔"
-    click N16 "knowledge/context/鄭宇君社群媒體公民參與_2014.md" "開啟原檔"
-    click N17 "knowledge/context/鄭阡妤緊急應變制度_2014.md" "開啟原檔"
-    click N18 "knowledge/context/馬太鞍溪實際使用工具盤點_2025.md" "開啟原檔"
-    click N19 "knowledge/context/黃盈豪跨文化社工_2010.md" "開啟原檔"
-    click N20 "knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md" "開啟原檔"
-    click N21 "knowledge/framework/介入窗口_時間軸.md" "開啟原檔"
-    click N22 "knowledge/framework/使用者地圖.md" "開啟原檔"
-    click N23 "knowledge/framework/問題地圖.md" "開啟原檔"
-    click N24 "knowledge/framework/戰略定位.md" "開啟原檔"
-    click N25 "knowledge/framework/散兵與組織的門檻辯論.md" "開啟原檔"
-    click N26 "knowledge/framework/既有方案地圖.md" "開啟原檔"
-    click N27 "knowledge/framework/設計原則.md" "開啟原檔"
-    click N28 "knowledge/framework/資訊協作層_系統設計命題.md" "開啟原檔"
-    click N29 "knowledge/synthesis/跨文件洞察.md" "開啟原檔"
-    click N30 "knowledge/文獻處理進度.md" "開啟原檔"
-    click N31 "output/spec/角色輪廓.md" "開啟原檔"
-    click N32 "output/spec/資料模型與狀態機.md" "開啟原檔"
-    click N33 "output/vision.md" "開啟原檔"
+    click N2 "knowledge/context/光復家戶清淤官方進度_2025.md" "開啟原檔"
+    click N3 "knowledge/context/呂朝賢集集地震志工_2008.md" "開啟原檔"
+    click N4 "knowledge/context/國外志工協作平台與實務_2026.md" "開啟原檔"
+    click N5 "knowledge/context/夏傳位空間正義_2022.md" "開啟原檔"
+    click N6 "knowledge/context/屏東八八社工_2012.md" "開啟原檔"
+    click N7 "knowledge/context/強韌台灣計畫_2022.md" "開啟原檔"
+    click N8 "knowledge/context/慈濟莫拉克教育援助志工_2013.md" "開啟原檔"
+    click N9 "knowledge/context/指揮控制與自組織_正反文獻_2026.md" "開啟原檔"
+    click N10 "knowledge/context/數位化平台論文_2019.md" "開啟原檔"
+    click N11 "knowledge/context/李臨鳳社政體系災害救助_2003.md" "開啟原檔"
+    click N12 "knowledge/context/林萬億_想想花蓮_2025.md" "開啟原檔"
+    click N13 "knowledge/context/楊永年八八水災體系_2009.md" "開啟原檔"
+    click N14 "knowledge/context/災害風險治理_平行主題stub.md" "開啟原檔"
+    click N15 "knowledge/context/王銘福派遣軍隊救援_2008.md" "開啟原檔"
+    click N16 "knowledge/context/謝志強災害防救法_2014.md" "開啟原檔"
+    click N17 "knowledge/context/鄭宇君社群媒體公民參與_2014.md" "開啟原檔"
+    click N18 "knowledge/context/鄭阡妤緊急應變制度_2014.md" "開啟原檔"
+    click N19 "knowledge/context/馬太鞍溪實際使用工具盤點_2025.md" "開啟原檔"
+    click N20 "knowledge/context/黃盈豪跨文化社工_2010.md" "開啟原檔"
+    click N21 "knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md" "開啟原檔"
+    click N22 "knowledge/fieldwork/馬太鞍溪訪談題綱_情報志工_2026.md" "開啟原檔"
+    click N23 "knowledge/framework/介入窗口_時間軸.md" "開啟原檔"
+    click N24 "knowledge/framework/使用者地圖.md" "開啟原檔"
+    click N25 "knowledge/framework/問題地圖.md" "開啟原檔"
+    click N26 "knowledge/framework/戰略定位.md" "開啟原檔"
+    click N27 "knowledge/framework/散兵與組織的門檻辯論.md" "開啟原檔"
+    click N28 "knowledge/framework/既有方案地圖.md" "開啟原檔"
+    click N29 "knowledge/framework/設計原則.md" "開啟原檔"
+    click N30 "knowledge/framework/資訊協作層_系統設計命題.md" "開啟原檔"
+    click N31 "knowledge/synthesis/跨文件洞察.md" "開啟原檔"
+    click N32 "knowledge/文獻處理進度.md" "開啟原檔"
+    click N33 "output/spec/角色輪廓.md" "開啟原檔"
+    click N34 "output/spec/資料模型與狀態機.md" "開啟原檔"
+    click N35 "output/vision.md" "開啟原檔"
     click DEC "DECISIONS.md" "開啟原檔"
 ```
 <!-- AUTO:kb-map:end -->
@@ -445,23 +449,24 @@ flowchart LR
 
 ---
 
-## 7. 現在在哪 — 三層與進度（2026-09-23）
+## 7. 現在在哪 — 三層與進度（2026-09-27）
 
-> 迷路時看這張。上層工具裡五個階段由左到右；「角色與需求」是現在的位置。
+> 迷路時看這張。上層工具裡的階段由左到右；「志工頁 mockup」是現在的位置。
 
 ```mermaid
 flowchart TB
     subgraph TOOL["上層 · 工具（現在在這一層）"]
         direction LR
-        R["角色與需求<br/>進行中：志工已定，下一個是居民"] --> S["規格<br/>隨角色修"] --> P1["單機兵推 v0<br/>做完，可玩，當備援"] --> P2["多人兵推<br/>只有規劃；Firebase 已選未執行"] --> W["工作坊<br/>還沒"]
+        R["問題與角色<br/>D-15 問題＝沒有人知道<br/>D-16 家戶同意"] --> S["規格<br/>隨討論修"] --> M["志工頁 mockup<br/>進行中（設計畫布）"] --> P1["單機兵推 v0<br/>可玩；尚未加同意層"] --> P2["多人兵推<br/>只有規劃；Firebase 已選未執行"] --> W["工作坊<br/>還沒"]
     end
     HB["中層 · 手冊<br/>已決定（D-14），未開始；材料在底層"]
-    KB["底層 · 知識庫<br/>20 份文獻＋口述（單一觀察者，待驗證）"]
-    DEC["DECISIONS<br/>D-01～D-14 · U-01～U-14"]
+    KB["底層 · 知識庫<br/>21 份文獻＋口述（單一觀察者，待驗證）"]
+    DEC["DECISIONS<br/>D-01～D-16 · U-01～U-15"]
     TOOL --- HB --- KB
     DEC -.- TOOL
     DEC -.- KB
     click R "output/spec/角色輪廓.md" "開啟原檔"
+    click M "output/prototype/03-志工頁/README.md" "開啟原檔"
     click S "output/spec/資料模型與狀態機.md" "開啟原檔"
     click P1 "output/prototype/01-兵推/README.md" "開啟原檔"
     click P2 "output/prototype/02-兵推多人/README.md" "開啟原檔"
