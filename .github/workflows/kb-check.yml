@@ -28,3 +28,11 @@ jobs:
             echo "::error::INDEX.md / MAP.md / ARCHITECTURE.md 的 AUTO 區塊過期。請在本機跑 python3 scripts/kb.py index 後重新 commit。"
             exit 1
           fi
+
+      # 志工頁的規則測試＝規格的例子（資料模型與狀態機 §7）。測試沒過，程式就不能改（D-18）
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: 志工頁規則測試（規格的例子）
+        run: node --test "output/prototype/03-志工頁/app/rules.test.js"

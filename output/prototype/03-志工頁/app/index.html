@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ResQ 志工頁</title>
+<link rel="stylesheet" href="../../../design-system/components/bundle.css">
+<style>
+  /* 只做淺色（設計系統：太陽下淺底深字最好讀），顏色全部來自設計系統的 token */
+  html, body { margin: 0; background: var(--ground); color: var(--ink); }
+  body { font-family: var(--font-sans); -webkit-text-size-adjust: 100%; }
+  #app { max-width: 440px; margin-inline: auto; background: var(--ground);
+    --screen-min-h: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); }
+  @media (min-width: 520px) { #app { border-inline: var(--stroke-hairline) solid var(--line); } }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="../../../design-system/components/bundle.js"></script>
+<script src="rules.js"></script>
+<script src="store.js"></script>
+<script src="demo-data.js"></script>
+<script src="app.js"></script>
+<script>ResQApp.mount(document.getElementById('app'));</script>
+</body>
+</html>
