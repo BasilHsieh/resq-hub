@@ -19,25 +19,27 @@
 - **#物資管理**（8）— [屏東八八社工_2012](knowledge/context/屏東八八社工_2012.md) · [強韌台灣計畫_2022](knowledge/context/強韌台灣計畫_2022.md) · [指揮控制與自組織_正反文獻_2026](knowledge/context/指揮控制與自組織_正反文獻_2026.md) · [林萬億_想想花蓮_2025](knowledge/context/林萬億_想想花蓮_2025.md) · [楊永年八八水災體系_2009](knowledge/context/楊永年八八水災體系_2009.md) · [災區物資過剩與分配做法_2026](knowledge/context/災區物資過剩與分配做法_2026.md) · [跨文件洞察](knowledge/synthesis/跨文件洞察.md) · [馬太鞍溪訪談題綱_物資_2026](knowledge/fieldwork/馬太鞍溪訪談題綱_物資_2026.md)
 - **#組織間協作**（8）— [NCDR脈絡與後續行動_2026](knowledge/context/NCDR脈絡與後續行動_2026.md) · [強韌台灣計畫_2022](knowledge/context/強韌台灣計畫_2022.md) · [指揮控制與自組織_正反文獻_2026](knowledge/context/指揮控制與自組織_正反文獻_2026.md) · [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md) · [數位化平台論文_2019](knowledge/context/數位化平台論文_2019.md) · [林萬億_想想花蓮_2025](knowledge/context/林萬億_想想花蓮_2025.md) · [楊永年八八水災體系_2009](knowledge/context/楊永年八八水災體系_2009.md) · [鄭阡妤緊急應變制度_2014](knowledge/context/鄭阡妤緊急應變制度_2014.md)
 - **#國際比較**（7）— [呂朝賢集集地震志工_2008](knowledge/context/呂朝賢集集地震志工_2008.md) · [國外志工協作平台與實務_2026](knowledge/context/國外志工協作平台與實務_2026.md) · [指揮控制與自組織_正反文獻_2026](knowledge/context/指揮控制與自組織_正反文獻_2026.md) · [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md) · [既有方案地圖](knowledge/framework/既有方案地圖.md) · [災區物資過剩與分配做法_2026](knowledge/context/災區物資過剩與分配做法_2026.md) · [鄭阡妤緊急應變制度_2014](knowledge/context/鄭阡妤緊急應變制度_2014.md)
-- **#產品設計**（5）— [介入窗口_時間軸](knowledge/framework/介入窗口_時間軸.md) · [角色輪廓](output/spec/角色輪廓.md) · [設計原則](knowledge/framework/設計原則.md) · [資料模型與狀態機](output/spec/資料模型與狀態機.md) · [資訊協作層_系統設計命題](knowledge/framework/資訊協作層_系統設計命題.md)
+- **#產品設計**（6）— [介入窗口_時間軸](knowledge/framework/介入窗口_時間軸.md) · [角色輪廓](output/spec/角色輪廓.md) · [設計原則](knowledge/framework/設計原則.md) · [設計系統](output/spec/設計系統.md) · [資料模型與狀態機](output/spec/資料模型與狀態機.md) · [資訊協作層_系統設計命題](knowledge/framework/資訊協作層_系統設計命題.md)
 - **#經驗**（4）— [屏東八八社工_2012](knowledge/context/屏東八八社工_2012.md) · [慈濟莫拉克教育援助志工_2013](knowledge/context/慈濟莫拉克教育援助志工_2013.md) · [馬太鞍溪觀察_basil_2026](knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md) · [黃盈豪跨文化社工_2010](knowledge/context/黃盈豪跨文化社工_2010.md)
 - **#法規**（3）— [李臨鳳社政體系災害救助_2003](knowledge/context/李臨鳳社政體系災害救助_2003.md) · [王銘福派遣軍隊救援_2008](knowledge/context/王銘福派遣軍隊救援_2008.md) · [謝志強災害防救法_2014](knowledge/context/謝志強災害防救法_2014.md)
 - **#研究問題**（3）— [馬太鞍溪觀察_basil_2026](knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md) · [馬太鞍溪訪談題綱_情報志工_2026](knowledge/fieldwork/馬太鞍溪訪談題綱_情報志工_2026.md) · [馬太鞍溪訪談題綱_物資_2026](knowledge/fieldwork/馬太鞍溪訪談題綱_物資_2026.md)
+- **#規格**（3）— [角色輪廓](output/spec/角色輪廓.md) · [設計系統](output/spec/設計系統.md) · [資料模型與狀態機](output/spec/資料模型與狀態機.md)
 - **#使用者**（2）— [使用者地圖](knowledge/framework/使用者地圖.md) · [角色輪廓](output/spec/角色輪廓.md)
 - **#定位**（2）— [vision](output/vision.md) · [戰略定位](knowledge/framework/戰略定位.md)
 - **#戰略**（2）— [vision](output/vision.md) · [戰略定位](knowledge/framework/戰略定位.md)
-- **#規格**（2）— [角色輪廓](output/spec/角色輪廓.md) · [資料模型與狀態機](output/spec/資料模型與狀態機.md)
 - **#NGO案例**（1）— [慈濟莫拉克教育援助志工_2013](knowledge/context/慈濟莫拉克教育援助志工_2013.md)
 - **#vision**（1）— [vision](output/vision.md)
 - **#原則**（1）— [設計原則](knowledge/framework/設計原則.md)
 - **#問題定義**（1）— [問題地圖](knowledge/framework/問題地圖.md)
 - **#工程倫理**（1）— [災害風險治理_平行主題stub](knowledge/context/災害風險治理_平行主題stub.md)
 - **#平行主題**（1）— [災害風險治理_平行主題stub](knowledge/context/災害風險治理_平行主題stub.md)
+- **#志工頁**（1）— [設計系統](output/spec/設計系統.md)
 - **#既有方案**（1）— [既有方案地圖](knowledge/framework/既有方案地圖.md)
 - **#現場工具**（1）— [馬太鞍溪實際使用工具盤點_2025](knowledge/context/馬太鞍溪實際使用工具盤點_2025.md)
 - **#索引**（1）— [文獻處理進度](knowledge/文獻處理進度.md)
 - **#綜合**（1）— [跨文件洞察](knowledge/synthesis/跨文件洞察.md)
 - **#觀察**（1）— [馬太鞍溪觀察_basil_2026](knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md)
+- **#設計系統**（1）— [設計系統](output/spec/設計系統.md)
 - **#資料模型**（1）— [資料模型與狀態機](output/spec/資料模型與狀態機.md)
 - **#風險治理**（1）— [災害風險治理_平行主題stub](knowledge/context/災害風險治理_平行主題stub.md)
 <!-- AUTO:tag-index:end -->
@@ -190,10 +192,14 @@
 | [角色輪廓](output/spec/角色輪廓.md) | **依據** | [使用者地圖](knowledge/framework/使用者地圖.md) | 人群分類與痛點、誘因的來源 |
 | [角色輪廓](output/spec/角色輪廓.md) | **依據** | [資訊協作層_系統設計命題](knowledge/framework/資訊協作層_系統設計命題.md) | 共同視野、前一批志工、情報志工的原始命題 |
 | [角色輪廓](output/spec/角色輪廓.md) | **延伸** | [資料模型與狀態機](output/spec/資料模型與狀態機.md) | 角色的裝置與介面約束在其 §5 |
+| [角色輪廓](output/spec/角色輪廓.md) | **前身** | [設計系統](output/spec/設計系統.md) | §1b 的設計基準與 mockup 收斂成一套元件與規則（D-17） |
+| [設計系統](output/spec/設計系統.md) | **延伸** | [角色輪廓](output/spec/角色輪廓.md) | 把 §1b 志工頁的設計基準與 mockup 收斂成一套可重用的元件與規則 |
+| [設計系統](output/spec/設計系統.md) | **依據** | [資料模型與狀態機](output/spec/資料模型與狀態機.md) | §0d 同意與需求的顯示規則、§5 裝置條件（太陽下、戴手套、網路不穩）是這套系統的規則來源 |
 | [資料模型與狀態機](output/spec/資料模型與狀態機.md) | **依據** | [資訊協作層_系統設計命題](knowledge/framework/資訊協作層_系統設計命題.md) | 三態覆蓋地圖、可信度靠更新頻率 |
 | [資料模型與狀態機](output/spec/資料模型與狀態機.md) | **依據** | [vision](output/vision.md) | 範圍策略與介入窗口 |
 | [資料模型與狀態機](output/spec/資料模型與狀態機.md) | **依據** | [光復家戶清淤官方進度_2025](knowledge/context/光復家戶清淤官方進度_2025.md) | 官方的分母會剔除、完成不會過期：名單不能刪（§0c、例 10） |
 | [資料模型與狀態機](output/spec/資料模型與狀態機.md) | **待修訂** | [災區物資過剩與分配做法_2026](knowledge/context/災區物資過剩與分配做法_2026.md) | §0b「中午要 50 個便當跟人力同一套」不成立：物資不會自己走、承諾沒有約束力；怎麼改待 Basil 決定 |
+| [資料模型與狀態機](output/spec/資料模型與狀態機.md) | **支撐** | [設計系統](output/spec/設計系統.md) | §0d 的顯示規則與 §5 的裝置條件是志工頁設計系統的規則來源 |
 | [vision](output/vision.md) | **依據** | [散兵與組織的門檻辯論](knowledge/framework/散兵與組織的門檻辯論.md) | 立場一節的完整論證（Dynes 光譜、能力×可協調性、林鴻森案） |
 | [vision](output/vision.md) | **依據** | [資訊協作層_系統設計命題](knowledge/framework/資訊協作層_系統設計命題.md) | 範圍策略一節的系統設計 |
 | [vision](output/vision.md) | **依據** | [介入窗口_時間軸](knowledge/framework/介入窗口_時間軸.md) | 介入窗口一節 |

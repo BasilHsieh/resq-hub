@@ -182,7 +182,7 @@ flowchart TB
     end
 
     subgraph OUT["📦 output/ + 決策"]
-        N37["vision"]
+        N38["vision"]
         PRD["prototype/ + spec/"]
         DEC["DECISIONS.md"]
     end
@@ -210,7 +210,7 @@ flowchart TB
     class N25,N26,N27,N28,N29,N30,N31,N32 fw
     class N22,N23,N24 fld
     class N33 syn
-    class N37 out
+    class N38 out
     class PRD,DEC out
     class N2,N3,N4,N6,N9,N10,N12,N13,N14,N18,N20 high
     class N1,N7,N8,N19,N21 mid
@@ -252,8 +252,9 @@ flowchart TB
     click N33 "knowledge/synthesis/跨文件洞察.md" "開啟原檔"
     click N34 "knowledge/文獻處理進度.md" "開啟原檔"
     click N35 "output/spec/角色輪廓.md" "開啟原檔"
-    click N36 "output/spec/資料模型與狀態機.md" "開啟原檔"
-    click N37 "output/vision.md" "開啟原檔"
+    click N36 "output/spec/設計系統.md" "開啟原檔"
+    click N37 "output/spec/資料模型與狀態機.md" "開啟原檔"
+    click N38 "output/vision.md" "開啟原檔"
     click DEC "DECISIONS.md" "開啟原檔"
 ```
 <!-- AUTO:kb-map:end -->
@@ -461,11 +462,11 @@ flowchart LR
 flowchart TB
     subgraph TOOL["上層 · 工具（現在在這一層）"]
         direction LR
-        R["問題與角色<br/>D-15 問題＝沒有人知道<br/>D-16 家戶同意"] --> S["規格<br/>隨討論修"] --> M["志工頁 mockup<br/>進行中（設計畫布）"] --> P1["單機兵推 v0<br/>可玩；尚未加同意層"] --> P2["多人兵推<br/>只有規劃；Firebase 已選未執行"] --> W["工作坊<br/>還沒"]
+        R["問題與角色<br/>D-15 問題＝沒有人知道<br/>D-16 家戶同意"] --> S["規格<br/>隨討論修"] --> M["志工頁 mockup＋設計系統<br/>進行中（設計畫布、D-17）"] --> P1["單機兵推 v0<br/>可玩；尚未加同意層"] --> P2["多人兵推<br/>只有規劃；Firebase 已選未執行"] --> W["工作坊<br/>還沒"]
     end
     HB["中層 · 手冊<br/>已決定（D-14），未開始；材料在底層"]
     KB["底層 · 知識庫<br/>21 份文獻＋口述（單一觀察者，待驗證）"]
-    DEC["DECISIONS<br/>D-01～D-16 · U-01～U-16"]
+    DEC["DECISIONS<br/>D-01～D-17 · U-01～U-16"]
     TOOL --- HB --- KB
     DEC -.- TOOL
     DEC -.- KB
