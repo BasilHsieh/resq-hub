@@ -1,0 +1,19 @@
+<!-- @dsCard group="回報" height=230 width=390 subtitle="還要幾個人" -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>CountPicker — preview</title>
+<style>html, body { margin: 0; background: var(--ground); }</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var R = window.ResQ, h = React.createElement;
+ReactDOM.createRoot(document.getElementById('root')).render(
+
+h('div', { className: 'rq-demo' }, h(R.CountPicker, null))
+);
+</script>
+</body>
+</html>

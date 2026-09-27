@@ -1,0 +1,21 @@
+<!-- @dsCard group="回報" height=200 width=390 subtitle="已記下" -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Notice — preview</title>
+<style>html, body { margin: 0; background: var(--ground); }</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var R = window.ResQ, h = React.createElement;
+ReactDOM.createRoot(document.getElementById('root')).render(
+
+h('div', { className: 'rq-demo' },
+  h(R.Notice, null, '已記下：屋主已同意。知道需不需要人的話，順便更新。'),
+  h(R.Notice, null, '已記下。跟屋主說一聲：之後需要幫忙，跟任何志工說就可以。'))
+);
+</script>
+</body>
+</html>

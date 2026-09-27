@@ -1,0 +1,23 @@
+<!-- @dsCard group="狀態" height=150 width=390 subtitle="最後更新 HH:MM，只有一種寫法" -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>UpdatedAt — preview</title>
+<style>html, body { margin: 0; background: var(--ground); }</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var R = window.ResQ, h = React.createElement;
+ReactDOM.createRoot(document.getElementById('root')).render(
+
+h('div', { className: 'rq-demo' },
+  h(R.UpdatedAt, { at: '14:26' }),
+  h(R.UpdatedAt, { at: '昨天 08:40' }),
+  h(R.UpdatedAt, { at: '9/24 08:40' }),
+  h(R.UpdatedAt, { at: null }))
+);
+</script>
+</body>
+</html>

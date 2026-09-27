@@ -7,3 +7,6 @@ session-handoff.md
 .obsidian/*
 !.obsidian/graph.json
 .venv*/
+__pycache__/
+node_modules/
+output/prototype/03-志工頁/mockup/out/

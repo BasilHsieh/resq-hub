@@ -1,0 +1,26 @@
+<!-- @dsCard group="回報" height=470 width=390 subtitle="主要／次要／虛線／連結" -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Button — preview</title>
+<style>html, body { margin: 0; background: var(--ground); }</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var R = window.ResQ, h = React.createElement;
+ReactDOM.createRoot(document.getElementById('root')).render(
+
+h('div', { className: 'rq-demo' },
+  h(R.Button, { variant: 'primary', icon: 'check', sub: '屋主說好、裡面有人在做，或帶隊的叫你進去' }, '已同意'),
+  h(R.Button, { variant: 'tonal', icon: 'close' }, '不同意'),
+  h(R.Button, { variant: 'dashed', icon: 'clock', sub: '沒人應門，或屋主還在考慮' }, '還沒問到'),
+  h('div', { className: 'rq-row__actions' },
+    h(R.Button, { variant: 'tonal', size: 'md', icon: 'directions' }, '怎麼走'),
+    h(R.Button, { variant: 'primary', size: 'md', icon: 'report' }, '回報這一戶')),
+  h(R.Button, { variant: 'link' }, '回到清單'))
+);
+</script>
+</body>
+</html>
