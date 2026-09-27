@@ -1,0 +1,25 @@
+<!-- @dsCard group="狀態" height=96 width=390 subtitle="缺 N 人／人夠了／清完了／需求不明" -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>NeedChip — preview</title>
+<style>html, body { margin: 0; background: var(--ground); }</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var R = window.ResQ, h = React.createElement;
+ReactDOM.createRoot(document.getElementById('root')).render(
+
+h('div', { className: 'rq-demo' },
+  h('div', { className: 'rq-demo-row' },
+    h(R.NeedChip, { status: 'need', count: 5 }),
+    h(R.NeedChip, { status: 'need', count: '10+' }),
+    h(R.NeedChip, { status: 'enough' }),
+    h(R.NeedChip, { status: 'done' }),
+    h(R.NeedChip, { status: 'unknown' })))
+);
+</script>
+</body>
+</html>

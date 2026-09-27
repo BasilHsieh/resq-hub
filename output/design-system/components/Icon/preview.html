@@ -1,0 +1,23 @@
+<!-- @dsCard group="外框" height=80 width=390 subtitle="十一個圖示，一定跟字一起" -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Icon — preview</title>
+<style>html, body { margin: 0; background: var(--ground); }</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var R = window.ResQ, h = React.createElement;
+ReactDOM.createRoot(document.getElementById('root')).render(
+
+h('div', { className: 'rq-demo' },
+  h('div', { className: 'rq-demo-row' },
+    ['back', 'check', 'close', 'clock', 'walk', 'directions', 'report', 'user-plus', 'users', 'info', 'lock'].map(function (n) {
+      return h(R.Icon, { key: n, name: n, label: n });
+    })))
+);
+</script>
+</body>
+</html>

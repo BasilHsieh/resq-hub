@@ -1,0 +1,26 @@
+<!-- @dsCard group="清單" height=360 width=390 subtitle="四個分類＋數量，點一下切換" -->
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>CategoryGrid — preview</title>
+<style>html, body { margin: 0; background: var(--ground); }</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var R = window.ResQ, h = React.createElement;
+ReactDOM.createRoot(document.getElementById('root')).render(
+
+(function () {
+  function Demo() {
+    var s = React.useState('help');
+    return h('div', { className: 'rq-demo' },
+      h(R.CategoryGrid, { value: s[0], onSelect: s[1], counts: { help: 4, ask: 3, declined: 1, done: 3 } }));
+  }
+  return h(Demo);
+})()
+);
+</script>
+</body>
+</html>

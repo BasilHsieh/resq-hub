@@ -60,6 +60,7 @@ python3 scripts/kb.py all   # 重新生成索引 + 一致性檢查
 - Basil 是 builder：帳號、後台、部署握在他手上；不寫程式、不下 git。Claude 是工程能力。
 - 給 Basil 看的東西：決定 ≤5 行附建議；理解用圖；校對一次 ≤5 條；**畫面之前先講「誰在看、他在哪、要決定什麼」**，他點頭才畫。看不懂的處方是對齊前提，不是更具體。
 - **UI/UX：Claude 當 PM 兼設計，Basil 當去過現場的顧問**（D-13 補）。畫面之前先問現場發生過什麼（一次 ≤4 題、附選項），畫面細節由 Claude 決定並寫下理由；Basil 只在與現場不符時否決，產品方向仍由他決定。
+- **畫面一律用設計系統**（D-17）：`output/design-system/`，以 repo 為準、artifact 是給人看的版本。改 token 只改 `tokens.json`（換主色用 `scripts/ds.py palette`），`kb.py` 會生成 bundle.css 的預設值並檢查漂移。mockup 的 14 張由 `output/prototype/03-志工頁/mockup/build.js` 產生，改畫面改它，不在畫布上手改。
 - 可逆的用工具先跑，不可逆的等證據。Basil 的口述標「單一觀察者、待驗證」，不升級成定論，也不採媒體框架。
 
 ## 收工

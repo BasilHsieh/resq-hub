@@ -15,6 +15,8 @@ import re
 import sys
 from pathlib import Path
 
+import ds  # 同目錄：設計系統的 sync／check
+
 ROOT = Path(__file__).resolve().parent.parent
 
 # 掃描範圍：知識文件與對外輸出
@@ -47,6 +49,8 @@ VALID_RELATIONS = {
 }
 
 GITIGNORED_PREFIXES = ("raw/", "archive/", "../raw/", "../archive/")
+# 安裝下來的套件（例如 mockup 產生器的 node_modules）不是知識文件
+SKIP_PARTS = {"node_modules"}
 
 FM_RE = re.compile(r"\A---\r?\n(.*?)\r?\n---\r?\n", re.S)
 LINK_RE = re.compile(r"\[([^\]]*)\]\(([^)\s]+?)(?:\s+\"[^\"]*\")?\)")
@@ -161,7 +165,7 @@ def collect_docs() -> list[Doc]:
     docs = []
     for d in SCAN_DIRS:
         for p in sorted((ROOT / d).rglob("*.md")):
-            if p.name == "README.md":
+            if p.name == "README.md" or SKIP_PARTS & set(p.parts):
                 continue
             docs.append(Doc(p))
     return docs
@@ -172,7 +176,8 @@ def collect_all_md() -> list[Doc]:
     docs = collect_docs()
     for d in SCAN_DIRS:
         for p in sorted((ROOT / d).rglob("README.md")):
-            docs.append(Doc(p))
+            if not SKIP_PARTS & set(p.parts):
+                docs.append(Doc(p))
     for name in ROOT_DOCS:
         p = ROOT / name
         if p.exists():
@@ -370,6 +375,8 @@ def cmd_index() -> int:
     for bname in blocks:
         if bname not in written:
             print(f"⚠️  沒有任何 root 文件含有 AUTO:{bname} 標記，該區塊未生成")
+    for line in ds.sync():  # 設計系統 bundle.css 的 AUTO 區塊
+        print(line)
     print(f"— 掃描 {len(docs)} 份文件 —")
     return 0
 
@@ -454,6 +461,11 @@ def cmd_check() -> int:
         if rp:
             n = len(rp) if isinstance(rp, list) else 1
             warns.append(f"{d.rel}：有 {n} 筆未處理的 revision_pending")
+
+    # 5. 設計系統（output/design-system/）：token、預設值、元件說明與預覽
+    ds_errors, ds_warns = ds.check()
+    errors += [f"設計系統：{e}" for e in ds_errors]
+    warns += [f"設計系統：{w}" for w in ds_warns]
 
     for e in errors:
         print(f"❌ {e}")

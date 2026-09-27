@@ -13,6 +13,7 @@ output/
   vision.md        對外立場與方向（唯一的散文式文件）
   prototype/       可跑的 HTML mockup ← 交付物本體
   spec/            附在 mockup 旁的簡短說明，不是獨立規格書
+  design-system/   志工頁的設計系統：token、元件、使用規則（D-17）
 ```
 
 ## `prototype/`
@@ -35,7 +36,8 @@ output/
 
 - `prototype/01-兵推/`：單機兵推 v0，可玩，當多人版的備援。
 - `prototype/02-兵推多人/`：只有規劃（D-10、D-11）。
-- `prototype/03-志工頁/`：志工頁的可點原型，已發布成網頁給手機試（D-15、D-16）。
-- `spec/`：資料模型與狀態機、角色輪廓。
+- `prototype/03-志工頁/`：志工頁的 mockup（設計畫布）與產生它的程式（D-15、D-16、D-17）；9/26 的舊版可點原型已封存。
+- `spec/`：資料模型與狀態機、角色輪廓、設計系統的決定紀錄。
+- `design-system/`：志工頁的設計系統（D-17）。畫面一律從這裡取元件；改 token 只改 `tokens.json`。
 
 問題定義見 [DECISIONS.md](../DECISIONS.md) D-15（沒有人知道；核心是名單＋公開「沒人去過」）。
