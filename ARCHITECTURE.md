@@ -465,7 +465,7 @@ flowchart TB
     end
     HB["中層 · 手冊<br/>已決定（D-14），未開始；材料在底層"]
     KB["底層 · 知識庫<br/>21 份文獻＋口述（單一觀察者，待驗證）"]
-    DEC["DECISIONS<br/>D-01～D-16 · U-01～U-15"]
+    DEC["DECISIONS<br/>D-01～D-16 · U-01～U-16"]
     TOOL --- HB --- KB
     DEC -.- TOOL
     DEC -.- KB
