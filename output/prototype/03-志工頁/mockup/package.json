@@ -1,7 +1,0 @@
-{
-  "name": "resq-hub-mockup",
-  "private": true,
-  "description": "志工頁 mockup（設計畫布）的產生器：用設計系統的元件組出 14 張畫面",
-  "scripts": { "build": "node build.js" },
-  "dependencies": { "react": "18.3.1", "react-dom": "18.3.1" }
-}

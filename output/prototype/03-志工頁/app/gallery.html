@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>志工頁所有狀態</title>
+<link rel="stylesheet" href="../../../design-system/components/bundle.css">
+<style>
+  html, body { margin: 0; background: var(--tonal); color: var(--ink); }
+  body { font-family: var(--font-sans); }
+  header { display: flex; flex-direction: column; gap: var(--space-1); padding: var(--space-6) var(--space-6) 0; max-width: 72ch; }
+  header h1 { margin: 0; }
+  header p { margin: 0; color: var(--ink-2); }
+  @media (max-width: 480px) { header { padding-inline: var(--space-4); } }
+</style>
+</head>
+<body>
+<header>
+  <h1 class="rq-t-display">志工頁：所有狀態一次攤開</h1>
+  <p class="rq-t-hint">每一格都是互動版的同一份程式畫的，只換資料和狀態；資料全部是編的。<a class="rq-t-hint" href="index.html" style="color: var(--action)">回到互動版</a></p>
+</header>
+<div id="gallery"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="../../../design-system/components/bundle.js"></script>
+<script src="rules.js"></script>
+<script src="store.js"></script>
+<script src="demo-data.js"></script>
+<script src="app.js"></script>
+<script src="gallery.js"></script>
+<script>ResQGallery.mount(document.getElementById('gallery'));</script>
+</body>
+</html>
