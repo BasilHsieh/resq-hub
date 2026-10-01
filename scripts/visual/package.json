@@ -1,0 +1,14 @@
+{
+  "name": "resq-visual",
+  "private": true,
+  "description": "畫面截圖比對：把「所有狀態一次攤開」每一格截圖，跟 repo 裡的基準圖比（D-19）",
+  "scripts": {
+    "test": "playwright test",
+    "update": "playwright test --update-snapshots"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}

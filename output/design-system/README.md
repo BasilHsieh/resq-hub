@@ -96,3 +96,4 @@
 - 可以按的元件都收 `href`（mockup 串頁用）或 `onClick`（真的 app 用）。
 - `bundle.css` 最上面帶一份預設值（specificity 0）：沒載入 tokens.css 的地方照樣畫得出來；有載入時一律以 tokens.css 為準。
 - 元件上的中文字是規格的一部分（D-16），不開放改字。要改字，先改規格。
+- 改了元件或 token，用到它的畫面會跟著變：志工頁每一格的基準圖要在同一個 PR 一起更新，否則自動截圖比對過不了（D-19；做法見 [03-志工頁 README](../prototype/03-志工頁/README.md) 第 5 節）。

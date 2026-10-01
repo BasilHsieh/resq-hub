@@ -48,7 +48,7 @@
 | [INDEX.md](INDEX.md) | 知識庫索引與導覽入口——**從這裡開始** |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | 8 張 mermaid 圖，一頁看完整個專案 |
 | [DECISIONS.md](DECISIONS.md) | 決定了什麼、否決了什麼、還卡在哪 |
-| `knowledge/` | 20 份文獻整理、第一手田野、跨文件綜合、核心框架 |
+| `knowledge/` | 21 份文獻整理、第一手田野、跨文件綜合、核心框架 |
 | `output/` | 交付層：對外 Vision、HTML prototype、規格 |
 
 ---
@@ -69,12 +69,12 @@
 
 🧪 **定位已收斂，規格與第一個可玩的 prototype 已上手。**
 
-- ✅ 20 份文獻處理完成、跨文件洞察成形
+- ✅ 21 份文獻處理完成、跨文件洞察成形
 - ✅ v1 定位與介入窗口已收斂（見 DECISIONS D-01 ~ D-05）
 - ✅ 問題定義：需要幫忙的地方「沒有人知道」；核心是家戶名單＋公開「沒人去過」（D-15）；進門先取得同意（D-16）
 - ⏳ Vision 的 North Star 與 v1 場景待定稿
 - ✅ `output/prototype/01-兵推/`：可玩的單機兵推 v0（雙擊即開，九條規則測試）；尚未加入同意這一層
-- ✅ `output/prototype/03-志工頁/`：志工頁互動版（D-18），可以點、規則有測試，線上版 https://claude.ai/artifact/VMPrFeT1KRDkLeGnv1U35N ；畫布 mockup 與 9/26 舊版可點原型已封存
+- ✅ `output/prototype/03-志工頁/`：志工頁互動版（D-18），可以點、規則有測試、每一格畫面有基準圖並在每個 PR 自動截圖比對（D-19），線上版 https://claude.ai/artifact/VMPrFeT1KRDkLeGnv1U35N ；畫布 mockup 與 9/26 舊版可點原型已封存
 - ✅ `output/design-system/`：志工頁的設計系統——「清楚大膽」的長相、主色靛、13 個元件與使用規則；mockup 每一張都用它的元件組成（D-17）
 - ⏳ `output/spec/`：資料模型與狀態機、角色輪廓——隨討論持續修
 - ⏳ `output/prototype/02-兵推多人/`：只有規劃；後端已選 Firebase（D-11），未執行

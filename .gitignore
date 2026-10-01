@@ -9,3 +9,7 @@ session-handoff.md
 .venv*/
 __pycache__/
 node_modules/
+# 畫面截圖比對（scripts/visual）：比對結果與 Mac 上自己看的基準圖不進 repo，進 repo 的只有 screens/linux/
+scripts/visual/test-results/
+scripts/visual/playwright-report/
+output/prototype/*/screens/darwin/
