@@ -48,7 +48,7 @@
 | [INDEX.md](INDEX.md) | 知識庫索引與導覽入口——**從這裡開始** |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | 8 張 mermaid 圖，一頁看完整個專案 |
 | [DECISIONS.md](DECISIONS.md) | 決定了什麼、否決了什麼、還卡在哪 |
-| `knowledge/` | 20 份文獻整理、第一手田野、跨文件綜合、核心框架 |
+| `knowledge/` | 21 份文獻整理、第一手田野、跨文件綜合、核心框架 |
 | `output/` | 交付層：對外 Vision、HTML prototype、規格 |
 
 ---
@@ -69,7 +69,7 @@
 
 🧪 **定位已收斂，規格與第一個可玩的 prototype 已上手。**
 
-- ✅ 20 份文獻處理完成、跨文件洞察成形
+- ✅ 21 份文獻處理完成、跨文件洞察成形
 - ✅ v1 定位與介入窗口已收斂（見 DECISIONS D-01 ~ D-05）
 - ✅ 問題定義：需要幫忙的地方「沒有人知道」；核心是家戶名單＋公開「沒人去過」（D-15）；進門先取得同意（D-16）
 - ⏳ Vision 的 North Star 與 v1 場景待定稿
