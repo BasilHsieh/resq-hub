@@ -36,3 +36,59 @@ jobs:
 
       - name: 志工頁規則測試（規格的例子）
         run: node --test "output/prototype/03-志工頁/app/rules.test.js"
+
+  # 畫面比對（D-19）：「所有狀態一次攤開」每一格截一張圖，跟 repo 裡的基準圖（screens/linux/）比。
+  # 規則有測試守著，這一關守的是長相：畫面變了卻沒有一起更新基準圖，PR 就過不了。
+  # 基準圖一定要用這台機器跑出來的（Mac 的字型不同），做法見 output/prototype/03-志工頁/README.md 第 5 節。
+  screens:
+    name: 畫面比對（所有狀態一次攤開）
+    runs-on: ubuntu-24.04   # 固定版本：機器的字型或畫法一換，基準圖會全部跟著變
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: scripts/visual/package-lock.json
+
+      - name: 固定字型（英數 Roboto、中文思源黑體，也就是 Android 手機上的樣子）
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends fonts-roboto fonts-noto-cjk
+          mkdir -p ~/.config/fontconfig
+          cp scripts/visual/fonts.conf ~/.config/fontconfig/fonts.conf
+          fc-cache -f
+          fc-match sans-serif; fc-match system-ui; fc-match "Noto Sans CJK TC"
+
+      - name: 安裝截圖工具
+        working-directory: scripts/visual
+        run: |
+          npm ci
+          npx playwright install --with-deps --only-shell chromium
+
+      - name: 比對
+        working-directory: scripts/visual
+        run: npx playwright test
+
+      - name: 不一樣時：留下前後對照
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screens-diff
+          path: scripts/visual/test-results
+          if-no-files-found: ignore
+
+      - name: 不一樣時：照現在的畫面產生一份新的基準圖
+        if: failure()
+        working-directory: scripts/visual
+        run: npx playwright test --update-snapshots
+
+      - name: 不一樣時：留下新的基準圖（確認要改，才把它放回 repo）
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screens-linux
+          path: output/prototype/*/screens/linux
+          if-no-files-found: error
