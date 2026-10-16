@@ -1,13 +1,13 @@
 ---
 name: wrap-up
-description: ResQ Hub 的 session 收尾流程——把這次對話產生的有價值結論寫進知識庫、維護文件之間的關聯、跑一致性檢查、commit 並開 PR（不 merge）。當 Basil 說「收工」「可以了」「今天到這」「開 PR」「幫我 commit」，或一段實質工作告一段落時使用。
+description: ResQ Hub 的 session 收尾流程——把這次對話產生的有價值結論寫進知識庫、維護文件之間的關聯、跑一致性檢查、commit 並開 PR（預設不 merge；Basil 明確說「你 merge」且檢查都過了才 merge）。當 Basil 說「收工」「可以了」「今天到這」「開 PR」「幫我 commit」，或一段實質工作告一段落時使用。
 ---
 
 # 收工流程
 
-把一次對話的成果**固化進知識庫**，然後開 PR 交給 Basil merge。
+把一次對話的成果**固化進知識庫**，然後開 PR；要不要 merge 由 Basil 決定。
 
-**鐵則**：只開 PR，**絕不 merge**。merge 永遠是 Basil 的動作。
+**鐵則**：預設只開 PR，**不 merge**。要不要 merge 是 Basil 的決定：只有他明確說「你 merge」，而且 PR 上的檢查全部通過，Claude 才 merge（D-13 補）。檢查沒過就回報，不 merge。
 
 ---
 
@@ -116,7 +116,16 @@ gh pr create --title "<標題>" --body "<內容>"
 
 PR body 要寫：**做了什麼／為什麼／有哪些需要 Basil 判斷的地方**。
 
-最後回報 PR 連結。**不要 merge。**
+最後回報 PR 連結。**預設不 merge。**
+
+Basil 明確說「你 merge」時：
+
+```bash
+gh pr checks <PR 編號>          # 全部 pass 才往下；有失敗或還在跑，就回報，不 merge
+gh pr merge <PR 編號> --merge   # 跟過去的 PR 一樣留 merge commit
+```
+
+merge 完回報 merge commit。
 
 ---
 
@@ -128,4 +137,4 @@ PR body 要寫：**做了什麼／為什麼／有哪些需要 Basil 判斷的地
 - [ ] 所有 ⚠️ 逐條看過，該修的修了、該保留的知道為什麼保留
 - [ ] `output/vision.md` 與 `README.md` 跟最新結論一致
 - [ ] `DECISIONS.md` 反映最新狀態
-- [ ] PR 已開，**沒有 merge**
+- [ ] PR 已開；Basil 沒有明確說「你 merge」就**沒有 merge**
