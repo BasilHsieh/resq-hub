@@ -36,6 +36,8 @@ frontmatter 必填 `tags` `date` `summary` `priority`；`knowledge/context/` 另
 - `knowledge/framework/` — `主題.md`，不帶年份（會持續修訂）
 - `knowledge/fieldwork/` — `地點事件_人_年.md`
 
+**參考案例**（別人做出來的工具、平台、網站，不限災害領域）：拆完放 `knowledge/context/`，tag 加 `參考案例`；清單由 `MAP.md` 的 Tag 索引自動產生，不另開資料夾（D-06 補）。
+
 ---
 
 ## 知識庫的兩條結構鐵則
