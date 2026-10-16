@@ -71,6 +71,6 @@ python3 scripts/kb.py all   # 重新生成索引 + 一致性檢查
 ## 收工
 
 Basil 說「收工」「可以了」或一段工作告一段落時，跑 `.claude/skills/wrap-up/`（`/wrap-up`）。
-它涵蓋：固化本 session 的結論 → 維護關聯 → 一致性檢查 → 矛盾偵測 → commit → **開 PR（絕不 merge）**。
+它涵蓋：固化本 session 的結論 → 維護關聯 → 一致性檢查 → 矛盾偵測 → commit → **開 PR**。預設不 merge；Basil 明確說「你 merge」、而且 PR 上的檢查都通過了，Claude 才 merge。
 
 知識庫階段直接對 `main` 開 PR，不需要 Basil 下任何 git 指令。
