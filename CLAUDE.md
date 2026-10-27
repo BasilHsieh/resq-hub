@@ -38,6 +38,8 @@ frontmatter 必填 `tags` `date` `summary` `priority`；`knowledge/context/` 另
 
 **參考案例**（別人做出來的工具、平台、網站，不限災害領域）：拆完放 `knowledge/context/`，tag 加 `參考案例`；清單由 `MAP.md` 的 Tag 索引自動產生，不另開資料夾（D-06 補）。
 
+**研究清單**（長期研究，D-20）：`knowledge/研究清單.md`，一項一個問題，掛在它要回答的 D-XX／U-XX、手冊或工具上。Basil 丟的來源（連結貼給你說「丟進研究清單」、檔案放 `raw/收件匣/`）先進收件匣、優先處理，不用問他為什麼給。Basil 說「跑研究」或額度還有剩時，照 `.claude/skills/research/` 做：一次一題、每條標證據等級、另派 agent 核對、最後寫「這改變了什麼」五行，開 PR 不 merge。
+
 ---
 
 ## 知識庫的兩條結構鐵則
