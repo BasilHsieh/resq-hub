@@ -192,7 +192,7 @@ flowchart TB
     end
 
     subgraph OUT["📦 output/ + 決策"]
-        N49["vision"]
+        N49["vision ⚠️"]
         PRD["prototype/ + spec/"]
         DEC["DECISIONS.md"]
     end

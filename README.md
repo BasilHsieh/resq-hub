@@ -48,7 +48,7 @@
 | [INDEX.md](INDEX.md) | 知識庫索引與導覽入口——**從這裡開始** |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | 8 張 mermaid 圖，一頁看完整個專案 |
 | [DECISIONS.md](DECISIONS.md) | 決定了什麼、否決了什麼、還卡在哪 |
-| `knowledge/` | 21 份文獻整理、第一手田野、跨文件綜合、核心框架 |
+| `knowledge/` | 文獻整理（含研究清單的網路研究）、第一手田野、跨文件綜合、核心框架 |
 | `output/` | 交付層：對外 Vision、HTML prototype、規格 |
 
 ---
