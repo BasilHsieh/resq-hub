@@ -127,7 +127,7 @@ flowchart TB
         RP["PDF 與筆記原始檔"]
     end
 
-    subgraph CTX["📚 knowledge/context/ — 36 份文獻"]
+    subgraph CTX["📚 knowledge/context/ — 37 份文獻"]
         direction TB
         subgraph HIGH["⭐ 高度相關（v1 必讀）"]
             N3["光復家戶清淤官方進度_2025"]
@@ -150,10 +150,11 @@ flowchart TB
             N25["林萬億_想想花蓮_2025"]
             N26["楊永年八八水災體系_2009"]
             N27["災區物資過剩與分配做法_2026"]
-            N30["能登自粛與事前登錄_2026"]
-            N31["自發性志工研究全貌_2026"]
-            N33["鄭宇君社群媒體公民參與_2014"]
-            N35["馬太鞍溪實際使用工具盤點_2025"]
+            N30["稀缺時公開與閘門_2026"]
+            N31["能登自粛與事前登錄_2026"]
+            N32["自發性志工研究全貌_2026"]
+            N34["鄭宇君社群媒體公民參與_2014"]
+            N36["馬太鞍溪實際使用工具盤點_2025"]
         end
         subgraph MID["中度相關"]
             N1["NCDR脈絡與後續行動_2026"]
@@ -161,14 +162,14 @@ flowchart TB
             N11["大洋流車掃地圖_2026"]
             N15["強韌台灣計畫_2022"]
             N20["慈濟莫拉克教育援助志工_2013"]
-            N34["鄭阡妤緊急應變制度_2014"]
-            N36["黃盈豪跨文化社工_2010"]
+            N35["鄭阡妤緊急應變制度_2014"]
+            N37["黃盈豪跨文化社工_2010"]
         end
         subgraph LOW["歸檔"]
             N10["夏傳位空間正義_2022"]
             N24["李臨鳳社政體系災害救助_2003"]
             N29["王銘福派遣軍隊救援_2008"]
-            N32["謝志強災害防救法_2014"]
+            N33["謝志強災害防救法_2014"]
         end
         subgraph PARK["⏸ 平行主題"]
             N28["災害風險治理_平行主題stub"]
@@ -176,28 +177,28 @@ flowchart TB
     end
 
     subgraph FW["🧭 knowledge/framework/ — 8 份"]
-        N40["介入窗口_時間軸"]
-        N41["使用者地圖 ⚠️"]
-        N42["問題地圖 ⚠️"]
-        N43["戰略定位 ⚠️"]
-        N44["散兵與組織的門檻辯論 ⚠️"]
-        N45["既有方案地圖"]
-        N46["設計原則 ⚠️"]
-        N47["資訊協作層_系統設計命題 ⚠️"]
+        N41["介入窗口_時間軸"]
+        N42["使用者地圖 ⚠️"]
+        N43["問題地圖 ⚠️"]
+        N44["戰略定位 ⚠️"]
+        N45["散兵與組織的門檻辯論 ⚠️"]
+        N46["既有方案地圖"]
+        N47["設計原則 ⚠️"]
+        N48["資訊協作層_系統設計命題 ⚠️"]
     end
 
     subgraph FLD["🥾 knowledge/fieldwork/ — 3 份"]
-        N37["馬太鞍溪觀察_basil_2026"]
-        N38["馬太鞍溪訪談題綱_情報志工_2026"]
-        N39["馬太鞍溪訪談題綱_物資_2026"]
+        N38["馬太鞍溪觀察_basil_2026"]
+        N39["馬太鞍溪訪談題綱_情報志工_2026"]
+        N40["馬太鞍溪訪談題綱_物資_2026"]
     end
 
     subgraph SYN["🔬 knowledge/synthesis/"]
-        N48["跨文件洞察"]
+        N49["跨文件洞察"]
     end
 
     subgraph OUT["📦 output/ + 決策"]
-        N54["vision ⚠️"]
+        N55["vision ⚠️"]
         PRD["prototype/ + spec/"]
         DEC["DECISIONS.md"]
     end
@@ -222,14 +223,14 @@ flowchart TB
     classDef fld fill:#fce7f3,stroke:#db2777
     classDef syn fill:#ede9fe,stroke:#7c3aed
     classDef out fill:#e0e7ff,stroke:#6366f1
-    class N40,N41,N42,N43,N44,N45,N46,N47 fw
-    class N37,N38,N39 fld
-    class N48 syn
-    class N54 out
+    class N41,N42,N43,N44,N45,N46,N47,N48 fw
+    class N38,N39,N40 fld
+    class N49 syn
+    class N55 out
     class PRD,DEC out
-    class N3,N4,N5,N6,N7,N8,N9,N12,N13,N14,N16,N17,N18,N19,N21,N22,N23,N25,N26,N27,N30,N31,N33,N35 high
-    class N1,N2,N11,N15,N20,N34,N36 mid
-    class N10,N24,N29,N32 low
+    class N3,N4,N5,N6,N7,N8,N9,N12,N13,N14,N16,N17,N18,N19,N21,N22,N23,N25,N26,N27,N30,N31,N32,N34,N36 high
+    class N1,N2,N11,N15,N20,N35,N37 mid
+    class N10,N24,N29,N33 low
     class N28 low
 
     click N1 "knowledge/context/NCDR脈絡與後續行動_2026.md" "開啟原檔"
@@ -261,31 +262,32 @@ flowchart TB
     click N27 "knowledge/context/災區物資過剩與分配做法_2026.md" "開啟原檔"
     click N28 "knowledge/context/災害風險治理_平行主題stub.md" "開啟原檔"
     click N29 "knowledge/context/王銘福派遣軍隊救援_2008.md" "開啟原檔"
-    click N30 "knowledge/context/能登自粛與事前登錄_2026.md" "開啟原檔"
-    click N31 "knowledge/context/自發性志工研究全貌_2026.md" "開啟原檔"
-    click N32 "knowledge/context/謝志強災害防救法_2014.md" "開啟原檔"
-    click N33 "knowledge/context/鄭宇君社群媒體公民參與_2014.md" "開啟原檔"
-    click N34 "knowledge/context/鄭阡妤緊急應變制度_2014.md" "開啟原檔"
-    click N35 "knowledge/context/馬太鞍溪實際使用工具盤點_2025.md" "開啟原檔"
-    click N36 "knowledge/context/黃盈豪跨文化社工_2010.md" "開啟原檔"
-    click N37 "knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md" "開啟原檔"
-    click N38 "knowledge/fieldwork/馬太鞍溪訪談題綱_情報志工_2026.md" "開啟原檔"
-    click N39 "knowledge/fieldwork/馬太鞍溪訪談題綱_物資_2026.md" "開啟原檔"
-    click N40 "knowledge/framework/介入窗口_時間軸.md" "開啟原檔"
-    click N41 "knowledge/framework/使用者地圖.md" "開啟原檔"
-    click N42 "knowledge/framework/問題地圖.md" "開啟原檔"
-    click N43 "knowledge/framework/戰略定位.md" "開啟原檔"
-    click N44 "knowledge/framework/散兵與組織的門檻辯論.md" "開啟原檔"
-    click N45 "knowledge/framework/既有方案地圖.md" "開啟原檔"
-    click N46 "knowledge/framework/設計原則.md" "開啟原檔"
-    click N47 "knowledge/framework/資訊協作層_系統設計命題.md" "開啟原檔"
-    click N48 "knowledge/synthesis/跨文件洞察.md" "開啟原檔"
-    click N49 "knowledge/文獻處理進度.md" "開啟原檔"
-    click N50 "knowledge/研究清單.md" "開啟原檔"
-    click N51 "output/spec/角色輪廓.md" "開啟原檔"
-    click N52 "output/spec/設計系統.md" "開啟原檔"
-    click N53 "output/spec/資料模型與狀態機.md" "開啟原檔"
-    click N54 "output/vision.md" "開啟原檔"
+    click N30 "knowledge/context/稀缺時公開與閘門_2026.md" "開啟原檔"
+    click N31 "knowledge/context/能登自粛與事前登錄_2026.md" "開啟原檔"
+    click N32 "knowledge/context/自發性志工研究全貌_2026.md" "開啟原檔"
+    click N33 "knowledge/context/謝志強災害防救法_2014.md" "開啟原檔"
+    click N34 "knowledge/context/鄭宇君社群媒體公民參與_2014.md" "開啟原檔"
+    click N35 "knowledge/context/鄭阡妤緊急應變制度_2014.md" "開啟原檔"
+    click N36 "knowledge/context/馬太鞍溪實際使用工具盤點_2025.md" "開啟原檔"
+    click N37 "knowledge/context/黃盈豪跨文化社工_2010.md" "開啟原檔"
+    click N38 "knowledge/fieldwork/馬太鞍溪觀察_basil_2026.md" "開啟原檔"
+    click N39 "knowledge/fieldwork/馬太鞍溪訪談題綱_情報志工_2026.md" "開啟原檔"
+    click N40 "knowledge/fieldwork/馬太鞍溪訪談題綱_物資_2026.md" "開啟原檔"
+    click N41 "knowledge/framework/介入窗口_時間軸.md" "開啟原檔"
+    click N42 "knowledge/framework/使用者地圖.md" "開啟原檔"
+    click N43 "knowledge/framework/問題地圖.md" "開啟原檔"
+    click N44 "knowledge/framework/戰略定位.md" "開啟原檔"
+    click N45 "knowledge/framework/散兵與組織的門檻辯論.md" "開啟原檔"
+    click N46 "knowledge/framework/既有方案地圖.md" "開啟原檔"
+    click N47 "knowledge/framework/設計原則.md" "開啟原檔"
+    click N48 "knowledge/framework/資訊協作層_系統設計命題.md" "開啟原檔"
+    click N49 "knowledge/synthesis/跨文件洞察.md" "開啟原檔"
+    click N50 "knowledge/文獻處理進度.md" "開啟原檔"
+    click N51 "knowledge/研究清單.md" "開啟原檔"
+    click N52 "output/spec/角色輪廓.md" "開啟原檔"
+    click N53 "output/spec/設計系統.md" "開啟原檔"
+    click N54 "output/spec/資料模型與狀態機.md" "開啟原檔"
+    click N55 "output/vision.md" "開啟原檔"
     click DEC "DECISIONS.md" "開啟原檔"
 ```
 <!-- AUTO:kb-map:end -->
