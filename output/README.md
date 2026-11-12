@@ -18,7 +18,13 @@ output/
   prototype/       可跑的 HTML mockup ← 交付物本體
   spec/            附在 mockup 旁的簡短說明，不是獨立規格書
   design-system/   志工頁的設計系統：token、元件、使用規則（D-17）
+  出處與著作權.md   整個 repo 的出處、著作權與個資規則（repo 是公開的）
+  handbook/        研究成果・手冊層：給第一次想去的人的「出發前」（D-14）
+  knowledge/       研究成果・知識庫層：給想弄懂的人，從 knowledge/ 的研究筆記改寫
+  tool-research/   研究成果・工具層：研究對工具「可能可以怎麼做」，候選不是規格
 ```
+
+**研究成果的三層**（D-20 的 2026-11-13 補）：研究筆記在 repo 根目錄的 `knowledge/`，是給 AI 看的；`handbook/`、`knowledge/`、`tool-research/` 是從研究筆記改寫給人看的，每一頁的 frontmatter 用 `sources` 列出根據的研究筆記，最後有「這一頁怎麼做出來的」。每週的研究跑完，受影響的頁面跟著改寫。規則見[出處與著作權](出處與著作權.md)。
 
 ## `prototype/`
 
@@ -43,5 +49,6 @@ output/
 - `prototype/03-志工頁/`：志工頁互動版（D-15～D-19）：可以點、規則獨立並有測試、所有狀態一次攤開、每一格有基準圖（`screens/linux/`）；畫布 mockup 與 9/26 的舊版可點原型已封存。
 - `spec/`：資料模型與狀態機、角色輪廓、設計系統的決定紀錄。
 - `design-system/`：志工頁的設計系統（D-17）。畫面一律從這裡取元件；改 token 只改 `tokens.json`。
+- `handbook/`、`knowledge/`、`tool-research/`：研究成果的三層，第一版草稿（2026-11-13），還沒有人審過；先在 GitHub 上看，做成有設計的網頁、放在哪裡之後再定。
 
 問題定義見 [DECISIONS.md](../DECISIONS.md) D-15（沒有人知道；核心是名單＋公開「沒人去過」）。
