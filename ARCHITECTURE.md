@@ -199,7 +199,7 @@ flowchart TB
     end
 
     subgraph OUT["📦 output/ + 決策"]
-        N56["vision ⚠️"]
+        N58["vision ⚠️"]
         PRD["prototype/ + spec/"]
         DEC["DECISIONS.md"]
     end
@@ -227,7 +227,7 @@ flowchart TB
     class N42,N43,N44,N45,N46,N47,N48,N49 fw
     class N39,N40,N41 fld
     class N50 syn
-    class N56 out
+    class N58 out
     class PRD,DEC out
     class N3,N4,N5,N6,N7,N8,N9,N12,N13,N14,N16,N17,N18,N19,N21,N22,N23,N25,N26,N27,N30,N31,N32,N35,N37 high
     class N1,N2,N11,N15,N20,N33,N36,N38 mid
@@ -285,11 +285,13 @@ flowchart TB
     click N49 "knowledge/framework/資訊協作層_系統設計命題.md" "開啟原檔"
     click N50 "knowledge/synthesis/跨文件洞察.md" "開啟原檔"
     click N51 "knowledge/文獻處理進度.md" "開啟原檔"
-    click N52 "knowledge/研究清單.md" "開啟原檔"
-    click N53 "output/spec/角色輪廓.md" "開啟原檔"
-    click N54 "output/spec/設計系統.md" "開啟原檔"
-    click N55 "output/spec/資料模型與狀態機.md" "開啟原檔"
-    click N56 "output/vision.md" "開啟原檔"
+    click N52 "knowledge/案例比較表.md" "開啟原檔"
+    click N53 "knowledge/研究方向.md" "開啟原檔"
+    click N54 "knowledge/研究清單.md" "開啟原檔"
+    click N55 "output/spec/角色輪廓.md" "開啟原檔"
+    click N56 "output/spec/設計系統.md" "開啟原檔"
+    click N57 "output/spec/資料模型與狀態機.md" "開啟原檔"
+    click N58 "output/vision.md" "開啟原檔"
     click DEC "DECISIONS.md" "開啟原檔"
 ```
 <!-- AUTO:kb-map:end -->
