@@ -13,7 +13,7 @@ const house = (id, walk = 3) => ({ id, kind: 'household', address: id, walkMinut
 const place = (id, walk = 3) => ({ id, kind: 'place', address: id, walkMinutes: walk });
 
 test('例 1 · 從來沒人去過的戶：尚未取得同意、需求不知道、沒有更新時間', () => {
-  const d = R.derive(house('大全街 12 號'), [], at(5, 9));
+  const d = R.derive(house('甲街 12 號'), [], at(5, 9));
   assert.equal(d.consent.value, 'pending');
   assert.equal(d.need.value, 'unknown');
   assert.equal(d.lastAt, null);

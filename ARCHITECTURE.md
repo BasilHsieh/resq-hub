@@ -417,8 +417,8 @@ flowchart TB
         end
 
         subgraph CIV["📡 民間平台"]
-            CIV1["Xdite 2009<br/>莫拉克災情支援網<br/>(一次性)"]:::civ
-            CIV2["Billy Pan 災情地圖<br/>2009"]:::civ
+            CIV1["莫拉克災情支援網<br/>2009<br/>(一次性)"]:::civ
+            CIV2["莫拉克災情地圖<br/>2009"]:::civ
             CIV3["數位文化協會<br/>2009"]:::civ
             CIV4["光復超人 2025<br/>v3.0 post-recovery<br/>（使用數字未公開，見 R-04）"]:::civ
             CIV5["慈濟災害圖資平台<br/>2025"]:::civ
@@ -454,8 +454,8 @@ flowchart TB
     click G3 "knowledge/context/強韌台灣計畫_2022.md" "防災士制度（屬強韌台灣子計畫）"
     click G4 "knowledge/context/謝志強災害防救法_2014.md" "災防法的法理分析"
     click NGO1 "knowledge/context/慈濟莫拉克教育援助志工_2013.md" "慈濟動員模型"
-    click CIV1 "knowledge/context/鄭宇君社群媒體公民參與_2014.md" "Xdite 莫拉克災情支援網案例"
-    click CIV2 "knowledge/context/鄭宇君社群媒體公民參與_2014.md" "Billy Pan 災情地圖案例"
+    click CIV1 "knowledge/context/鄭宇君社群媒體公民參與_2014.md" "莫拉克災情支援網案例"
+    click CIV2 "knowledge/context/鄭宇君社群媒體公民參與_2014.md" "莫拉克災情地圖案例"
     click CIV3 "knowledge/context/鄭宇君社群媒體公民參與_2014.md" "數位文化協會案例"
     click CIV4 "knowledge/context/馬太鞍溪實際使用工具盤點_2025.md" "光復超人現況"
     click CIV5 "knowledge/context/馬太鞍溪實際使用工具盤點_2025.md" "慈濟災害圖資平台"

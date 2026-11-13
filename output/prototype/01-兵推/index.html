@@ -227,18 +227,18 @@ function MockSource(){
 }
 
 /* ==========================================================================
-   THROW ── 想定（光復鄉三個村的假名單。用完就丟，不是規格）
+   THROW ── 想定（光復鄉三個村的假名單；街名是虛構的，不對應真實地址。用完就丟，不是規格）
    ========================================================================== */
 function rng(seed){ return function(){ seed|=0; seed=seed+0x6D2B79F5|0;
   let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t;
   return ((t^t>>>14)>>>0)/4294967296; }; }
 
 const VILL = [
-  {name:'大全村', n:120, cols:12, ox:16,  oy:46, infoPoor:false, streets:['大全街','中山路']},
-  {name:'大同村', n:110, cols:11, ox:210, oy:46, infoPoor:false, streets:['大同街','民族路']},
-  {name:'大進村', n:70,  cols:10, ox:392, oy:46, infoPoor:true,  streets:['大進街']}
+  {name:'大全村', n:120, cols:12, ox:16,  oy:46, infoPoor:false, streets:['甲街','乙路']},
+  {name:'大同村', n:110, cols:11, ox:210, oy:46, infoPoor:false, streets:['丙街','丁路']},
+  {name:'大進村', n:70,  cols:10, ox:392, oy:46, infoPoor:true,  streets:['戊街']}
 ];
-const SPOTS = ['大全街側溝','中山路排水溝','大同街側溝','大進農路','馬太鞍溪堤外農地','光復國小周邊'];
+const SPOTS = ['甲街側溝','乙路排水溝','丙街側溝','大進村農路','馬太鞍溪堤外農地','光復國小周邊'];
 
 function buildScenario(seed){
   const r = rng(seed), targets = [], truth = new Map();
@@ -606,7 +606,7 @@ function bindHost(){
    DEV ── 規則測試（spec §7 的七個例子。玩的人看不到）
    ========================================================================== */
 function tinyDB(reports){
-  const db = MockSource(); db.load([{id:'h1', addr:'大全街 12 號', village:'大全村'}]);
+  const db = MockSource(); db.load([{id:'h1', addr:'甲街 12 號', village:'大全村'}]);
   reports.forEach(r=>db.addReport(Object.assign({targetId:'h1', source:'志工'}, r)));
   return db;
 }
