@@ -136,29 +136,52 @@ sup.fnref a {
 .card .chip { align-self: flex-start; }
 .empty { color: var(--ink-2); }
 
-/* 首頁 */
-.hero { background: var(--surface); }
-.hero .wrap { padding-block: clamp(32px, 6vw, 72px) clamp(28px, 5vw, 56px); }
-.hero h1 { font-size: clamp(30px, 5vw, 52px); line-height: 1.15; font-weight: 800; letter-spacing: -0.025em; margin: 0 0 16px; max-width: 16em; text-wrap: balance; }
-.hero .lead { font-size: clamp(17px, 2vw, 20px); line-height: 1.7; color: var(--ink-2); max-width: 34em; margin: 0; }
-.entries { list-style: none; padding: 0; margin: 28px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 16px; }
-.entry {
-  display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 24px;
-  border-radius: var(--radius-lg); background: var(--surface); color: var(--ink); text-decoration: none;
+/* 首頁：一份頭版（D-21，2026-11-14 發起人選）。知識庫目錄第一題的結論當頭條，其他問題一題一句；
+   右欄是要去災區的人的入口、還不確定的假設、讀了哪些地方。不用卡片、不用大數字，層次只靠字的大小與細線。
+   手機上「要去災區幫忙？」排在最前面。 */
+.home {
+  display: grid; grid-template-columns: minmax(0, 1fr) 19rem;
+  grid-template-areas: "main go" "main side"; grid-template-rows: auto 1fr; gap: 0 48px;
+  background: var(--surface); border-radius: var(--radius-lg);
+  padding: clamp(20px, 4vw, 48px); margin-block: 20px 56px;
 }
-.entry:hover h2 { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
-.entry-for { font-size: 14px; font-weight: 700; color: var(--ink-2); letter-spacing: 0.02em; }
-.entry h2 { font-size: 26px; line-height: 1.25; font-weight: 800; margin: 0; letter-spacing: -0.01em; }
-.entry p { margin: 0; color: var(--ink-2); font-size: 16px; line-height: 1.65; flex: 1; }
-.entry-count { font-size: 14px; color: var(--ink-3); font-weight: 700; }
-.pulse { margin: 40px 0 56px; }
-.pulse h2 { font-size: 22px; font-weight: 800; margin: 0 0 14px; }
-.tiles { list-style: none; padding: 0; margin: 0 0 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 12px; }
-.tile { background: var(--tonal); border-radius: var(--radius-lg); padding: 20px; display: grid; gap: 4px; align-content: start; }
-.tile-num { font-size: 42px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
-.tile-label { font-weight: 700; }
-.tile-sub { font-size: 14px; line-height: 1.6; color: var(--ink-2); }
-.more { font-weight: 700; }
+.home-main { grid-area: main; min-width: 0; }
+.home-go { grid-area: go; }
+.home-side { grid-area: side; }
+.home-go, .home-side { min-width: 0; border-left: 1px solid var(--line); padding-left: 32px; }
+.home-go { padding-bottom: 22px; }
+.home-go::after { content: ""; display: block; border-bottom: 1px solid var(--line); margin-top: 22px; }
+.home-side > section { padding-bottom: 22px; margin-bottom: 22px; border-bottom: 1px solid var(--line); }
+.home-side > section:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: 0; }
+.home-go h2, .home-side h2 { font-size: 14px; font-weight: 800; letter-spacing: 0.04em; color: var(--ink-3); margin: 0 0 8px; }
+.home-go p { margin: 0; font-size: 17px; font-weight: 700; line-height: 1.6; }
+.home-dateline { margin: 0 0 18px; font-size: 14px; font-weight: 700; color: var(--ink-3); }
+.home-dateline span { white-space: nowrap; }
+.home-kicker { margin: 0 0 8px; font-size: 16px; font-weight: 800; }
+.home-main h1 { font-size: clamp(28px, 3.8vw, 42px); line-height: 1.22; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 18px; max-width: 18em; text-wrap: balance; }
+.home-points { margin: 0 0 10px; padding-left: 1.1em; font-size: 18px; max-width: var(--measure); }
+.home-points li { margin: 0 0 8px; line-height: 1.7; }
+.home-points li::marker { color: var(--ink-3); }
+.home-more { margin: 4px 0 0; font-size: 15px; font-weight: 700; }
+.home-others-h { font-size: 14px; font-weight: 800; letter-spacing: 0.04em; color: var(--ink-3); margin: 36px 0 0; padding-top: 14px; border-top: 2px solid var(--ink); }
+.home-others { list-style: none; padding: 0; margin: 0; }
+.home-others li { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.home-others h3 { margin: 0 0 4px; font-size: 19px; line-height: 1.4; font-weight: 800; text-wrap: balance; }
+.home-others h3 a { color: var(--ink); text-decoration: none; }
+.home-others h3 a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.home-others p { margin: 0; font-size: 16px; line-height: 1.7; color: var(--ink-2); }
+.home-note { margin: 0 0 12px; font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+.home-theses, .home-places { list-style: none; padding: 0; margin: 0 0 10px; display: grid; gap: 10px; }
+.home-theses li { display: grid; gap: 4px; font-size: 15px; line-height: 1.55; font-weight: 700; }
+.home-places li { display: grid; gap: 6px; font-size: 15px; line-height: 1.65; }
+.home-theses .chip, .home-places .chip { justify-self: start; }
+@media (max-width: 860px) {
+  .home { grid-template-columns: minmax(0, 1fr); grid-template-areas: "go" "main" "side"; }
+  .home-go, .home-side { border-left: 0; padding-left: 0; }
+  .home-go { padding-bottom: 4px; margin-bottom: 20px; }
+  .home-go::after { margin-top: 16px; }
+  .home-side { border-top: 2px solid var(--ink); padding-top: 18px; margin-top: 28px; }
+}
 
 /* 研究方法頁：三條線的流程圖。發起人那條用主色：這一頁唯一有顏色的地方 */
 .flow { margin: 8px 0 20px; }
