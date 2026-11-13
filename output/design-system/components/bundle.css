@@ -3,21 +3,21 @@
    改 token 請改 tokens.json，再跑 python3 scripts/kb.py index（或 scripts/ds.py sync）。 */
 /* AUTO:tokens:start — scripts/ds.py 從 tokens.json 生成，不要手改 */
 :where(:root) {
-  --ground: #f6f2ec;
+  --ground: #f3f2f1;
   --surface: #ffffff;
-  --tonal: #ece5db;
-  --line: #dbd5cd;
-  --ink: #231d15;
-  --ink-2: #474036;
-  --ink-3: #554d42;
-  --line-strong: #8f867a;
-  --action: #366532;
-  --action-soft: #e0f1de;
-  --action-ink: #2a5825;
-  --action-fg: #ffffff;
-  --need: #ffdbc2;
-  --need-fg: #743a00;
-  --drill: #231d15;
+  --tonal: #e8e6e3;
+  --line: #d7d5d3;
+  --ink: #1f1e1c;
+  --ink-2: #43413e;
+  --ink-3: #504e4b;
+  --line-strong: #888682;
+  --action: #8bc993;
+  --action-soft: #def4e0;
+  --action-ink: #1d5b2b;
+  --action-fg: #1f1e1c;
+  --need: #fea668;
+  --need-fg: #4f2500;
+  --drill: #1f1e1c;
   --drill-fg: #ffffff;
   --space-1: 4px;
   --space-2: 8px;
@@ -27,11 +27,12 @@
   --space-6: 24px;
   --space-7: 28px;
   --space-8: 32px;
-  --radius-md: 20px;
-  --radius-lg: 24px;
-  --radius-xl: 28px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 14px;
   --radius-pill: 999px;
-  --focus-ring: 0 0 0 2px #f6f2ec, 0 0 0 4.5px #366532;
+  --focus-ring: 0 0 0 2px #f3f2f1, 0 0 0 4.5px #1d5b2b;
   --touch-min: 48px;
   --control-md: 56px;
   --control-lg: 72px;
@@ -60,13 +61,13 @@
 /* ---- 共用 ---- */
 .rq-icon { display: block; flex-shrink: 0; }
 
-/* ---- 狀態標籤：同意、需求（膠囊） ---- */
-/* 每一種都有字；虛線＝還沒確定，實線框＝確定的「不」，填色＝確定的「是」或缺人 */
-.rq-badge { display: inline-flex; align-items: center; gap: 6px; box-sizing: border-box; padding: 3px var(--space-3); border: var(--stroke-control) solid transparent; border-radius: var(--radius-pill); white-space: nowrap; }
-.rq-badge--agreed { background: var(--action-soft); color: var(--action-ink); }
+/* ---- 狀態標籤：同意、需求（小圓角） ---- */
+/* 每一種都有字；虛線＝還沒確定，實線框＝確定的「不」，打勾的字＝確定的「是」，填色只給缺人（第三版：顏色少，剩下的才跳） */
+.rq-badge { display: inline-flex; align-items: center; gap: 6px; box-sizing: border-box; padding: 3px var(--space-3); border: var(--stroke-control) solid transparent; border-radius: var(--radius-sm); white-space: nowrap; }
+.rq-badge--agreed { padding-left: 0; padding-right: 2px; background: transparent; color: var(--ink); }
 .rq-badge--pending { border: var(--stroke-control) dashed var(--ink-3); background: var(--surface); color: var(--ink); }
 .rq-badge--declined { border-color: var(--ink-3); background: var(--surface); color: var(--ink); }
-.rq-badge--quiet { background: var(--tonal); color: var(--ink-2); }
+.rq-badge--quiet { padding-left: 0; padding-right: 2px; background: transparent; color: var(--ink-2); }
 .rq-badge--need { background: var(--need); color: var(--need-fg); }
 .rq-need-unknown { padding: 3px 2px; color: var(--ink-3); }
 .rq-updated { color: var(--ink-3); font-variant-numeric: tabular-nums; }
@@ -75,49 +76,50 @@
 .rq-cats { display: flex; flex-direction: column; gap: var(--space-4); }
 .rq-cats__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .rq-cats__tile { display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-2); box-sizing: border-box; min-height: var(--tile); margin: 0; padding: 14px var(--space-4) var(--space-4); border: 0; border-radius: var(--radius-lg); background: var(--tonal); color: var(--ink); font: inherit; text-align: left; text-decoration: none; cursor: pointer; }
-.rq-cats__tile[aria-selected="true"] { background: var(--action); color: var(--action-fg); }
+/* 選中的那一格：淺綠加一圈黑框——淺綠跟灰色格子明暗差得少，太陽下靠黑框分 */
+.rq-cats__tile[aria-selected="true"] { background: var(--action); color: var(--action-fg); outline: var(--stroke-emphasis) solid var(--ink); outline-offset: calc(-1 * var(--stroke-emphasis)); }
 .rq-cats__top { display: flex; justify-content: space-between; align-items: flex-start; }
 .rq-cats__count { font-variant-numeric: tabular-nums; }
-.rq-cats__mark { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: var(--radius-pill); background: var(--surface); color: var(--action); }
-.rq-cats__hint { display: flex; align-items: flex-start; gap: 10px; margin: 0; padding: 14px var(--space-4); border-radius: var(--radius-md); background: var(--action-soft); color: var(--action-ink); }
+.rq-cats__mark { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: var(--radius-pill); background: var(--ink); color: var(--surface); }
+.rq-cats__hint { display: flex; align-items: flex-start; gap: 10px; margin: 0; padding: 0 2px; color: var(--ink-2); }
 
 /* ---- 清單上的一戶（卡片） ---- */
 .rq-row { display: flex; flex-direction: column; gap: 10px; box-sizing: border-box; width: 100%; margin: 0; padding: var(--space-4) 18px; border: 0; border-radius: var(--radius-lg); background: var(--surface); color: var(--ink); font: inherit; text-align: left; text-decoration: none; cursor: pointer; }
-.rq-row--open { gap: var(--space-3); padding-bottom: 18px; outline: var(--stroke-emphasis) solid var(--action); outline-offset: -2.5px; cursor: auto; }
+.rq-row--open { gap: var(--space-3); padding-bottom: 18px; outline: var(--stroke-emphasis) solid var(--ink); outline-offset: -2.5px; cursor: auto; }
 .rq-row__body { display: flex; flex-direction: column; gap: 10px; box-sizing: border-box; width: 100%; margin: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; text-decoration: none; cursor: pointer; }
 div.rq-row__body { cursor: auto; }
 .rq-row__head { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); }
 .rq-row__addr { min-width: 0; overflow-wrap: anywhere; }
-.rq-row__walk { display: inline-flex; align-items: center; gap: var(--space-1); padding: var(--space-1) 10px; border-radius: var(--radius-pill); background: var(--tonal); color: var(--ink-2); white-space: nowrap; }
+.rq-row__walk { display: inline-flex; align-items: center; gap: var(--space-1); color: var(--ink-2); white-space: nowrap; }
 .rq-row__status { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
 .rq-row__hint { margin: 0; color: var(--ink-2); }
 .rq-row__actions { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 10px; }
 
 /* ---- 你剛剛在 ---- */
-.rq-resume { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4) 18px 18px; border-radius: var(--radius-lg); background: var(--surface); outline: var(--stroke-emphasis) solid var(--action); outline-offset: -2.5px; }
+.rq-resume { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4) 18px 18px; border-radius: var(--radius-lg); background: var(--surface); outline: var(--stroke-emphasis) solid var(--ink); outline-offset: -2.5px; }
 .rq-resume__label { color: var(--ink-3); }
 .rq-resume .rq-btn { margin-top: var(--space-1); }
 
 /* ---- 回報頁的一塊 ---- */
 .rq-report { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); margin: 0; padding: 18px; border-radius: var(--radius-lg); background: var(--surface); }
-.rq-report--emphasis { outline: var(--stroke-emphasis) solid var(--action); outline-offset: -2.5px; }
+.rq-report--emphasis { outline: var(--stroke-emphasis) solid var(--ink); outline-offset: -2.5px; }
 .rq-report__label { color: var(--ink-3); }
 .rq-report__value { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
 .rq-report .rq-btn { margin-top: var(--space-2); }
 
 /* ---- 按鈕 ---- */
 .rq-btn { display: flex; align-items: center; justify-content: center; gap: var(--space-2); box-sizing: border-box; width: 100%; margin: 0; border: var(--stroke-emphasis) solid transparent; background: transparent; color: var(--ink); font: inherit; text-align: center; text-decoration: none; cursor: pointer; }
-.rq-btn--md { gap: 6px; min-height: var(--control-md); padding: 0 var(--space-4); border-radius: var(--radius-pill); white-space: nowrap; }
+.rq-btn--md { gap: 6px; min-height: var(--control-md); padding: 0 var(--space-4); border-radius: var(--radius-md); white-space: nowrap; }
 .rq-btn--lg { justify-content: flex-start; gap: 14px; min-height: var(--control-lg); padding: var(--space-3) 18px; border-radius: var(--radius-xl); text-align: left; }
 .rq-btn--sub { min-height: var(--control-xl); }
-.rq-btn__icon { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; flex-shrink: 0; border-radius: var(--radius-pill); background: var(--surface); color: var(--ink); }
+.rq-btn__icon { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; flex-shrink: 0; border-radius: var(--radius-md); background: var(--surface); color: var(--ink); }
 .rq-btn__text { display: flex; flex-direction: column; gap: 2px; }
 .rq-btn--primary { background: var(--action); color: var(--action-fg); }
-.rq-btn--primary .rq-btn__icon { color: var(--action); }
+.rq-btn--primary .rq-btn__icon { color: var(--ink); }
 .rq-btn--tonal { background: var(--tonal); color: var(--ink); }
 .rq-btn--dashed { border: var(--stroke-emphasis) dashed var(--ink-3); background: transparent; color: var(--ink); }
 .rq-btn--dashed .rq-btn__icon { background: var(--tonal); }
-.rq-btn--link { width: auto; min-height: var(--touch-min); align-self: center; padding: var(--space-2) var(--space-3); border: 0; color: var(--action); text-decoration: underline; text-underline-offset: 4px; }
+.rq-btn--link { width: auto; min-height: var(--touch-min); align-self: center; padding: var(--space-2) var(--space-3); border: 0; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
 .rq-btn__sub { color: var(--ink-3); }
 .rq-btn--primary .rq-btn__sub { color: var(--action-fg); }
 
@@ -127,12 +129,12 @@ div.rq-row__body { cursor: auto; }
 .rq-count__n { font-variant-numeric: tabular-nums; }
 
 /* ---- 已記下 ---- */
-.rq-notice { display: flex; align-items: flex-start; gap: 10px; padding: 14px var(--space-4); border-radius: var(--radius-md); background: var(--action-soft); color: var(--action-ink); }
-.rq-notice__icon { display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; flex-shrink: 0; border-radius: var(--radius-pill); background: var(--action); color: var(--action-fg); }
+.rq-notice { display: flex; align-items: flex-start; gap: 10px; padding: 2px; color: var(--ink); }
+.rq-notice__icon { display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; flex-shrink: 0; border-radius: var(--radius-pill); background: var(--ink); color: var(--surface); }
 
 /* ---- 頂列 ---- */
 .rq-topbar { display: flex; align-items: center; gap: 10px; padding: var(--space-3) var(--space-4) 0; }
-.rq-topbar__back { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: var(--touch-min); height: var(--touch-min); flex-shrink: 0; margin: 0; padding: 0; border: 0; border-radius: var(--radius-pill); background: var(--tonal); color: var(--ink); cursor: pointer; }
+.rq-topbar__back { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: var(--touch-min); height: var(--touch-min); flex-shrink: 0; margin: 0; padding: 0; border: 0; border-radius: var(--radius-md); background: var(--tonal); color: var(--ink); cursor: pointer; }
 .rq-topbar__label { color: var(--ink-2); }
 
 /* ---- 演習標記（D-12）：深色一條，產品畫面裡沒有別的深色條 ---- */

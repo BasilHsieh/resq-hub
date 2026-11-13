@@ -7,7 +7,8 @@
     python3 scripts/ds.py stage DIR    把設計系統複製到 DIR/project/，印出發布用的 files 對照表
     python3 scripts/ds.py palette [主色hue 主色chroma 中性hue 缺人hue [中性chroma 淺色chroma 缺人chroma]]
                                        從一個主色推出全部顏色，寫回 tokens.json（不給數字＝照 meta.palette 重算；
-                                       只給前四個＝三個彩度照 meta.palette 原本的）
+                                       只給前四個＝三個彩度照 meta.palette 原本的）。主色、缺人的亮度
+                                       brand_l、need_l 直接改 meta.palette；有 brand_l＝淺主色、上面放黑字
 
 平常不用直接跑：kb.py index 會順便 sync，kb.py check 會順便 check（CI 也就一併擋下過期的預設值）。
 
@@ -93,8 +94,10 @@ def render_defaults(tokens: dict) -> str:
 TEXT_MIN, BORDER_MIN = 6.5, 3.0
 CONTRAST_PAIRS = [(fg, bg, TEXT_MIN) for fg in ("ink", "ink-2", "ink-3") for bg in ("ground", "surface", "tonal")] + [
     ("action-fg", "action", TEXT_MIN), ("action-ink", "action-soft", TEXT_MIN), ("need-fg", "need", TEXT_MIN),
-    ("drill-fg", "drill", TEXT_MIN), ("line-strong", "surface", BORDER_MIN), ("line-strong", "ground", BORDER_MIN)]
-# 深色時主色也是連結的字色（淺色時主色夠暗，白底上的連結自然夠清楚）
+    ("drill-fg", "drill", TEXT_MIN), ("line-strong", "surface", BORDER_MIN), ("line-strong", "ground", BORDER_MIN),
+    # 網站的連結用 action-ink（主色是淺綠，當字太淡）
+    ("action-ink", "surface", TEXT_MIN), ("action-ink", "ground", TEXT_MIN)]
+# 深色時主色本身也會當字（流程圖的號碼）
 DARK_PAIRS = CONTRAST_PAIRS + [("action", "ground", TEXT_MIN), ("action", "surface", TEXT_MIN)]
 
 
@@ -151,44 +154,59 @@ def _lightest_ok(C: float, h: float, against: list, target: float, L: float) -> 
 
 
 def palette_seed(tokens: dict) -> dict | None:
-    """meta.palette → derive_palette 的參數。neutral、need 可以只寫色相（舊格式），彩度就用第二版的值。"""
+    """meta.palette → derive_palette 的參數。neutral、need 可以只寫色相（舊格式），彩度就用第二版的值。
+    brand_l 有寫＝淺主色、上面放黑字（第三版）；沒寫＝深主色、上面放白字（第二版）。"""
     s = (tokens.get("meta") or {}).get("palette")
     if not s:
         return None
     n = s["neutral"] if isinstance(s["neutral"], list) else [s["neutral"], 0.014]
     d = s["need"] if isinstance(s["need"], list) else [s["need"], 0.065]
     return {"brand_h": s["brand"][0], "brand_c": s["brand"][1], "neutral_h": n[0], "neutral_c": n[1],
-            "need_h": d[0], "need_c": d[1], "soft_c": s.get("soft")}
+            "need_h": d[0], "need_c": d[1], "soft_c": s.get("soft"),
+            "brand_l": s.get("brand_l"), "need_l": s.get("need_l", 0.915)}
 
 
 def derive_palette(brand_h: float, brand_c: float, neutral_h: float, need_h: float,
-                   neutral_c: float = 0.014, need_c: float = 0.065, soft_c: float | None = None) -> dict:
+                   neutral_c: float = 0.014, need_c: float = 0.065, soft_c: float | None = None,
+                   brand_l: float | None = None, need_l: float = 0.915) -> dict:
     """主色一個、暖色一個（只給缺人），其餘是中性色。主色彩度很低＝墨色版：主色就是字的顏色。
 
     中性色的色相與彩度另外給（neutral_c 是色塊 tonal 的彩度，其他中性色照比例）：第二版帶一點主色（靛），
-    第三版（2026-11-13）改成帶一點暖的灰，不跟著主色。"""
+    第三版（2026-11-13）改成幾乎不帶顏色的灰，不跟著主色。
+    主色有兩種：深主色（brand_l 不給：暗到白字至少 6.8:1）；淺主色（給 brand_l：上面放黑字，第三版）。
+    深主色只有深、淺兩種長相可選——上面要放字，對比 6.5:1 以上，中間亮度的顏色放白字黑字都不夠。"""
     k = neutral_c / 0.014
     p = {"ground": oklch(0.962, 0.008 * k, neutral_h), "surface": "#ffffff", "tonal": oklch(0.925, 0.014 * k, neutral_h),
          "line": oklch(0.875, 0.012 * k, neutral_h), "ink": oklch(0.235, 0.016 * k, neutral_h),
          "ink-2": oklch(0.375, 0.018 * k, neutral_h)}
     p["ink-3"] = _darkest_ok(0.02 * k, neutral_h, [p["ground"], "#ffffff", p["tonal"]], 6.6, 0.6)
     p["line-strong"] = _darkest_ok(0.02 * k, neutral_h, [p["ground"], "#ffffff"], 3.2, 0.75)
+    p["action-fg"] = "#ffffff"
     if brand_c < 0.03:
         p["action"], p["action-soft"], p["action-ink"] = p["ink"], oklch(0.925, 0.02, neutral_h), p["ink"]
+    elif brand_l is not None:
+        p["action"] = oklch(brand_l, brand_c, brand_h)
+        p["action-fg"] = p["ink"]
+        p["action-soft"] = oklch(0.945, soft_c if soft_c is not None else 0.035, brand_h)
+        p["action-ink"] = _darkest_ok(min(brand_c, 0.1), brand_h, [p["action-soft"], "#ffffff"], 7.0, 0.6)
     else:
         p["action"] = _darkest_ok(brand_c, brand_h, ["#ffffff"], 6.8, 0.7)
         soft = soft_c if soft_c is not None else (0.03 if brand_h < 230 else 0.04)
         p["action-soft"] = oklch(0.94, soft, brand_h)
-        p["action-ink"] = _darkest_ok(min(brand_c, 0.1), brand_h, [p["action-soft"]], 7.0, 0.6)
-    p["action-fg"] = "#ffffff"
-    p["need"] = oklch(0.915, need_c, need_h)
+        p["action-ink"] = _darkest_ok(min(brand_c, 0.1), brand_h, [p["action-soft"], "#ffffff"], 7.0, 0.6)
+    p["need"] = oklch(need_l, need_c, need_h)
     p["need-fg"] = _darkest_ok(0.14, need_h, [p["need"]], 6.8, 0.6)
     p["drill"], p["drill-fg"] = p["ink"], "#ffffff"
     return p
 
 
+def focus_color(p: dict) -> str:
+    """鍵盤焦點外框的顏色：主色對頁面底色夠清楚（3:1）就用主色，不夠（淺主色）就用深綠的字色。"""
+    return p["action"] if contrast(p["action"], p["ground"]) >= BORDER_MIN else p["action-ink"]
+
+
 def derive_dark(brand_h: float, brand_c: float, neutral_h: float, need_h: float,
-                neutral_c: float = 0.014, need_c: float = 0.065, soft_c: float | None = None) -> dict:
+                neutral_c: float = 0.014, need_c: float = 0.065, soft_c: float | None = None, **_) -> dict:
     """同一份參數的深色版（只有網站用）：暗底亮字，主色變亮、上面的字變暗。對比門檻跟淺色一樣。"""
     k = neutral_c / 0.014
     p = {"ground": oklch(0.18, 0.008 * k, neutral_h), "surface": oklch(0.225, 0.009 * k, neutral_h),
@@ -236,19 +254,22 @@ def palette(args: list) -> list:
         nc = nums[4] if len(nums) > 4 else old.get("neutral_c", 0.014)
         soft = nums[5] if len(nums) > 5 else old.get("soft_c")
         dc = nums[6] if len(nums) > 6 else old.get("need_c", 0.065)
+        keep = {k: seed[k] for k in ("brand_l", "need_l") if k in seed}  # 亮度只在 meta.palette 裡改
         seed.clear()
         seed.update({"brand": nums[0:2], "neutral": [nums[2], nc], "need": [nums[3], dc]})
         if soft is not None:
             seed["soft"] = soft
+        seed.update(keep)
     p = derive_palette(**palette_seed(tokens))
     for t in tokens["color"]["tokens"]:
         if t["name"] in p:
             t["value"] = p[t["name"]]
     for t in tokens.get("shadow", {}).get("tokens", []):
         if t["name"] == "focus-ring":
-            t["value"] = f"0 0 0 2px {p['ground']}, 0 0 0 4.5px {p['action']}"
+            t["value"] = f"0 0 0 2px {p['ground']}, 0 0 0 4.5px {focus_color(p)}"
     (DS / "tokens.json").write_text(json.dumps(tokens, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    return [f"✅ {rel(DS / 'tokens.json')} ← 主色 {seed['brand']}，中性 {seed['neutral']}，缺人 {seed['need']}，"
+    light = f"，主色亮度 {seed['brand_l']}（上面放黑字）" if seed.get("brand_l") else ""
+    return [f"✅ {rel(DS / 'tokens.json')} ← 主色 {seed['brand']}{light}，中性 {seed['neutral']}，缺人 {seed['need']}，"
             f"淺色彩度 {seed.get('soft', '照主色')}"] + sync()
 
 

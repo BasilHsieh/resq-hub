@@ -585,7 +585,7 @@ def tokens_css() -> str:
     dark = ds.dark_tokens()
     if dark:
         decl = " ".join(f"--{k}: {v};" for k, v in dark.items())
-        focus = f"--focus-ring: 0 0 0 2px {dark['ground']}, 0 0 0 4.5px {dark['action']};"
+        focus = f"--focus-ring: 0 0 0 2px {dark['ground']}, 0 0 0 4.5px {ds.focus_color(dark)};"
         body = f"{decl} {focus} color-scheme: dark;"
         lines += ["@media (prefers-color-scheme: dark) {", f"  :root:not([data-theme=\"light\"]) {{ {body} }}", "}",
                   f":root[data-theme=\"dark\"] {{ {body} }}"]
