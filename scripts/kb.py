@@ -49,6 +49,8 @@ VALID_RELATIONS = {
 }
 
 GITIGNORED_PREFIXES = ("raw/", "archive/", "../raw/", "../archive/")
+# 給人看的研究成果三層：每一頁都要用 `sources` 指回研究筆記（見 cmd_check 4b）
+HUMAN_LAYER_PREFIXES = ("output/handbook/", "output/knowledge/", "output/tool-research/")
 # 安裝下來的套件（例如 mockup 產生器的 node_modules）不是知識文件
 SKIP_PARTS = {"node_modules"}
 
@@ -461,6 +463,23 @@ def cmd_check() -> int:
         if rp:
             n = len(rp) if isinstance(rp, list) else 1
             warns.append(f"{d.rel}：有 {n} 筆未處理的 revision_pending")
+
+    # 4b. 給人看的研究成果（手冊、知識庫、面向工具的研究）：從研究筆記改寫，不另外維護。
+    #     每一頁要用 frontmatter 的 `sources` 列出根據的研究筆記（repo 根目錄起算），
+    #     而且要有「這一頁怎麼做出來的」——repo 是公開的，讀者要知道內容從哪來（D-20 的 2026-11-13 補）。
+    for d in docs:
+        if not d.rel.startswith(HUMAN_LAYER_PREFIXES):
+            continue
+        srcs = d.fm.get("sources") or []
+        if isinstance(srcs, str):
+            srcs = [srcs]
+        if not srcs:
+            errors.append(f"{d.rel}：給人看的頁面缺 `sources`（要列出根據的研究筆記）")
+        for s in srcs:
+            if not (ROOT / s).exists():
+                errors.append(f"{d.rel}：`sources` 指向不存在的檔案 → `{s}`")
+        if not re.search(r"^##\s*這一頁怎麼做出來的\s*$", d.text, re.M):
+            warns.append(f"{d.rel}：沒有「## 這一頁怎麼做出來的」（讀者要知道內容從哪來、誰看過）")
 
     # 5. 設計系統（output/design-system/）：token、預設值、元件說明與預覽
     ds_errors, ds_warns = ds.check()

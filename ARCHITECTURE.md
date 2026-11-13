@@ -136,7 +136,7 @@ flowchart TB
             N6["公開需求與擠爆_2026"]
             N7["到了按一下的轉換率_2026"]
             N8["呂朝賢集集地震志工_2008"]
-            N9["國外志工協作平台與實務_2026"]
+            N9["國外志工協作平台與實務_2026 ⚠️"]
             N12["屋主不在時怎麼取得同意_2026"]
             N13["屏東八八社工_2012"]
             N14["平時誰顧災害協作系統_2026"]
@@ -189,7 +189,7 @@ flowchart TB
     end
 
     subgraph FLD["🥾 knowledge/fieldwork/ — 3 份"]
-        N39["馬太鞍溪觀察_basil_2026"]
+        N39["馬太鞍溪觀察_basil_2026 ⚠️"]
         N40["馬太鞍溪訪談題綱_情報志工_2026"]
         N41["馬太鞍溪訪談題綱_物資_2026"]
     end
@@ -199,7 +199,8 @@ flowchart TB
     end
 
     subgraph OUT["📦 output/ + 決策"]
-        N58["vision ⚠️"]
+        N67["vision ⚠️"]
+        N68["出處與著作權"]
         PRD["prototype/ + spec/"]
         DEC["DECISIONS.md"]
     end
@@ -227,7 +228,7 @@ flowchart TB
     class N42,N43,N44,N45,N46,N47,N48,N49 fw
     class N39,N40,N41 fld
     class N50 syn
-    class N58 out
+    class N67,N68 out
     class PRD,DEC out
     class N3,N4,N5,N6,N7,N8,N9,N12,N13,N14,N16,N17,N18,N19,N21,N22,N23,N25,N26,N27,N30,N31,N32,N35,N37 high
     class N1,N2,N11,N15,N20,N33,N36,N38 mid
@@ -288,10 +289,20 @@ flowchart TB
     click N52 "knowledge/案例比較表.md" "開啟原檔"
     click N53 "knowledge/研究方向.md" "開啟原檔"
     click N54 "knowledge/研究清單.md" "開啟原檔"
-    click N55 "output/spec/角色輪廓.md" "開啟原檔"
-    click N56 "output/spec/設計系統.md" "開啟原檔"
-    click N57 "output/spec/資料模型與狀態機.md" "開啟原檔"
-    click N58 "output/vision.md" "開啟原檔"
+    click N55 "output/handbook/出發前.md" "開啟原檔"
+    click N56 "output/knowledge/公開名單有什麼代價.md" "開啟原檔"
+    click N57 "output/knowledge/哪裡會沒人去.md" "開啟原檔"
+    click N58 "output/knowledge/大量志工湧入時會發生什麼.md" "開啟原檔"
+    click N59 "output/knowledge/志工的保險與安全.md" "開啟原檔"
+    click N60 "output/knowledge/我們的論點現在站在哪.md" "開啟原檔"
+    click N61 "output/knowledge/政府怎麼面對自發來的志工.md" "開啟原檔"
+    click N62 "output/knowledge/派工有沒有用.md" "開啟原檔"
+    click N63 "output/spec/角色輪廓.md" "開啟原檔"
+    click N64 "output/spec/設計系統.md" "開啟原檔"
+    click N65 "output/spec/資料模型與狀態機.md" "開啟原檔"
+    click N66 "output/tool-research/可能可以怎麼做.md" "開啟原檔"
+    click N67 "output/vision.md" "開啟原檔"
+    click N68 "output/出處與著作權.md" "開啟原檔"
     click DEC "DECISIONS.md" "開啟原檔"
 ```
 <!-- AUTO:kb-map:end -->

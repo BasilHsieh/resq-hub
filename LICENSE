@@ -1,0 +1,32 @@
+# 授權
+
+除了下面列的例外，這個 repo 的內容——研究筆記、手冊、知識庫、面向工具的研究、規格、決策紀錄——以
+**創用 CC「姓名標示 4.0 國際」授權條款（CC BY 4.0）** 釋出。
+
+- 說明：https://creativecommons.org/licenses/by/4.0/deed.zh-hant
+- 條款全文：https://creativecommons.org/licenses/by/4.0/legalcode.zh-hant
+  （英文：https://creativecommons.org/licenses/by/4.0/legalcode）
+
+## 意思是
+
+任何人都可以轉貼、改寫、拿去用，包括商業用途，只要：
+
+1. **註明出處**：寫「ResQ Hub」，附上這個 repo 的連結；
+2. **說明有沒有改過**。
+
+## 不在這個授權裡的
+
+- **引用的別人的內容**：引文、別人的數字、新聞與論文——權利還是原作者的。我們只在合理範圍內引用並註明出處；要用，請回到原始出處。
+- **程式碼**（`.py`、`.js`、`.css`、`.html` 等程式檔）：不在這份授權裡（README 寫的是將來用 MIT）。
+
+## 授權改過一次
+
+2026-11-13 以前，README 寫的是 CC BY-SA 4.0。現在改成 CC BY 4.0；之前的版本也可以照 CC BY 4.0 使用。
+
+---
+
+Unless otherwise noted, the contents of this repository (research notes, handbook, knowledge pages,
+tool research, specs and decision records) are licensed under the Creative Commons Attribution 4.0
+International License (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/legalcode
+Attribute as "ResQ Hub" with a link to this repository, and indicate if changes were made.
+Quoted third-party material remains with its owners. Source code files are not covered by this license.
