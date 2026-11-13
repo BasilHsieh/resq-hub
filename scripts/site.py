@@ -722,42 +722,113 @@ def build(public: bool = False, artifact: bool = False) -> int:
     return 0
 
 
+# ---------------------------------------------------------------- 首頁：一份頭版（D-21，2026-11-14）
+
+THESES_SLUG = "where-our-theses-stand"  # 論點頁：右欄「還不確定的」連到這裡
+HANDBOOK_SLUG = "before-you-go"  # 手冊〈出發前〉：右欄「要去災區幫忙？」連到這裡
+CONTRAST = ("但", "不過", "只是", "可是")  # 第一句後面接這些開頭的句子，要一起帶走
+
+
+def knowledge_questions() -> dict:
+    """知識庫 README 表格第一欄「想弄懂的事」：檔名 → 問句。"""
+    readme = ROOT / "output/knowledge/README.md"
+    if not readme.exists():
+        return {}
+    out = {}
+    for m in re.finditer(r"^\| ([^|]+?) \| \[[^\]]+\]\(([^)#]+\.md)\)", readme.read_text(encoding="utf-8"), re.M):
+        out.setdefault(Path(m.group(2)).name, m.group(1).strip())
+    return out
+
+
+def drop_see_below(s: str) -> str:
+    """「（見下）」「（…；例外見下）」只在原頁有意義，搬到首頁就拿掉；括號裡沒剩東西就整個拿掉。"""
+    def fix(m):
+        inner = re.sub(r"[；，、]?\s*(?:例外)?見[下上]面?的?(?:證據|說明|一節)?", "", m.group(1)).strip("；，、 ")
+        return f"（{inner}）" if inner else ""
+    return re.sub(r"（([^（）]*)）", fix, s).strip()
+
+
+def page_findings(p: Page) -> list[str]:
+    """一頁「先說結論」每一條的第一句（純文字）。下一句是「但……」的話一起帶，不然只剩一半的意思。"""
+    m = re.search(r"^## 先說結論\s*$([\s\S]*?)(?=^## |\Z)", p.body, re.M)
+    if not m:
+        return []
+    out = []
+    for line in m.group(1).split("\n"):
+        if not line.startswith("- "):
+            continue
+        parts = [x.strip() for x in re.split(r"(?<=[。？！])", strip_md(line[2:])) if x.strip()]
+        if not parts:
+            continue
+        first = parts[0] + (parts[1] if len(parts) > 1 and parts[1].startswith(CONTRAST) else "")
+        out.append(drop_see_below(first))
+    return out
+
+
+def case_year(name: str) -> int:
+    m = re.search(r"(?:19|20)\d\d", name)
+    return int(m.group(0)) if m else 9999
+
+
 def home(site: Site, pages: list[Page], has_method: bool) -> str:
+    """首頁是一份頭版（D-21，2026-11-14 Basil 選）：知識庫目錄第一題的結論當頭條，其他問題一題一句；
+    右欄是要去災區的人的入口、還不確定的假設、讀了哪些地方。字全部從 repo 來，不另外寫。"""
     d = site.status
-    by = {k: sum(1 for t in d["theses"] if t["state"] == k) for k in THESIS_STATES}
-    thesis_line = "・".join(f"{k} {v}" for k, v in by.items() if v)
-    c = d["cases"]
-    count = lambda key: sum(1 for p in pages if p.section == key)  # noqa: E731
-    method_link = f'knowledge/{METHOD_SLUG}.html' if has_method else f"{GITHUB}/blob/main/output/knowledge/研究怎麼做.md"
-    entries = [
-        ("handbook/index.html", "手冊", "第一次想去的人", "出發前要帶什麼、怎麼去、到了找誰、什麼時候先不要去。", f"{count('handbook')} 頁"),
-        ("knowledge/index.html", "知識庫", "想弄懂的人", "大量志工湧入時會發生什麼、哪裡會沒人去、派工有沒有用、政府怎麼面對。", f"{count('knowledge')} 頁"),
-        (method_link, "研究怎麼做", "想知道內容從哪來的人", "研究怎麼跑、每一步誰做、怎麼讀我們的證據，以及研究現在跑到哪。", "流程與進度"),
-    ]
-    cards = "".join(
-        f'<li><a class="entry" href="{h}"><span class="entry-for">給{who}</span><h2>{t}</h2><p>{desc}</p>'
-        f'<span class="entry-count">{cnt}</span></a></li>' for h, t, who, desc, cnt in entries)
-    waiting = len(d["research"]["waiting"])
-    tiles = (
-        f'<li class="tile"><span class="tile-num">{len(d["theses"])}</span><span class="tile-label">條論點</span>'
-        f'<span class="tile-sub">{esc(thesis_line)}</span></li>'
-        f'<li class="tile"><span class="tile-num">{c["total"]}</span><span class="tile-label">個案例在佇列裡</span>'
-        f'<span class="tile-sub">挖完 {c["counts"]["done"]}・有片段 {c["counts"]["partial"]}・還沒挖 {c["counts"]["todo"]}</span></li>'
-        f'<li class="tile"><span class="tile-num">{waiting}</span><span class="tile-label">題等發起人點頭</span>'
-        f'<span class="tile-sub">排程每週二晚上 11 點跑</span></li>')
-    status_href = method_link + ("#status" if has_method else "")
-    body = (f'<section class="hero"><div class="wrap">'
-            f'<h1>大量志工湧入災區的時候，現場實際發生了什麼？</h1>'
-            f'<p class="lead">ResQ Hub 研究全世界大型災害與戰爭中，政府忙不過來、大量志工湧入的時候；'
-            f'也在做一個讓志工自己決定去哪一戶的工具。這裡放研究的成果。</p></div></section>'
-            f'<div class="wrap"><ul class="entries">{cards}</ul>'
-            f'<section class="pulse" aria-labelledby="pulse-h"><h2 id="pulse-h">研究現在跑到哪</h2>'
-            f'<ul class="tiles">{tiles}</ul>'
-            f'<p><a class="more" href="{status_href}">看每一條論點與每一個案例</a></p></section></div>')
+    gh = lambda path: f"{GITHUB}/blob/main/{path}"  # noqa: E731
+    arrow = '<span aria-hidden="true"> →</span>'
+    by_slug = {p.slug: p for p in pages}
+    qs = knowledge_questions()
+    rows = []
+    for p in section_order("knowledge", "output/knowledge", pages):
+        if p.slug in (THESES_SLUG, METHOD_SLUG):
+            continue
+        f = page_findings(p)
+        if f:
+            rows.append({"q": qs.get(Path(p.rel).name, p.title), "href": p.out, "f": f, "n": len(p.sources)})
+    method = f"knowledge/{METHOD_SLUG}.html" if has_method else gh("output/knowledge/研究怎麼做.md")
+    theses_href = by_slug[THESES_SLUG].out if THESES_SLUG in by_slug else gh("knowledge/研究方向.md")
+
+    # 主欄：頭條＋其他問題
+    stamp = f"・<span>最後更新 {esc(d['commit'])}</span>" if d["commit"] else ""
+    main = f'<p class="home-dateline">大量志工湧入災區時的研究{stamp}</p>'
+    if rows:
+        lead, others = rows[0], rows[1:]
+        basis = f"讀全文・根據 {lead['n']} 份研究筆記" if lead["n"] else "讀全文"
+        rest = "".join(f"<li>{esc(s)}</li>" for s in lead["f"][1:])
+        main += (f'<p class="home-kicker"><a href="{lead["href"]}">{esc(lead["q"])}</a></p>'
+                 f'<h1>{esc(lead["f"][0])}</h1>'
+                 + (f'<ul class="home-points">{rest}</ul>' if rest else "")
+                 + f'<p class="home-more"><a href="{lead["href"]}">{basis}{arrow}</a></p>')
+        if others:
+            main += ('<h2 class="home-others-h">其他問題</h2><ul class="home-others">' + "".join(
+                f'<li><h3><a href="{x["href"]}">{esc(x["q"])}</a></h3><p>{esc(x["f"][0])}</p></li>'
+                for x in others) + "</ul>")
+    else:
+        main += '<h1>大量志工湧入災區時，現場實際發生了什麼？</h1><p class="empty">還沒有對外發布的研究頁。</p>'
+
+    # 右欄：要去災區的人（手機上排最前面）、還不確定的、讀了哪些地方
+    hb = by_slug.get(HANDBOOK_SLUG)
+    go = (f'<section class="home-go" aria-labelledby="home-go-h"><h2 id="home-go-h">要去災區幫忙？</h2>'
+          f'<p><a href="{hb.out}">出發前先讀這一頁</a>：要帶什麼、怎麼去、到了找誰。</p></section>') if hb else ""
+    th = d["theses"]
+    unsure = (f'<section aria-labelledby="home-unsure-h"><h2 id="home-unsure-h">還不確定的</h2>'
+              f'<p class="home-note">ResQ Hub 押的 {len(th)} 條假設，現在各站在哪。</p><ul class="home-theses">'
+              + "".join(f'<li>{chip(t["state"], THESIS_CHIP[t["state"]])}<span>{esc(t["text"])}</span></li>' for t in th)
+              + f'</ul><p class="home-more"><a href="{theses_href}">每一條的證據{arrow}</a></p></section>') if th else ""
+    groups = []
+    for key, label in (("done", "挖完"), ("partial", "有片段"), ("todo", "還沒挖")):
+        names = sorted((q["name"] for q in d["cases"]["queue"] if q["state"] == key), key=case_year)
+        if names:
+            groups.append(f'<li>{chip(label, "case-" + key)}<span>{esc("、".join(names))}</span></li>')
+    places = (f'<section aria-labelledby="home-places-h"><h2 id="home-places-h">讀了哪些地方</h2>'
+              f'<ul class="home-places">{"".join(groups)}</ul>'
+              f'<p class="home-more"><a href="{method}">研究怎麼跑、現在跑到哪{arrow}</a></p></section>') if groups else ""
+
+    body = (f'<div class="wrap"><div class="home">{go}<div class="home-main">{main}</div>'
+            f'<aside class="home-side" aria-label="還不確定的假設與讀了哪些地方">{unsure}{places}</aside></div></div>')
     title = "ResQ Hub 官網" if site.artifact else "ResQ Hub"
     return site.shell(title=title, description="大型災害中大量志工湧入時的研究成果：手冊、知識庫與研究方法。",
                       root="", active="home", body=body, has_method=has_method, artifact_index=site.artifact)
-
 
 if __name__ == "__main__":
     args = set(sys.argv[1:])
