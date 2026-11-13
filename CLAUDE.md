@@ -42,6 +42,8 @@ frontmatter 必填 `tags` `date` `summary` `priority`；`knowledge/context/` 另
 
 **研究成果給人看的三層**（2026-11-13）：每批研究跑完，從研究筆記改寫成 `output/handbook/`（手冊：第一次想去的人）、`output/knowledge/`（知識庫：想弄懂的人）、`output/tool-research/`（面向工具的研究：研究對工具「可能可以怎麼做」，是候選，不是規格、不寫程式）。每一頁 frontmatter 的 `sources` 列根據的研究筆記，不另外維護內容。**repo 在 GitHub 上是公開的**：研究筆記、田野觀察、三層全部照 `output/出處與著作權.md` 寫——每句有出處、用自己的話、原文只留短句、不放別人的圖、一般人不具名、不記住戶個資。
 
+**網站**（D-21）：`python3 scripts/site.py` 從手冊、知識庫與研究方法頁產生，內容只在 repo 改；每頁 frontmatter 要有 `slug`（網址）。正式網站只放標了「對外發布」的頁，狀態只有 Basil 能改；做法見 `output/site/README.md`。
+
 ---
 
 ## 知識庫的兩條結構鐵則

@@ -29,6 +29,9 @@ jobs:
             exit 1
           fi
 
+      - name: 網站建得起來（scripts/site.py：放上網站的頁缺網址就會擋）
+        run: python3 scripts/site.py --public && python3 scripts/site.py
+
       # 志工頁的規則測試＝規格的例子（資料模型與狀態機 §7）。測試沒過，程式就不能改（D-18）
       - uses: actions/setup-node@v4
         with:

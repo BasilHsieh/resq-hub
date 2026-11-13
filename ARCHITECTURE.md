@@ -199,8 +199,8 @@ flowchart TB
     end
 
     subgraph OUT["📦 output/ + 決策"]
-        N67["vision ⚠️"]
-        N68["出處與著作權"]
+        N68["vision ⚠️"]
+        N69["出處與著作權"]
         PRD["prototype/ + spec/"]
         DEC["DECISIONS.md"]
     end
@@ -228,7 +228,7 @@ flowchart TB
     class N42,N43,N44,N45,N46,N47,N48,N49 fw
     class N39,N40,N41 fld
     class N50 syn
-    class N67,N68 out
+    class N68,N69 out
     class PRD,DEC out
     class N3,N4,N5,N6,N7,N8,N9,N12,N13,N14,N16,N17,N18,N19,N21,N22,N23,N25,N26,N27,N30,N31,N32,N35,N37 high
     class N1,N2,N11,N15,N20,N33,N36,N38 mid
@@ -297,12 +297,13 @@ flowchart TB
     click N60 "output/knowledge/我們的論點現在站在哪.md" "開啟原檔"
     click N61 "output/knowledge/政府怎麼面對自發來的志工.md" "開啟原檔"
     click N62 "output/knowledge/派工有沒有用.md" "開啟原檔"
-    click N63 "output/spec/角色輪廓.md" "開啟原檔"
-    click N64 "output/spec/設計系統.md" "開啟原檔"
-    click N65 "output/spec/資料模型與狀態機.md" "開啟原檔"
-    click N66 "output/tool-research/可能可以怎麼做.md" "開啟原檔"
-    click N67 "output/vision.md" "開啟原檔"
-    click N68 "output/出處與著作權.md" "開啟原檔"
+    click N63 "output/knowledge/研究怎麼做.md" "開啟原檔"
+    click N64 "output/spec/角色輪廓.md" "開啟原檔"
+    click N65 "output/spec/設計系統.md" "開啟原檔"
+    click N66 "output/spec/資料模型與狀態機.md" "開啟原檔"
+    click N67 "output/tool-research/可能可以怎麼做.md" "開啟原檔"
+    click N68 "output/vision.md" "開啟原檔"
+    click N69 "output/出處與著作權.md" "開啟原檔"
     click DEC "DECISIONS.md" "開啟原檔"
 ```
 <!-- AUTO:kb-map:end -->
