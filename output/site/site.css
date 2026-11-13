@@ -1,25 +1,8 @@
 /* ResQ Hub 網站：版面與元件。
-   上面那段 :root 由 scripts/site.py 從設計系統的 tokens.json 產生（顏色、間距、圓角、字型），這裡不重寫那些值。
+   上面那段 :root 由 scripts/site.py 從設計系統的 tokens.json 產生（顏色、間距、圓角、字型），這裡不重寫那些值；
+   深色主題的顏色也在那裡，由 scripts/ds.py 從同一個主色算出來（2026-11-13 起，不再手調）。
    設計系統管的是災區現場的手機畫面；網站是坐著讀的長文。所以字型、主色、圓角、「色塊代替框線」、
-   「虛線＝還沒確定」照設計系統；閱讀寬度、註腳、表格、深色主題是網站自己的（D-21）。 */
-
-/* 深色主題：同一個靛色的色相，暗底亮字。只換顏色 token。 */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --ground: #101218; --surface: #181b23; --tonal: #252a37; --line: #2e3342;
-    --ink: #eceef5; --ink-2: #c5c9d5; --ink-3: #a9aebc; --line-strong: #737a8d;
-    --action: #a9afff; --action-soft: #282d57; --action-ink: #d0d3ff; --action-fg: #101218;
-    --need: #4f3519; --need-fg: #ffd8b5; --drill: #eceef5; --drill-fg: #101218;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --ground: #101218; --surface: #181b23; --tonal: #252a37; --line: #2e3342;
-  --ink: #eceef5; --ink-2: #c5c9d5; --ink-3: #a9aebc; --line-strong: #737a8d;
-  --action: #a9afff; --action-soft: #282d57; --action-ink: #d0d3ff; --action-fg: #101218;
-  --need: #4f3519; --need-fg: #ffd8b5; --drill: #eceef5; --drill-fg: #101218;
-  color-scheme: dark;
-}
+   「虛線＝還沒確定」照設計系統；閱讀寬度、註腳、表格、要不要有深色主題是網站自己的（D-21）。 */
 
 /* 版面：一欄閱讀，最寬 72rem；長文一行約 40 個中文字 */
 :root {

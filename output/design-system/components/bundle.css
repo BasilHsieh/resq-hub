@@ -3,21 +3,21 @@
    改 token 請改 tokens.json，再跑 python3 scripts/kb.py index（或 scripts/ds.py sync）。 */
 /* AUTO:tokens:start — scripts/ds.py 從 tokens.json 生成，不要手改 */
 :where(:root) {
-  --ground: #f0f2f8;
+  --ground: #f6f2ec;
   --surface: #ffffff;
-  --tonal: #e2e6f0;
-  --line: #d3d6de;
-  --ink: #1b1e26;
-  --ink-2: #3d414b;
-  --ink-3: #4a4e5a;
-  --line-strong: #838794;
-  --action: #4950b0;
-  --action-soft: #e5eaff;
-  --action-ink: #404884;
+  --tonal: #ece5db;
+  --line: #dbd5cd;
+  --ink: #231d15;
+  --ink-2: #474036;
+  --ink-3: #554d42;
+  --line-strong: #8f867a;
+  --action: #366532;
+  --action-soft: #e0f1de;
+  --action-ink: #2a5825;
   --action-fg: #ffffff;
-  --need: #ffdbbf;
-  --need-fg: #713c00;
-  --drill: #1b1e26;
+  --need: #ffdbc2;
+  --need-fg: #743a00;
+  --drill: #231d15;
   --drill-fg: #ffffff;
   --space-1: 4px;
   --space-2: 8px;
@@ -31,7 +31,7 @@
   --radius-lg: 24px;
   --radius-xl: 28px;
   --radius-pill: 999px;
-  --focus-ring: 0 0 0 2px #f0f2f8, 0 0 0 4.5px #4950b0;
+  --focus-ring: 0 0 0 2px #f6f2ec, 0 0 0 4.5px #366532;
   --touch-min: 48px;
   --control-md: 56px;
   --control-lg: 72px;
