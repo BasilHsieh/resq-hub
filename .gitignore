@@ -13,3 +13,5 @@ node_modules/
 scripts/visual/test-results/
 scripts/visual/playwright-report/
 output/prototype/*/screens/darwin/
+# 網站的建置結果（scripts/site.py），不進 repo
+_site/

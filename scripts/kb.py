@@ -51,6 +51,10 @@ VALID_RELATIONS = {
 GITIGNORED_PREFIXES = ("raw/", "archive/", "../raw/", "../archive/")
 # 給人看的研究成果三層：每一頁都要用 `sources` 指回研究筆記（見 cmd_check 4b）
 HUMAN_LAYER_PREFIXES = ("output/handbook/", "output/knowledge/", "output/tool-research/")
+# 放上網站的頁（scripts/site.py）：每一頁要有 `slug`，是它在網站上的網址（D-21）
+SITE_PAGE_PREFIXES = ("output/handbook/", "output/knowledge/")
+SITE_ROOT_PAGES = ("output/出處與著作權.md",)
+SLUG_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 # 安裝下來的套件（例如 mockup 產生器的 node_modules）不是知識文件
 SKIP_PARTS = {"node_modules"}
 
@@ -480,6 +484,22 @@ def cmd_check() -> int:
                 errors.append(f"{d.rel}：`sources` 指向不存在的檔案 → `{s}`")
         if not re.search(r"^##\s*這一頁怎麼做出來的\s*$", d.text, re.M):
             warns.append(f"{d.rel}：沒有「## 這一頁怎麼做出來的」（讀者要知道內容從哪來、誰看過）")
+
+    # 4c. 網站的網址：放上網站的頁都要有 slug，而且不重複（scripts/site.py 用它當網址）
+    seen_slugs: dict[str, str] = {}
+    for d in docs:
+        if not (d.rel.startswith(SITE_PAGE_PREFIXES) or d.rel in SITE_ROOT_PAGES):
+            continue
+        slug = d.fm.get("slug")
+        if not slug:
+            errors.append(f"{d.rel}：放上網站的頁缺 `slug`（網址，英文小寫與連字號，例如 where-no-one-goes）")
+            continue
+        if not SLUG_RE.match(str(slug)):
+            errors.append(f"{d.rel}：`slug` 只能用英文小寫、數字與連字號 → `{slug}`")
+        key = d.rel.split("/")[1] + "/" + str(slug) if d.rel.startswith(SITE_PAGE_PREFIXES) else str(slug)
+        if key in seen_slugs:
+            errors.append(f"{d.rel}：`slug` 跟 {seen_slugs[key]} 重複 → `{slug}`")
+        seen_slugs[key] = d.rel
 
     # 5. 設計系統（output/design-system/）：token、預設值、元件說明與預覽
     ds_errors, ds_warns = ds.check()
