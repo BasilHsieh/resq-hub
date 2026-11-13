@@ -97,5 +97,5 @@ python3 scripts/kb.py all
 
 ## 授權
 
-文件內容：[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+文件內容：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.zh-hant)（2026-11-13 起；之前寫的是 CC BY-SA 4.0），見 [LICENSE](LICENSE)
 程式碼（未來）：MIT
