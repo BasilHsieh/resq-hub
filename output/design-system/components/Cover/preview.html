@@ -14,9 +14,9 @@
   .deep { fill: var(--ink); rx: var(--radius-lg); }
   .tile { rx: var(--radius-lg); }
   .known { fill: var(--action); }
-  .tint { fill: var(--action-soft); }
+  .tint { fill: var(--tonal); }
   .signal { fill: var(--need); }
-  .unknown { fill: none; stroke: var(--action); stroke-width: var(--stroke-emphasis); stroke-dasharray: 6 4; }
+  .unknown { fill: none; stroke: var(--ink-3); stroke-width: var(--stroke-emphasis); stroke-dasharray: 6 4; }
   .words { position: absolute; left: var(--space-6); bottom: var(--space-6); max-width: 440px; }
   .name { margin: 0; font-size: 88px; line-height: .95; font-weight: 800; letter-spacing: -.02em; color: var(--ink); }
   .tag { margin: var(--space-3) 0 0 2px; font-size: 14px; line-height: 20px; color: var(--ink-3); }
@@ -27,10 +27,10 @@
 <div class="art" aria-hidden="true">
 <svg viewBox="480 0 480 320" width="480" height="320">
 <!--
-  blocks      action 216x280 slab bled off the top and right (the brand) · ink 216x56 bled off the bottom-right, a space-4 under the slab · action-soft as one merged two-wide tile (the tint) · need one tile only (the one warm hue: it only ever means 缺人) — about 26% of 960x320
+  blocks      action 216x280 slab bled off the top and right (the brand) · ink 216x56 bled off the bottom-right, a space-4 under the slab · tonal as one merged two-wide tile (the quiet ones) · need one tile only (the one warm hue: it only ever means 缺人) — about 26% of 960x320
   arrangement one tall slab with a 4x4 household grid beside it; grid and slab a space-4 apart
-  pattern     tiles, from the README's 名單是核心、虛線＝還沒確定: control-md tiles at a control-md + space-2 pitch — ten dashed in action (尚未取得同意), three filled action (已同意), one two-wide tint, one need-fg
-  scales      tile control-md 56 · gutter space-2 8 · slab gap space-4 16 · corners radius-lg 24 · dashes stroke-emphasis 2.5
+  pattern     tiles, from the README's 名單是核心、虛線＝還沒確定: control-md tiles at a control-md + space-2 pitch — ten dashed in ink-3 (尚未取得同意), three filled action (選中的、該按的), one two-wide tonal, one need
+  scales      tile control-md 56 · gutter space-2 8 · slab gap space-4 16 · corners radius-lg 14 · dashes stroke-emphasis 2.5
 -->
 <rect class="slab" x="760" y="-16" width="216" height="280" rx="16"/>
 <rect class="deep" x="760" y="280" width="216" height="56" rx="16"/>

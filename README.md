@@ -77,7 +77,7 @@
 - ⏳ Vision 的 North Star 與 v1 場景待定稿
 - ✅ `output/prototype/01-兵推/`：可玩的單機兵推 v0（雙擊即開，九條規則測試）；尚未加入同意這一層
 - ✅ `output/prototype/03-志工頁/`：志工頁互動版（D-18），可以點、規則有測試、每一格畫面有基準圖並在每個 PR 自動截圖比對（D-19），線上版 https://claude.ai/artifact/VMPrFeT1KRDkLeGnv1U35N ；畫布 mockup 與 9/26 舊版可點原型已封存
-- ✅ `output/design-system/`：志工頁的設計系統——「清楚大膽」的長相、主色靛、13 個元件與使用規則；mockup 每一張都用它的元件組成（D-17）
+- ✅ `output/design-system/`：志工頁的設計系統——大數字與色塊、顏色少用（主色淺綠加黑字、缺人實心橘，2026-11-13 第三版）、13 個元件與使用規則；mockup 每一張都用它的元件組成（D-17）
 - ⏳ `output/spec/`：資料模型與狀態機、角色輪廓——隨討論持續修
 - ⏳ `output/prototype/02-兵推多人/`：只有規劃；後端已選 Firebase（D-11），未執行
 - 🔄 `output/handbook/`：中層手冊（D-14），2026-11-13 起草第一版「出發前」，保險與健康兩節發布前要懂的人看過

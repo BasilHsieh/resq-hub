@@ -24,6 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from kb import body_after_frontmatter, parse_frontmatter  # noqa: E402
+import ds  # noqa: E402  設計系統：網站深色主題的顏色由它算
 
 OUT = ROOT / "_site"
 SITE_SRC = ROOT / "output" / "site"
@@ -580,6 +581,14 @@ def tokens_css() -> str:
     if fam:
         lines.append(f"  --font-sans: {fam};")
     lines.append("}")
+    # 深色主題：scripts/ds.py 從同一個主色算（志工頁只有淺色，所以不存進 tokens.json）。只換顏色 token。
+    dark = ds.dark_tokens()
+    if dark:
+        decl = " ".join(f"--{k}: {v};" for k, v in dark.items())
+        focus = f"--focus-ring: 0 0 0 2px {dark['ground']}, 0 0 0 4.5px {ds.focus_color(dark)};"
+        body = f"{decl} {focus} color-scheme: dark;"
+        lines += ["@media (prefers-color-scheme: dark) {", f"  :root:not([data-theme=\"light\"]) {{ {body} }}", "}",
+                  f":root[data-theme=\"dark\"] {{ {body} }}"]
     return "\n".join(lines)
 
 
