@@ -209,7 +209,7 @@
       h(Button, { variant: emph ? 'primary' : 'tonal', size: 'md', href: p.href, onClick: p.onClick }, REPORT[kind].action));
   }
 
-  // lg＝一題一頁的答案（靠左：圖示圓＋字＋副標）；md＝卡片裡的膠囊按鈕；link＝離開這一頁
+  // lg＝一題一頁的答案（靠左：圖示方塊＋字＋副標）；md＝卡片裡的按鈕；link＝離開這一頁
   function Button(p) {
     var variant = p.variant === 'outline' ? 'tonal' : (p.variant || 'primary');
     var size = p.size === 'md' ? 'md' : 'lg';

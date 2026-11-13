@@ -93,7 +93,7 @@ details.sources summary { cursor: pointer; font-weight: 700; min-height: 32px; }
 details.sources ul { margin: 6px 0 0; padding-left: 1.2em; columns: 2 16em; column-gap: 24px; }
 details.sources li { margin: 0.2em 0; break-inside: avoid; }
 
-/* 註腳：號碼是膠囊，點了跳到頁尾 */
+/* 註腳：號碼是深綠的上標字，點了跳到頁尾 */
 sup.fnref { line-height: 0; }
 sup.fnref a {
   display: inline-block; padding: 0 0.15em;
